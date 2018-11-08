@@ -1,0 +1,124 @@
+.material-icons {
+    cursor: pointer;
+    opacity: 0.5;
+}
+.material-icons:hover {
+    cursor: pointer;
+    opacity: 1.5;
+}
+#color1{
+    /* border-radius: 200%; */
+    background-color:#ffffff;
+    margin-right: 5px;
+    margin-bottom: 3px;
+
+
+}
+#color2{
+ /* border-radius: 200%; */
+    background-color:#90ee90;
+    margin-right: 5px;
+    margin-bottom: 3px;
+
+}
+#color3{
+ /* border-radius: 200%; */
+    background-color:#f66ef6;
+    margin-right: 5px;
+    margin-bottom: 3px;
+
+}
+#color4{
+ /* border-radius: 200%; */
+    background-color:#f08080;
+    margin-right: 5px;
+    margin-bottom: 3px;
+
+}
+#color5{
+ /* border-radius: 200%; */
+    background-color:#05f6f6;
+    margin-right: 5px;
+    margin-bottom: 3px;
+
+}
+#color6{
+ /* border-radius: 200%; */
+    background-color:#ffb6c1;
+    margin-right: 5px;
+    margin-bottom: 3px;
+
+}
+#color7{
+ /* border-radius: 200%; */
+    background-color:#ffff66;
+    margin-right: 5px;
+    margin-bottom: 3px;
+
+}
+#color8{
+ /* border-radius: 200%; */
+    background-color:#add8e6;
+    margin-right: 5px;
+    margin-bottom: 3px;
+
+}
+#color9{
+ /* border-radius: 200%; */
+    background-color:#e6a9a9;
+    margin-right: 5px;
+    margin-bottom: 3px;
+
+}
+#color10{
+ /* border-radius: 200%; */
+    background-color:#ffff81;
+    margin-right: 5px;
+    margin-bottom: 3px;
+
+}
+#color11{
+ /* border-radius: 200%; */
+    background-color:#a9a9d6;
+    margin-right: 5px;
+    margin-bottom: 3px;
+
+}
+#color12{
+ /* border-radius: 200%; */
+    background-color:#d9d9d9;
+    margin-right: 5px;
+    margin-bottom: 3px;
+
+}
+.mat-mini-fab:not([class*=mat-elevation-z]) {
+    width: 25px;
+    height: 25px;
+    /* box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12); */
+}
+.mat-menu-panel{
+    /* min-width: 112px; */
+    /* max-width: 270px; */
+    /* overflow: auto; */
+    /* -webkit-overflow-scrolling: touch; */
+    /* max-height: calc(100vh - 48px); */
+    /* border-radius: 2px;
+    outline: 0;
+    width:auto;
+        overflow: hidden; */
+        width:95px;
+
+}
+/* .mat-menu-content:not(:menu) {
+    padding-top: 0px;
+    padding-bottom: 0px;
+} */
+.menulist{
+    width:136px;
+    overflow: none;padding: 0px
+}
+.menu{
+    width:100px;
+      padding-top: 0px;
+    padding-bottom: 0px;
+}

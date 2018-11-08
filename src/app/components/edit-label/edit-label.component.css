@@ -1,0 +1,64 @@
+::ng-deep.mat-dialog-container {
+    box-shadow: 0 11px 15px -7px rgba(0,0,0,.2), 0 24px 38px 3px rgba(0,0,0,.14), 0 9px 46px 8px rgba(0,0,0,.12);
+    display: block;
+    /* padding: 24px; */
+    /* border-radius: px; */
+    box-sizing: border-box;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    outline: 0;
+    width: 400px;
+    height: auto;
+    min-height: inherit;
+    border-radius: 10px;
+    max-height: inherit;
+    padding: 5px
+}
+.material-icons:hover {
+    size:5px
+}
+.note{
+    width: 100%;
+  height: auto;
+  /* border:none; */
+  /* border-color: transparent; */
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 15px;
+  border-bottom: 2px solid black;
+  outline: none
+
+}
+[contenteditable=true]:empty:not(:focus):before{
+    content: attr(placeholder);
+    display: block;
+    opacity:0.5;
+}
+.material-icons {
+    cursor: pointer;
+    opacity: 0.5;
+}
+.material-icons:hover {
+    cursor: pointer;
+    opacity: 1.5;
+}
+.label{
+     word-wrap: break-word;
+ width:120px;
+ outline: none
+}
+/* .hovericon > .delete + .lab */
+.hovericon :hover .delete
+.hovericon .delete {
+  display: none;
+}
+.hovericon:hover .lab {
+  display: inherit;
+}
+.mainDiv{
+    padding:20px;
+    height:auto;
+    overflow:hidden
+}
+.doneButton{
+    float:right
+}

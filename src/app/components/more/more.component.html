@@ -1,0 +1,24 @@
+<mat-icon  [matMenuTriggerFor]="menu" *ngIf="!isDeleted">more_vert</mat-icon>
+  <mat-menu #menu="matMenu" >
+    <button mat-menu-item (click)="deleteFunction(true)">Delete Note</button>
+    <button mat-menu-item [matMenuTriggerFor]="AddLabels">Add Label</button>
+    <button mat-menu-item (click)=checklist()>Show CheckList</button>
+   </mat-menu>
+<mat-menu #AddLabels="matMenu" ><div>Label Note</div>
+  <div fxLayout="row" (click)="$event.stopPropagation();"> <mat-icon fxFlex="15%">search</mat-icon>
+    <input placeholder="enter label" fxFlex="85%" class="searchLabel" [(ngModel)]="searchInput"> </div>
+   <div *ngFor="let label of labelArray | search:searchInput"> 
+     <mat-checkbox class="example-margin" (click)="$event.stopPropagation();labelSelected(label)"
+      [(ngModel)]="label.isChecked" >{{label.label }}</mat-checkbox>
+   </div>
+</mat-menu>
+
+
+
+
+<mat-icon  [matMenuTriggerFor]="delete" *ngIf="isDeleted">more_vert</mat-icon>
+<mat-menu #delete="matMenu">
+<button mat-menu-item>Delete Forever</button>
+<button mat-menu-item (click)="deleteFunction(false)">Restore</button>
+
+</mat-menu>

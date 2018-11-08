@@ -1,0 +1,2 @@
+<mat-icon matTooltip="Archive" (click)=archive(true) *ngIf="!isArchived && !isDeleted">archive</mat-icon>
+<mat-icon matTooltip="UnArchive" (click)=archive(false) *ngIf="isArchived && !isDeleted ">unarchive</mat-icon>

@@ -1,0 +1,144 @@
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 250px;
+  margin-top: 65px;
+  /* background-color:rgb(216, 46, 75) */
+}
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  
+}
+.mat-drawer.mat-drawer-side {
+  top:0;
+  height:100%;
+}
+.mat-toolbar.mat-primary {
+  background:#fb0 ;  
+  color: black;
+  width:100%;
+}
+.notselected{
+    width: 650px;
+  height: 40px;
+  background-color:#e4a700;
+  border:none;
+  font-size: 20px;
+  padding-left:5%
+ 
+}
+ .refreshButton{
+    float:right
+  }
+
+.divnotselected{
+   border:5px solid #fb0;
+  background-color: #fb0;
+   height:100%
+    
+
+}
+input:focus { 
+    background-color: white;
+}
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 30px;
+    line-height: 0;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    /* -webkit-font-feature-settings: 'liga'; */
+    -webkit-font-smoothing: antialiased;
+    opacity: 0.5;
+}
+.svg{
+      opacity: 0.5;
+
+}
+ .title{
+  padding-left: 10%;
+  /* padding-right: 4% */
+}
+#refresh{
+  padding-right:2%;
+}
+#viewStream{
+  padding-right: 5%
+} */
+/* #notifications{
+  padding-right: 50px
+} */
+.mat-toolbar.mat-primary[_ngcontent-c2] {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    color: black;
+    background-color: #fb0;
+}
+.sideNotes{
+  padding-left: 10px
+}
+.example-header-image {
+  background-size: cover;
+}
+.mat-menu-content{
+    padding-top: 0px;
+    padding-bottom: 1px;
+}
+.md-sidenav-layout.my-sidenav-layout .md-sidenav-content 
+{ 
+  width: 100%; 
+}
+.navbar{
+  margin-left: 95%;
+  margin-top:56px;
+}
+#accnt{
+  height:40px;
+  width:45px;
+  font-size:20px;
+  background-color:dodgerblue;
+  color:black
+}
+.toolbar{
+  overflow-x: hidden
+}
+.searchButton{
+  position:absolute
+}
+.refreshButton{
+  float:right
+}
+.profileButton{
+  margin-right:100px;background-color: grey;color:black;
+  background-image: "localStorage.getItem('imageUrl')"
+}
+.label{
+  padding-left:10px
+}
+.editButton{
+  margin-left: 30%
+}
+.content{
+  position:fixed;
+  width:-webkit-fill-available;
+   width: -moz-available;
+   overflow-y: scroll
+}
+.profileCard{
+  position:fixed;margin-top:64px;right: 0;top: 0
+}
+.uploadButton{
+  float:left;
+  /* font-size:10px; */
+  margin-right: 5px;
+}

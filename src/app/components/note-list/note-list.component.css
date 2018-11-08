@@ -1,0 +1,41 @@
+.icons{
+    opacity: 0;
+    padding-top: 15px
+}
+.icons:hover{
+    opacity:1;
+    padding-top: 15px
+}
+.note{
+ word-wrap: break-word;
+ width:120px
+     /* word-break: break-all; */
+
+}
+.maindiv{
+    display:flex;
+    flex-wrap: wrap;
+    padding-bottom: 50px;
+}
+.material-icons {
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+.note{
+    width: 100%;
+  height: auto;
+  border:none;
+  /* border-color: transparent; */
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 15px;
+  
+  outline: none
+
+}
+.card{
+    margin:1%;height:min-content;border-radius:10px
+}
+.chip{
+    padding-top: 10px
+}

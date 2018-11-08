@@ -1,0 +1,76 @@
+<div fxLayout="column" fxLayoutGap="10%">
+  <div fxFlex.lg="10%" fxFlex.xl="0%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+  <div fxLayout="row" fxFlex.lg="100%" fxFlex.xl="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+    <div fxFlex.lg="30%" fxFlex.xl="15%" fxFlex.md="15%" fxFlex.sm="15%" fxFlex.xs="0%"></div>
+
+
+    <div fxFlex.lg="40%" fxFlex.xl="70%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+
+
+      <form name="form" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
+
+    <mat-card >
+      <div >
+        <div>
+        <mat-card-title><span class=f>F</span>
+          <span  class=u>U</span>
+          <span class=n>N</span>
+          <span class=d>D</span>
+          <span class=o>O</span>
+        <span class=f>O</span></mat-card-title>
+        <mat-card-subtitle>sign in</mat-card-subtitle>
+          </div>
+        
+        <mat-form-field>
+          <input matInput type="email" placeholder="email id" name="emailid" 
+          pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+            [(ngModel)]="model.email" [ngClass]="{ 'is-invalid': f.submitted && emailid.invalid }"
+            #emailid="ngModel" required>
+          <mat-error *ngIf="f.submitted && emailid.invalid">
+        
+            <mat-error *ngIf="emailid.errors.required">
+              <mat-error>emailid is required.</mat-error>
+            </mat-error>
+            <mat-error *ngIf="emailid.errors.pattern">
+              <mat-error>valid emailid is required.</mat-error>
+            </mat-error>
+          </mat-error>
+        </mat-form-field>
+
+        
+
+        
+          <mat-form-field >
+            <input matInput name="pass" placeholder="Enter your password" [type]="hide ? 'password' : 'text'" #password="ngModel"
+              [(ngModel)]="model.password" [ngClass]="{ 'is-invalid': f.submitted && password.invalid }" required>
+            <mat-error *ngIf="f.submitted && password.invalid ">
+          
+              <mat-error *ngIf="password.errors.required">
+                Password is required.
+              </mat-error>
+          
+          
+            </mat-error>
+                      <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </mat-form-field>
+        
+         
+
+        <div>
+         <a routerLink="/forgot">forgot password?</a>   
+         <div  class="createAccount"><a routerLink="/signup">create an account..</a> </div>
+          <button mat-align="center" mat-button class="button" (click)=login()>login</button>
+        </div>
+      </div>
+
+    </mat-card>
+    </form>
+    </div>
+
+    <div fxFlex.lg="30%" fxFlex.xl="15%" fxFlex.md="15%" fxFlex.sm="15%" fxFlex.xs="0%"></div>
+  </div>
+
+
+<div fxFlex.lg="10%" fxFlex.xl="0%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+
+</div>

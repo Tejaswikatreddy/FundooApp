@@ -1,0 +1,58 @@
+.button{
+    border-radius: 0;
+        /* box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26); */
+        background-color: rgb(79, 102, 206);
+        float:right;
+}
+a{
+    font-size: 80%;                      
+    text-align: left;
+}
+.selected{
+   background-color: grey;
+}
+.notselected{
+      background-color:papayawhip;
+}
+.input{
+    width:45%;
+}
+.header-image{
+    background-image: url('../../../assets/fundoo.jpg');
+  background-size: cover;
+  margin-left: 20%
+}
+.f{
+    color:darkcyan;
+}
+.u{
+    color:palevioletred;
+}
+.n{
+     color:rgb(11, 235, 235);
+}
+.d{
+    color:rgb(124, 238, 153)
+}
+.o{
+    
+color:rgb(244, 247, 118)
+}
+.emailField{
+    width:80%
+}
+.confrmPassword{
+    margin-left:2%
+}
+.card{
+    height:45px
+}
+.cardTitle{
+    font-size:15px
+}
+.cardDescription{
+    font-size:10px
+}
+.lastField{
+    margin-left: 2%;
+}
