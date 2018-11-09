@@ -5,8 +5,8 @@
 */
 
 import { Component, OnInit, EventEmitter, Output, Input, ElementRef, ViewChild} from '@angular/core';
-import { httpService } from '../../services/http.service';
-import { AuthService } from "../../services/auth.service"
+import { httpService } from '../../core/services/http.service';
+import { AuthService } from "../../core/services/auth.service"
 
 
 @Component({
@@ -186,6 +186,9 @@ if (this.title != "") {
   }
   archiveEvent(event){
     this.isArchived=true;
+  }
+  checklist($event){
+    this.check=true;
   }
   }
 

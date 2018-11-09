@@ -14,11 +14,10 @@ import { SignupComponent } from './components/signup/signup.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatIconModule } from '@angular/material/icon';
 import { HttpClientModule } from '@angular/common/http';
-import { httpService } from './services/http.service';
+import { httpService } from './core/services/http.service';
 import { FormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
-// import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { AddNoteComponent } from './components/AddNote/AddNote.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
@@ -36,7 +35,6 @@ import { MoreComponent } from './components/more/more.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NotelistComponent } from './components/note-list/note-list.component';
 import { AllNoteComponent } from './components/all-note/all-note.component';
-// import { AechiveMainComponent } from './components/aechive-main/aechive-main.component';
 import { MainArchiveComponent } from './components/main-archive/main-archive.component';
 import { MainTrashComponent } from './components/main-trash/main-trash.component';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -44,10 +42,13 @@ import { UpdateNoteComponent } from './components/update-note/update-note.compon
 import { EditLabelComponent } from './components/edit-label/edit-label.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
-import { SearchPipe } from './search.pipe';
+import { SearchPipe } from './core/pipes/search.pipe';
 import { SearchAllComponent } from './components/search-all/search-all.component';
 import { LabelNotesComponent } from './components/label-notes/label-notes.component';
 import { PinComponent } from './components/pin/pin.component';
+import { LabelSearchPipe } from './core/pipes/label-search.pipe';
+import { ImageCropperModule } from 'ngx-image-cropper';
+import { CropImageComponent } from './components/crop-image/crop-image.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,6 @@ import { PinComponent } from './components/pin/pin.component';
     LoginComponent,
     SignupComponent,
     ForgotPasswordComponent,
-    // DashboardComponent,
     ResetPasswordComponent,
     AddNoteComponent,
     ToolbarComponent,
@@ -69,7 +69,6 @@ import { PinComponent } from './components/pin/pin.component';
     MoreComponent,
     NotelistComponent,
     AllNoteComponent,
-    // AechiveMainComponent,
     MainArchiveComponent,
     MainTrashComponent,
     UpdateNoteComponent,
@@ -78,6 +77,8 @@ import { PinComponent } from './components/pin/pin.component';
     SearchAllComponent,
     LabelNotesComponent,
     PinComponent,
+    LabelSearchPipe,
+    CropImageComponent,
    
   ],
   imports: [
@@ -103,9 +104,11 @@ import { PinComponent } from './components/pin/pin.component';
     MatDialogModule,
     MatListModule,
     MatCheckboxModule,
-    MatChipsModule
+    MatChipsModule,
+    ImageCropperModule
+
   ],
-  entryComponents: [UpdateNoteComponent, EditLabelComponent],
+  entryComponents: [UpdateNoteComponent, EditLabelComponent, CropImageComponent],
   providers: [
     httpService,
   ],

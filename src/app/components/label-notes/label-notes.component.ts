@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { httpService } from '../../services/http.service';
+import { httpService } from '../../core/services/http.service';
 
 @Component({
   selector: 'app-label-notes',

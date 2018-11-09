@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, ElementRef, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { httpService } from '../../services/http.service';
+import { httpService } from '../../core/services/http.service';
 
 @Component({
   selector: 'app-edit-label',

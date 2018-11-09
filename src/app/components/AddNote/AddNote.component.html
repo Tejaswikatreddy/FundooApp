@@ -56,7 +56,7 @@
         <div><app-change-color [Note]="" (eventColor)=colorChanged($event) ></app-change-color></div>
         <div><app-add-image></app-add-image></div>
         <div><app-archive (eventEmit)=archiveEvent($event)></app-archive></div>
-        <div><app-more (labelEvent)=labelEvent($event)></app-more></div>
+        <div><app-more (labelEvent)=labelEvent($event) (eventEmit)=checklist($event)></app-more></div>
       
         <div><button mat-button (click)="addNotes();check=false">close</button></div>
       </div>

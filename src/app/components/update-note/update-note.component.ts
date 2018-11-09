@@ -7,7 +7,7 @@
 
 import { Component, OnInit,Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { httpService } from '../../services/http.service';
+import { httpService } from '../../core/services/http.service';
 //component decorator
 @Component({
   selector: 'app-update-note',
@@ -26,14 +26,16 @@ public bgcolor=this.data.color;
   public checklist=false;
   public modifiedCheckList;
   public newList;
+  public tempArray=[]
   public newData:any={}
 public arrayObj:any={}
   ngOnInit() {
-   
+   this.tempArray=[]
     this.labels=this.data.noteLabels;
     if (this.data.noteCheckLists.length>0){
       this.checklist=true;
     }
+    this.tempArray=this.data.noteCheckLists;
 }
   /**
    * @function onClose() invoked when the close button on the popup is clicked
@@ -68,7 +70,6 @@ public arrayObj:any={}
       var url = "notes/" +this.data.id+ "/checklist/" + this.modifiedCheckList.id + "/update";
       this.service.postDel(url, JSON.stringify(apiData), localStorage.getItem('id')).subscribe(response => {
         console.log(response);
-
       })
   }
     }
@@ -121,7 +122,11 @@ public arrayObj:any={}
     var url = "notes/" + this.data.id + "/checklist/" + this.removedList.id + "/remove";
     this.service.postDel(url, null, localStorage.getItem('id')).subscribe(response => {
       console.log(response);
-
+      for(var i=0;i<this.tempArray.length;i++){
+        if(this.tempArray[i].id==this.removedList.id){
+          this.tempArray.splice(i,1)
+        }
+      }
     })
   }
  
@@ -153,6 +158,12 @@ public arrayObj:any={}
       this.newList=null;
       this.addCheck=false;
       this.adding=false;
+      console.log(response['data'].details);
+      
+      this.tempArray.push(response['data'].details)
+
+      console.log(this.tempArray)
+
     })
   }
   }

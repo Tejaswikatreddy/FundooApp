@@ -6,8 +6,8 @@
 
 
 import { Component, OnInit } from '@angular/core';
-import { httpService } from '../../services/http.service';
-import { AuthService } from "../../services/auth.service"
+import { httpService } from '../../core/services/http.service';
+import { AuthService } from "../../core/services/auth.service"
 //component decorator
 @Component({
   selector: 'app-all-note',

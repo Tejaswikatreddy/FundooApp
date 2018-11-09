@@ -1,2 +1,6 @@
-<!-- <app-add-note></app-add-note> -->
-<app-note-list [NoteArray]=archiveArray (eventEmit)=eventDone($event)></app-note-list>
+
+
+<div fxLayout="column">
+<div fxFlex="100%">
+    <app-note-list [NoteArray]=archiveArray (eventEmit)=eventDone($event)></app-note-list>
+    </div></div>

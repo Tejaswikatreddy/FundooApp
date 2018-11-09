@@ -39,14 +39,14 @@
             <mat-icon>view_agenda</mat-icon>
           </button></div>
         <div fxFlex="20%">
-          <button mat-mini-fab (click)="clicked=!clicked" class="profileButton">{{frstLetter}}</button>
+          <button mat-mini-fab (click)="clicked=!clicked" class="profileButton" [ngStyle]="{'background-image':'url(' +imagepath+ ')','background-size':'cover'}"></button>
         </div>
       </div>
     </mat-toolbar>
 
 
-    <mat-sidenav-container class="sidenav-container">
-      <mat-sidenav #drawer class="sidenav" fixedInViewport="true" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    <mat-sidenav-container class="sidenav-container"  >
+      <mat-sidenav #drawer class="sidenav"  [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
         [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async)" [position]="start">
         <mat-nav-list>
           <a mat-list-item (click)=NoteClicked()><img src="../../../assets/notes.svg" class="svg"><span class="sideNotes">Notes</span></a>
@@ -66,15 +66,19 @@
         
         </mat-nav-list>
       </mat-sidenav>
-      <mat-sidenav-content class="content">
-        
+      <mat-sidenav-content class="content" >
             <router-outlet ></router-outlet>
           
             <mat-card class="profileCard"  *ngIf="clicked">
               <mat-list>
               <mat-card-header>
                 <div mat-card-avatar class="example-header-image">
-                  <button mat-mini-fab disabled  id="accnt">{{frstLetter}}</button>
+          <button mat-mini-fab (click)="clicked=!clicked" class="profileButton" 
+          [ngStyle]="{'background-image':'url(' +imagepath+ ')','background-size':'cover'}" (click)=changeDp.click()>
+          
+          <input type="file" value="Upload photo" (change)=fileSelected($event) style="display:none" #changeDp>
+    </button>
+    
                 </div>
                 <mat-card-title>{{firstname}} {{lastname}} </mat-card-title>
                 <mat-card-subtitle>{{email}}</mat-card-subtitle>
@@ -82,10 +86,10 @@
               </mat-list>
               <mat-divider></mat-divider>
               <mat-list>
-                  <!-- <button mat-stroked-button   class="uploadButton"> -->
-                    <input type="file" value="Upload photo">
-                  <!-- </button> -->
-                  <button mat-stroked-button (click)=logout() class="refreshButton">Logout</button>
+                  <button mat-stroked-button   class="uploadButton" (click)=changeImg.click()>upload photo</button>
+                    <input type="file" value="Upload photo" (change)=fileSelected($event) style="display:none" #changeImg >
+                 
+                  <button mat-stroked-button (click)=logout() class="refreshButton" >Logout</button>
               </mat-list>
             </mat-card>
         

@@ -5,8 +5,8 @@
 */
 
 import { Component, OnInit,Input,Output ,EventEmitter } from '@angular/core';
-import { httpService } from '../../services/http.service';
-import { AuthService } from "../../services/auth.service"
+import { httpService } from '../../core/services/http.service';
+import { AuthService } from "../../core/services/auth.service"
 import { MatDialog } from '@angular/material';
 import { UpdateNoteComponent } from '../update-note/update-note.component';
 //component decorator
@@ -22,6 +22,7 @@ export class NotelistComponent implements OnInit {
  //creating an object for EventEmitter
  @Output() eventEmit=new EventEmitter();
  public isChecked=false;
+ 
   constructor(private auth: AuthService, public service: httpService,
               public dialog: MatDialog) { }
   ngOnInit() {  
@@ -35,6 +36,7 @@ export class NotelistComponent implements OnInit {
      this.eventEmit.emit({});
      //event emitted to the parent component
    }
+  
  }
  /**
   * @function openDialog() opens a popup when clicked on the notes
@@ -44,10 +46,12 @@ export class NotelistComponent implements OnInit {
     console.log(note.color)
 
     const dialogRef = this.dialog.open(UpdateNoteComponent, {
+     
            data:note,
         });
 console.log(note);
     dialogRef.afterClosed().subscribe(result => {
+
       console.log('The dialog was closed');
       this.eventEmit.emit({});
    });

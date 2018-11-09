@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { httpService } from '../../services/http.service';
+import { httpService } from '../../core/services/http.service';
 
 @Component({
   selector: 'app-more',
@@ -18,6 +18,7 @@ export class MoreComponent implements OnInit {
   @Output() labelEvent = new EventEmitter();
   public noteLabels = [];
   public search;
+  public checkFlag=false;
   ngOnInit() {
 
     if (this.Note != undefined && this.Note['isDeleted']==true){
@@ -28,6 +29,9 @@ export class MoreComponent implements OnInit {
       for (var i = 0; i < this.Note['noteLabels'].length; i++) {
         this.noteLabels.push(this.Note['noteLabels'][i])
       }
+    }
+    if (this.Note != null && this.Note['noteCheckLists'] != null) {    
+      this.checkFlag=true;
     }
 
       this.getLabels();
@@ -97,5 +101,8 @@ public toEvent=[];
   checklist(){
     this.eventEmit.emit({})
 
+  }
+  hideCheck(){
+    this.eventEmit.emit("hide")
   }
 }

@@ -5,10 +5,10 @@
 */
 
 import { Component, OnInit } from '@angular/core';
-import { httpService } from '../../services/http.service';
+import { httpService } from '../../core/services/http.service';
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
-import { AuthService } from "../../services/auth.service"
+import { AuthService } from "../../core/services/auth.service"
 //component designer 
 @Component({
   selector: 'app-login',

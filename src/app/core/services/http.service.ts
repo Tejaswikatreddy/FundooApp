@@ -70,4 +70,15 @@ delete(name,token){
   return this.http.delete(this.URL + "/" + name,httpOptions)
 
 }
+  addImage(name, input, access_token){
+  const httpOptions = {
+    headers: new HttpHeaders({
+      
+      'Authorization': access_token
+    })
+  };
+  console.log(access_token)
+
+  return this.http.post(this.URL + "/" + name, input, httpOptions)
+}
 }

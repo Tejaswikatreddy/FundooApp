@@ -10,10 +10,11 @@ import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/l
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { httpService } from '../../services/http.service';
-import { DataService } from '../../services/data.service';
+import { httpService } from '../../core/services/http.service';
+import { DataService } from '../../core/services/data.service';
+import { CropImageComponent } from '../crop-image/crop-image.component';
 
-import { AuthService } from "../../services/auth.service"
+import { AuthService } from "../../core/services/auth.service"
 import { MatDialog } from '@angular/material';
 import { EditLabelComponent } from '../edit-label/edit-label.component';
 //component decorator
@@ -29,6 +30,8 @@ public firstname=localStorage.getItem("firstName")
 public lastname = localStorage.getItem("lastName")
 public frstLetter=this.firstname[0];
 public email = localStorage.getItem("email")
+  public image=localStorage.getItem("imageUrl")
+  public imagepath = "http://34.213.106.173/"+this.image
 //creating an object for EventEmitter
   @Output() eventEmit = new EventEmitter();
 public searchInput;
@@ -39,7 +42,15 @@ isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Ha
     
   constructor(private breakpointObserver: BreakpointObserver, public router: Router, 
     private service: httpService, private auth: AuthService, public dialog: MatDialog,
-    public dataService: DataService) {}
+    public dataService: DataService) {
+   
+  
+    }
+  public onReturnData(data: any) {
+    // Do what you want to do
+    console.warn(JSON.parse(data));
+  }
+
 /**
  * @function logout() is invoked when the logout button is clicked
  */
@@ -103,6 +114,12 @@ isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Ha
      
     });
   }
+
+
+  
+
+
+
   public labelArray=[];
   public labelName;
   getLabels() {
@@ -114,8 +131,11 @@ isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Ha
 
     }
   ngOnInit() {
-    if(localStorage.getItem('id')!=null)
+   
+    
+    if(localStorage.getItem('id')!=null){
     this.getLabels();
+    }
   }
   searchClicked(){
    
@@ -128,5 +148,23 @@ isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Ha
     //this.dataService.isLabelChanged.next(true)
     var label=label.label;
     this.router.navigate(["label/"+label])
+  }
+  public selectedFile;
+  public imageChangedEvent: any = '';
+  fileSelected(event){
+    const dialogRef = this.dialog.open(CropImageComponent, {
+      data: event
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.image = localStorage.getItem("imageUrl")
+this.imagepath = "http://34.213.106.173/" + this.image
+    });
+
+  }
+ 
+  public croppedImage: any = '';
+  imageCropped(event: any) {
+    this.croppedImage = event.base64;
   }
   }

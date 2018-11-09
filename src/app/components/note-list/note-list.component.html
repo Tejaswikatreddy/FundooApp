@@ -1,9 +1,7 @@
- <div fxLayoutAlign="center">
-<div  fxFlex.xl="70%" fxFlex.lg="80%" fxFlex.md="80%" fxFlex.sm="80%" fxFlex.xs="80%" class="maindiv">
-    
-<mat-card *ngFor="let note of NoteArray | search:searchInput" class=card  
-ngStyle.xl="width:150px" ngStyle.lg="width:25%" ngStyle.md="width:25%" ngStyle.sm="width:40%"
- ngStyle.xs="width:90%" [style.backgroundColor]="note.color">
+ 
+ <div fxLayoutAlign="center center" ngStyle.xs="width:100%"  fxLayout="row wrap" fxLayoutWrap fxLayoutGap="10px" class="maindiv">
+    <div *ngFor="let note of NoteArray | search:searchInput" ngStyle.xs="width:100%">
+<mat-card  class=card [style.backgroundColor]="note.color" ngStyle.xs="width:95%;font-size:20px" >
 <div>
   <div fxLayout="row">
     <div  fxFlex=90% class="note"  [innerHTML]="note.title" (click)="open(note)"></div>
@@ -13,16 +11,18 @@ ngStyle.xl="width:150px" ngStyle.lg="width:25%" ngStyle.md="width:25%" ngStyle.s
   </div>
   
   <div class="note" [innerHTML]="note.description" (click)="open(note)"> </div>
+  
   <div class="note" *ngFor="let checklist of note.noteCheckLists" fxLayout="row" > 
     <mat-checkbox fxFlex="10%" *ngIf="checklist.status=='open'&& !checklist.isDeleted" (click)=checkBox(checklist,note)></mat-checkbox>
     <input *ngIf="!checklist.isDeleted && checklist.status=='open' " [(ngModel)]=checklist.itemName fxFlex="90%" class="note"
       (click)="open(note)" [style.backgroundColor]="note.color">
-  </div>
+   </div>
+  
     <div class="note" *ngFor="let checklist of note.noteCheckLists" fxLayout="row">
- 
     <mat-checkbox fxFlex="10%" checked=true *ngIf="checklist.status=='close'&& !checklist.isDeleted" (click)=checkBox(checklist,note)></mat-checkbox>
     <del *ngIf="!checklist.isDeleted && checklist.status=='close'" (click)="open(note)">{{checklist.itemName}}</del>
   </div>
+
 <mat-chip-list >
   <div *ngFor="let label of note.noteLabels" class="chip">
     <mat-chip [removable]=true *ngIf="!label.isDeleted">{{label.label}}

@@ -8,7 +8,7 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 // import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { AuthGuard } from './guard/auth.guard'
+import { AuthGuard } from './core/guard/auth.guard'
 import { AllNoteComponent } from './components/all-note/all-note.component';
 import { SearchAllComponent } from './components/search-all/search-all.component';
 
