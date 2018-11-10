@@ -20,8 +20,12 @@ export class AllNoteComponent implements OnInit {
   public notes = [];
 
   ngOnInit() {
-    console.log("all notes ts file")
-    this.getNotes();
+    if(localStorage.getItem('id')!=undefined){
+      console.log("all notes ts file")
+
+      this.getNotes();
+
+    }
   }
   addNewEntry(event){
     //calling the getNOtes Api when ever there is an event occured in the child components

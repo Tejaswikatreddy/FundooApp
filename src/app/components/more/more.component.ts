@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { httpService } from '../../core/services/http.service';
+import { NoteService } from '../../core/services/note.service';
 
 @Component({
   selector: 'app-more',
@@ -7,7 +8,7 @@ import { httpService } from '../../core/services/http.service';
   styleUrls: ['./more.component.css']
 })
 export class MoreComponent implements OnInit {
-  constructor(private service: httpService) { }
+  constructor(private service: httpService, private NoteService: NoteService) { }
   @Input() Note: object;
   @Output() labelArray=[];
   @Input() Delete;
@@ -34,7 +35,7 @@ export class MoreComponent implements OnInit {
       this.checkFlag=true;
     }
 
-      this.getLabels();
+    
       
   }
   
@@ -44,12 +45,12 @@ export class MoreComponent implements OnInit {
     var arr = []
     arr.push(this.Note['id'])
     console.log(arr);
-    this.service.postDel("notes/trashNotes",
-      {
-        "isDeleted": val,
-        "noteIdList": arr
-      }, localStorage.getItem("id"))
-      .subscribe(response => {
+    let RequestBody={
+      "isDeleted": val,
+      "noteIdList": arr
+    }
+    this.NoteService.trash(RequestBody)
+          .subscribe(response => {
         console.log(response);
         this.eventEmit.emit({})
       })
@@ -57,8 +58,10 @@ export class MoreComponent implements OnInit {
  
  
   getLabels() {
-  
-    this.service.get("noteLabels/getNoteLabelList", localStorage.getItem('id')).subscribe(
+    console.log("hghjdgfjhgsfd");
+    
+    this.NoteService.getNoteLabellist()
+   .subscribe(
       response => {
         this.labelArray=[];
         this.labelArray = response['data'].details;
@@ -78,9 +81,7 @@ public toEvent=[];
     this.labelEvent.emit(labelObj)
     if (this.Note != null && labelObj.isChecked==null){    
       console.log("add function");
-
-      console.log(labelObj.id)
-      this.service.postDel("/notes/" + this.Note['id'] + "/addLabelToNotes/" + labelObj.id + "/add", null, localStorage.getItem('id'))
+      this.NoteService.addLabeltoNotes(null, this.Note['id'], labelObj.id)
         .subscribe(Response => {
           console.log(Response);
           this.eventEmit.emit({})
@@ -89,7 +90,7 @@ public toEvent=[];
         })
       }
     if (this.Note != null && labelObj.isChecked==true){
-      this.service.postDel("/notes/" + this.Note['id'] + "/addLabelToNotes/" + labelObj.id + "/remove", null, localStorage.getItem('id'))
+      this.NoteService.removeLabelFromNotes(null, this.Note['id'], labelObj.id)
         .subscribe(Response => {
           console.log(Response);
           this.eventEmit.emit({})

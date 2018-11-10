@@ -5,10 +5,10 @@
 */
 
 import { Component, OnInit } from '@angular/core';
-import { httpService } from '../../core/services/http.service';
+import { UserService } from '../../core/services/user.service';
+
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
-import { AuthService } from "../../core/services/auth.service"
 //component designer 
 @Component({
   selector: 'app-login',
@@ -23,9 +23,9 @@ export class LoginComponent implements OnInit {
   };
   hide=true;
   id;
-  constructor(private _signupService: httpService,
-    public snackbar: MatSnackBar,
-    public router: Router, private auth: AuthService) { }
+  constructor(public snackbar: MatSnackBar,
+              private loginService:UserService,
+               public router: Router) { }
 
   ngOnInit() {
     //checking if the localStorage has login token
@@ -46,25 +46,27 @@ export class LoginComponent implements OnInit {
       return;
     }
     //calling the api through httpService
-    this._signupService.postData("user/login", {
+    var RequestBody = {
       "email": this.model.email,
       "password": this.model.password
-    }).subscribe(response => {
+    }
+    this.loginService.loginPost(RequestBody)
+    .subscribe(response => {
       console.log("login succesfull")
       console.log(response)
       this.id = response["id"];
       //when successfully logged in store the token in the local Storage
-      this.auth.setToken(this.id );
+      localStorage.setItem("id", response['id']);
       localStorage.setItem("firstName", response['firstName']);
       localStorage.setItem("lastName", response['lastName']);
       localStorage.setItem("email", response['email']); 
       localStorage.setItem("imageUrl", response['imageUrl']); 
 
       console.log("in");
-      
+
       localStorage.setItem("userId", response['userId']);
       console.log("out");
-      
+
       this.snackbar.open('login', 'success', {
         duration: 2000,
       });
@@ -77,4 +79,5 @@ export class LoginComponent implements OnInit {
         });
       })
   }
+
 }

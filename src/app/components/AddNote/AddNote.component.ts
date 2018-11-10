@@ -5,15 +5,14 @@
 */
 
 import { Component, OnInit, EventEmitter, Output, Input, ElementRef, ViewChild} from '@angular/core';
-import { httpService } from '../../core/services/http.service';
-import { AuthService } from "../../core/services/auth.service"
+import { NoteService } from '../../core/services/note.service';
 
 
 @Component({
   selector: 'app-add-note',
   templateUrl: './AddNote.component.html',
   styleUrls: ['./AddNote.component.css'],
-  // outputs: ['onNewEntryAdded']
+ 
 })
 
 export class AddNoteComponent implements OnInit {
@@ -23,7 +22,7 @@ public changedColor="#ffffff"
   @Output() onNewEntryAdded = new EventEmitter();
  
 //creating an object for eventEmitter
-  constructor(private service:httpService,private auth:AuthService ) { }
+  constructor(private NoteService:NoteService) { }
   @ViewChild('editDiv') public editDiv: ElementRef;
 
 public clicked=false;
@@ -87,15 +86,15 @@ public status="open"
         }
  }
 if (this.title != "") {
-    this.service.post("notes/addNotes",this.body,this.auth.getToken()).subscribe(response=>{
-        console.log(response);
+  this.NoteService.NewNote(this.getFormUrlEncoded(this.body)).subscribe(response=>{
+   
       this.labelId = []
       this.labelName=[];
       this.dataArray=[];
       this.dataArrayApi=[];
       this.adding=false
-             //emitting an event when the note is added
-              this.onNewEntryAdded.emit({})         
+      //emitting an event when the note is added
+      this.onNewEntryAdded.emit({})         
     },error=>{
       console.log(error);
       this.labelId = []
@@ -106,6 +105,15 @@ if (this.title != "") {
 
     })
   }
+  }
+  getFormUrlEncoded(toConvert) {
+    const formBody = [];
+    for (const property in toConvert) {
+      const encodedKey = encodeURIComponent(property);
+      const encodedValue = encodeURIComponent(toConvert[property]);
+      formBody.push(encodedKey + '=' + encodedValue);
+    }
+    return formBody.join('&');
   }
    pinEvent(event){
       this.isPinned=true;
@@ -164,22 +172,7 @@ if (this.title != "") {
       }
     console.log(this.dataArray)
   }
-  // public editedData
-  // editing(event,edited){
-  //   // console.log("editing");
-  //   // console.log(event);
-    
-  //   if(event.code == "Enter"){
-  //     console.log("enter pressed");
-  //      for(var i=0;i<this.dataArray.length;i++){
-  //   if(edited.index==this.dataArray[i].index){
-  //     this.dataArray[i].data=edited.data;
-  //   }
-  //   }
-  //   console.log(this.dataArray)
-  //   }
-   
-  // }
+ 
   deleteLabel(label){
     this.labelName.splice(this.labelName.indexOf(label), 1);
     this.labelId.splice(this.labelId.indexOf(label), 1);

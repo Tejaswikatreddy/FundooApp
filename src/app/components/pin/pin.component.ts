@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { httpService } from '../../core/services/http.service';
+import { NoteService } from '../../core/services/note.service';
 
 @Component({
   selector: 'app-pin',
@@ -12,7 +13,7 @@ export class PinComponent implements OnInit {
 public isDeleted=false;
 public isPinned=false;
 public apiPinned=true;;
-  constructor(private service: httpService) { }
+  constructor(private service: httpService,public NoteService:NoteService) { }
 
   ngOnInit() {
     if (this.Note != undefined && this.Note.isDeleted == true ) {
@@ -35,12 +36,11 @@ public apiPinned=true;;
      arr.push(this.Note.id)
      console.log(arr);
      if (this.Note.id != undefined) {
-       this.service.postDel("notes/pinUnpinNotes",
-         {
-           "isPined":this.apiPinned ,
-           "noteIdList": arr
-
-         }, localStorage.getItem("id"))
+       var Request={
+         "isPined": this.apiPinned,
+         "noteIdList": arr
+       }
+       this.NoteService.pin(Request)
          .subscribe(response => {
            console.log(response);
            this.eventEmit.emit({})

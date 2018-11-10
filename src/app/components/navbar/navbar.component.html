@@ -4,7 +4,7 @@
       <div fxFlex.xl="20%" fxFlex.lg="20%" fxFlex.md="20%" fxFlex.sm="30%" fxFlex.xs="40%">
         <div fxFlex=40%>
           <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" ngStyle.md="float:left">
-            <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+            <mat-icon aria-label="Side nav toggle icon" (click)=getLabels()>menu</mat-icon>
           </button>
         </div>
         <div fxFlex=60% fxFlex>
@@ -35,9 +35,12 @@
             <mat-icon>refresh</mat-icon>
           </button></div>
         <div fxFlex="20%">
-          <button type="button" mat-icon-button  ngStyle.xs="visibility:collapse">
-            <mat-icon>view_agenda</mat-icon>
+          <button type="button" mat-icon-button  ngStyle.xs="visibility:collapse" (click)=viewClicked()>
+            <mat-icon *ngIf="list">view_module</mat-icon>
+            <mat-icon *ngIf="!list">view_stream</mat-icon>
+
           </button></div>
+
         <div fxFlex="20%">
           <button mat-mini-fab (click)="clicked=!clicked" class="profileButton" [ngStyle]="{'background-image':'url(' +imagepath+ ')','background-size':'cover'}"></button>
         </div>

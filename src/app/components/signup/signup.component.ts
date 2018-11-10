@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { httpService } from  '../../core/services/http.service';
+import { UserService } from '../../core/services/user.service';
+
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 
@@ -13,13 +14,12 @@ export class SignupComponent implements OnInit {
   hide=true;
   
   cards=[];
-  constructor(private _signupService: httpService,
+  constructor(private userService:UserService,
               public snackbar:MatSnackBar,
               public router:Router) { }
 
   ngOnInit() {
-    let obs = this._signupService.getData("user/service");
-   obs.subscribe((response)=>
+   this.userService.getCards().subscribe((response)=>
    {
      console.log(response)
     var data = response["data"];
@@ -28,13 +28,7 @@ export class SignupComponent implements OnInit {
        this.cards.push(data.data[i])
      }
      console.log("cards",this.cards)
-  });
-   let obs1 = this._signupService.getData("user");
-   obs1.subscribe((response)=>
-   {
-     console.log(response)
-  });
-  
+  });  
   }
   service="";
   model: any = {
@@ -75,14 +69,15 @@ checked=false;
         return;
    }
    console.log(this.service.length)
-   this._signupService.postData("user/userSignUp",{
+   var RequestBody = {
      "firstName": this.model.firstName,
      "lastName": this.model.lastName,
      "service": this.service,
-     "email":this.model.email ,
+     "email": this.model.email,
      "emailVerified": true,
      "password": this.model.password,
-   }).subscribe(response=>{
+   }
+   this.userService.signupPost(RequestBody).subscribe(response => {
      console.log("signup succesfull")
      this.snackbar.open("signup","sucess",{
           duration:2000
@@ -96,7 +91,9 @@ checked=false;
             duration:2000
        })
      })
- }
+
+  }
+
  respond(card){
   console.log(card.name);
   this.service=card.name;

@@ -6,6 +6,8 @@
 
 import { Component,Output, OnInit,Input,EventEmitter } from '@angular/core';
 import { httpService } from '../../core/services/http.service';
+import { NoteService } from '../../core/services/note.service';
+
 //component decorator
 @Component({
   selector: 'app-change-color',
@@ -20,7 +22,7 @@ export class ChangeColorComponent implements OnInit {
   @Output() eventColor = new EventEmitter(); 
 public isDeleted=false;
 @Output() colorCode;
-  constructor(public service: httpService) { }
+  constructor(public service: httpService, private NoteService: NoteService) { }
 
   ngOnInit() {
     if (this.Note != undefined && this.Note.isDeleted == true) {
@@ -33,10 +35,12 @@ public isDeleted=false;
     if(this.Note!=null){ 
     var arr=[]
     arr.push(this.Note.id)
-    this.service.postDel("notes/changesColorNotes",{
-      "color":color,
-      "noteIdList":arr
-    },localStorage.getItem("id")).subscribe(response=>{
+      var RequestBody = {
+        "color": color,
+        "noteIdList": arr
+      }
+      this.NoteService.changeColor(RequestBody)
+  .subscribe(response=>{
       console.log(response);
       this.eventEmitter.emit({})
     

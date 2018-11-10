@@ -1,6 +1,7 @@
 import { Component, OnInit,Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { httpService } from '../../core/services/http.service';
+import { NoteService } from '../../core/services/note.service';
 
 @Component({
   selector: 'app-crop-image',
@@ -10,7 +11,7 @@ import { httpService } from '../../core/services/http.service';
 export class CropImageComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<CropImageComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any, public service: httpService) { }
+    @Inject(MAT_DIALOG_DATA) public data: any, public service: httpService, private NoteService: NoteService) { }
 
   ngOnInit() {
   }
@@ -25,8 +26,8 @@ export class CropImageComponent implements OnInit {
     var upLoadData=new FormData()
    upLoadData.append("file", this.selectedFile,this.selectedFile.name);
  console.log(upLoadData);
-
-    this.service.addImage("user/uploadProfileImage", upLoadData,localStorage.getItem('id')).subscribe(response=>{
+this.NoteService.addImage(upLoadData)
+    .subscribe(response=>{
       console.log(response)
        localStorage.setItem("imageUrl",response['status'].imageUrl)
 

@@ -1,7 +1,9 @@
- 
- <div fxLayoutAlign="center center" ngStyle.xs="width:100%"  fxLayout="row wrap" fxLayoutWrap fxLayoutGap="10px" class="maindiv">
-    <div *ngFor="let note of NoteArray | search:searchInput" ngStyle.xs="width:100%">
-<mat-card  class=card [style.backgroundColor]="note.color" ngStyle.xs="width:95%;font-size:20px" >
+ <div fxLayoutAlign="center center" ngStyle.xs="width:100%" fxLayout="row wrap" 
+      fxLayoutWrap fxLayoutGap="10px" class="maindiv">
+        <div *ngFor="let note of NoteArray | search:searchInput" ngStyle.xs="width:100%"
+          [ngClass]="{'layout':view ,'grid':!view}">
+<mat-card  [style.backgroundColor]="note.color" ngStyle.xs="width:95%;font-size:20px"
+ [ngClass]="{'Flayout':view ,'card':!view}">
 <div>
   <div fxLayout="row">
     <div  fxFlex=90% class="note"  [innerHTML]="note.title" (click)="open(note)"></div>
@@ -13,14 +15,18 @@
   <div class="note" [innerHTML]="note.description" (click)="open(note)"> </div>
   
   <div class="note" *ngFor="let checklist of note.noteCheckLists" fxLayout="row" > 
-    <mat-checkbox fxFlex="10%" *ngIf="checklist.status=='open'&& !checklist.isDeleted" (click)=checkBox(checklist,note)></mat-checkbox>
-    <input *ngIf="!checklist.isDeleted && checklist.status=='open' " [(ngModel)]=checklist.itemName fxFlex="90%" class="note"
+    <mat-checkbox fxFlex="10%" *ngIf="checklist.status=='open'&& !checklist.isDeleted" 
+    (click)=checkBox(checklist,note)></mat-checkbox>
+    <input *ngIf="!checklist.isDeleted && checklist.status=='open' " 
+    [(ngModel)]=checklist.itemName fxFlex="90%" class="note"
       (click)="open(note)" [style.backgroundColor]="note.color">
    </div>
   
     <div class="note" *ngFor="let checklist of note.noteCheckLists" fxLayout="row">
-    <mat-checkbox fxFlex="10%" checked=true *ngIf="checklist.status=='close'&& !checklist.isDeleted" (click)=checkBox(checklist,note)></mat-checkbox>
-    <del *ngIf="!checklist.isDeleted && checklist.status=='close'" (click)="open(note)">{{checklist.itemName}}</del>
+    <mat-checkbox fxFlex="10%" checked=true *ngIf="checklist.status=='close'&& !checklist.isDeleted"
+     (click)=checkBox(checklist,note)></mat-checkbox>
+    <del *ngIf="!checklist.isDeleted && checklist.status=='close'"
+     (click)="open(note)">{{checklist.itemName}}</del>
   </div>
 
 <mat-chip-list >

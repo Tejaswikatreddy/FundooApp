@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { httpService } from '../../core/services/http.service';
 import { MatSnackBar } from '@angular/material';
+import { UserService } from '../../core/services/user.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -12,7 +13,7 @@ model:any={
   "email":"",
 }
   constructor(private service : httpService,
-    public snackBar: MatSnackBar) { }
+    public snackBar: MatSnackBar, private UserService: UserService) { }
 
   ngOnInit() {
   }
@@ -24,9 +25,12 @@ model:any={
       })
       return;
     }
-    this.service.postData("user/reset",{
-      "email":this.model.email,
-     }).subscribe(response=>{
+    var RequestBody={
+      "email": this.model.email,
+
+    }
+    this.UserService.resetPassword(RequestBody)
+   .subscribe(response=>{
       console.log(response)
       this.snackBar.open("reset link","sent",{
         duration:2000

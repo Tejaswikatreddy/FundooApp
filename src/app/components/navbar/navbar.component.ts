@@ -15,6 +15,10 @@ import { DataService } from '../../core/services/data.service';
 import { CropImageComponent } from '../crop-image/crop-image.component';
 
 import { AuthService } from "../../core/services/auth.service"
+import { NoteService } from "../../core/services/note.service"
+
+
+import { UserService } from "../../core/services/user.service"
 import { MatDialog } from '@angular/material';
 import { EditLabelComponent } from '../edit-label/edit-label.component';
 //component decorator
@@ -25,6 +29,7 @@ import { EditLabelComponent } from '../edit-label/edit-label.component';
 })
 export class NavbarComponent {
 public clicked=false;
+public list;
 public data:any={}
 public firstname=localStorage.getItem("firstName")
 public lastname = localStorage.getItem("lastName")
@@ -42,7 +47,7 @@ isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Ha
     
   constructor(private breakpointObserver: BreakpointObserver, public router: Router, 
     private service: httpService, private auth: AuthService, public dialog: MatDialog,
-    public dataService: DataService) {
+    public dataService: DataService,public Userservice:UserService,public NoteService:NoteService) {
    
   
     }
@@ -57,7 +62,8 @@ isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Ha
   logout(){
     console.log("logout function")
    console.log(this.auth.getToken())
-    this.service.post("/user/logout",this.data,this.auth.getToken()).subscribe(response=>{
+   this.Userservice.logout(null)
+  .subscribe(response=>{
       localStorage.removeItem('firstName')
       localStorage.removeItem('lastName')
       localStorage.removeItem('userId')
@@ -102,11 +108,11 @@ isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Ha
    * @function OpenDialog() when the create label is clicked it is invoked to display a popup
    * 
    */
-  openDialog(note): void {
+  openDialog(): void {
     const dialogRef = this.dialog.open(EditLabelComponent, {
   'panelClass':"label"
     });
-    console.log(note);
+    console.log();
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       this.getLabels();
@@ -123,8 +129,8 @@ isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Ha
   public labelArray=[];
   public labelName;
   getLabels() {
-
-    this.service.get("noteLabels/getNoteLabelList", localStorage.getItem('id')).subscribe(
+    this.NoteService.getNoteLabellist()
+   .subscribe(
       response => {
         this.labelArray = response['data'].details;
       })
@@ -133,9 +139,7 @@ isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Ha
   ngOnInit() {
    
     
-    if(localStorage.getItem('id')!=null){
-    this.getLabels();
-    }
+   
   }
   searchClicked(){
    
@@ -149,6 +153,7 @@ isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Ha
     var label=label.label;
     this.router.navigate(["label/"+label])
   }
+  
   public selectedFile;
   public imageChangedEvent: any = '';
   fileSelected(event){
@@ -166,5 +171,14 @@ this.imagepath = "http://34.213.106.173/" + this.image
   public croppedImage: any = '';
   imageCropped(event: any) {
     this.croppedImage = event.base64;
+  }
+  viewClicked(){
+    this.list=!this.list;
+   
+    this.dataService.changeView(this.list)
+  
+ 
+
+   
   }
   }

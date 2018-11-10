@@ -7,6 +7,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { httpService } from '../../core/services/http.service';
+import { NoteService } from '../../core/services/note.service';
 
 //component decorator
 @Component({
@@ -16,14 +17,15 @@ import { httpService } from '../../core/services/http.service';
 })
 export class MainTrashComponent implements OnInit {
 
-  constructor(public service:httpService) { }
+  constructor(public service: httpService, private NoteService: NoteService) { }
 public trashArray=[];
   ngOnInit() {
     this.getList()
   }
   //calling an api to get all the deleted files through the services
   getList(){
-    this.service.get("notes/getTrashNotesList", localStorage.getItem("id")).subscribe(response => {
+    this.NoteService.getTrashNotes()
+   .subscribe(response => {
       console.log(response['data'].data)
       this.trashArray=[];
       //wheever there is a response for the api call push it into an array

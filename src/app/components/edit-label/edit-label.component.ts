@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, ElementRef, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { httpService } from '../../core/services/http.service';
+import { NoteService } from '../../core/services/note.service';
 
 @Component({
   selector: 'app-edit-label',
@@ -16,7 +16,8 @@ export class EditLabelComponent implements OnInit {
   public editClick = false;
   public editDoneIcon=true
   constructor(public labelRef: MatDialogRef<EditLabelComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,public service:httpService) { }
+    @Inject(MAT_DIALOG_DATA) public data: any, 
+    private NoteService: NoteService) { }
 public label;
   @ViewChild('myDiv') public myDiv: ElementRef;
   @ViewChild('editDiv') public editDiv: ElementRef;
@@ -33,20 +34,22 @@ public label;
   }
   addLabel(){
     console.log("addLabel method")
-    // if (this.findLabel(this.myDiv.nativeElement.innerHTML) >= 0 ){
-    this.service.postDel("noteLabels",{
-      "label": this.myDiv.nativeElement.innerHTML,
-      "isDeleted": false,
-      // "userId": "string",
-      "userId": localStorage.getItem('userId')
-    },localStorage.getItem('id')).subscribe(response=>{
+   
+      var RequestBody={
+        "label": this.myDiv.nativeElement.innerHTML,
+        "isDeleted": false,
+        "userId": localStorage.getItem('userId')
+      }
+      this.NoteService.addLabel(RequestBody)
+  .subscribe(response=>{
       console.log(response)
     })
-  // }
+  
   }
   getLabels(){
    console.log("get labels")
-    this.service.get("noteLabels/getNoteLabelList",localStorage.getItem('id')).subscribe(
+   this.NoteService.getNoteLabellist()
+  .subscribe(
       response=>{
         this.labelArray=[];
               console.log(response['data'].details);
@@ -69,8 +72,8 @@ public label;
 
   }
   delete(labelId){
-    var url = "noteLabels/" + labelId +"/deleteNoteLabel"
-    this.service.delete(url,localStorage.getItem('id')).subscribe(response=>{
+    this.NoteService.deleteLabel(labelId)
+    .subscribe(response=>{
       console.log(response)
         this.getLabels()
     },error=>{
@@ -93,15 +96,15 @@ public label;
     this.editDoneIcon = true;
     this.editClick=false;
     this.editable=false;
-     var url = "noteLabels/" + label.id +"/updateNoteLabel"
-    this.service.postDel(url,{
-      "label": this.editDiv.nativeElement.innerHTML ,
+    let RequestBody={
+      "label": this.editDiv.nativeElement.innerHTML,
       "isDeleted": false,
-      "id":label.id,
-      "userId":localStorage.getItem('userId')
-    },localStorage.getItem('id')).subscribe(response=>{
+      "id": label.id,
+      "userId": localStorage.getItem('userId')
+    }
+    this.NoteService.editLabel(label.id, RequestBody)
+   .subscribe(response=>{
       console.log(response)
-      // this.editDiv.nativeElement.innerHTML =null;
       this.getLabels();
     },error=>{
       console.log(error)

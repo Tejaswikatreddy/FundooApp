@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { httpService } from '../../core/services/http.service';
+import { UserService } from '../../core/services/user.service';
+
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -14,13 +16,15 @@ export class ResetPasswordComponent implements OnInit {
   hide=true;
   
   constructor(private service:httpService,
-              public route:ActivatedRoute) { }
+              public route:ActivatedRoute,public userservice:UserService) { }
     public accessToken=this.route.snapshot.params.forgotToken;
   ngOnInit() {
   }
   public input = new FormData();
 // Add your values in here
   set(){
+    console.log(this.model.password.length);
+    
     var body={
       "newPassword": this.model.password
     }
@@ -28,14 +32,22 @@ export class ResetPasswordComponent implements OnInit {
       console.log("please enter the password");
       return;
     }
-    this.input.append('newPassword', this.model.password);
-    console.log(this.input)
-    this.service.post("user/reset-password",body,this.accessToken).subscribe(response=>{
+  
+    this.userservice.setPassword(this.getFormUrlEncoded(body))
+   .subscribe(response=>{
       console.log("successfull",response);
     },error=>{
       console.log("failed",error)
     })
     console.log("accessToken",this.accessToken)
   }
-
+  getFormUrlEncoded(toConvert) {
+    const formBody = [];
+    for (const property in toConvert) {
+      const encodedKey = encodeURIComponent(property);
+      const encodedValue = encodeURIComponent(toConvert[property]);
+      formBody.push(encodedKey + '=' + encodedValue);
+    }
+    return formBody.join('&');
+  }
 }

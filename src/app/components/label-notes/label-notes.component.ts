@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { httpService } from '../../core/services/http.service';
+import { NoteService } from '../../core/services/note.service';
 
 @Component({
   selector: 'app-label-notes',
@@ -10,7 +11,7 @@ import { httpService } from '../../core/services/http.service';
 export class LabelNotesComponent implements OnInit {
 
   constructor(public route: ActivatedRoute,
-    private service: httpService) { }
+    private service: httpService, private NoteService: NoteService) { }
   public labelName ;
   public labelNOtes=[];
 
@@ -18,10 +19,9 @@ export class LabelNotesComponent implements OnInit {
     console.log("in 12");
     this.route.params.subscribe(
       (params: Params) => {
-        console.log("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",params['labelName']);
         this.labelName = params['labelName']
         this.getLabelNOtes(this.labelName);
-        //------ some code -----
+        
       })
    
     
@@ -29,7 +29,8 @@ export class LabelNotesComponent implements OnInit {
   getLabelNOtes(labelName){
    
     var url ="notes/getNotesListByLabel/"+labelName
-    this.service.postDel(url, null, localStorage.getItem('id')).subscribe(response => {
+    this.NoteService.getLabelNotes(labelName)
+  .subscribe(response => {
       console.log("successfull", response);
       this.labelNOtes=response['data'].data
       console.log(this.labelNOtes);

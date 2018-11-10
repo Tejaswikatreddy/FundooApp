@@ -6,9 +6,13 @@
 
 import { Component, OnInit,Input,Output ,EventEmitter } from '@angular/core';
 import { httpService } from '../../core/services/http.service';
+
+import { NoteService } from '../../core/services/note.service';
 import { AuthService } from "../../core/services/auth.service"
 import { MatDialog } from '@angular/material';
 import { UpdateNoteComponent } from '../update-note/update-note.component';
+import { DataService } from '../../core/services/data.service';
+
 //component decorator
 @Component({
   selector: 'app-note-list',
@@ -22,10 +26,14 @@ export class NotelistComponent implements OnInit {
  //creating an object for EventEmitter
  @Output() eventEmit=new EventEmitter();
  public isChecked=false;
- 
+ public view;
   constructor(private auth: AuthService, public service: httpService,
-              public dialog: MatDialog) { }
+    public dialog: MatDialog, private dataService: DataService,private NoteService:NoteService) { }
   ngOnInit() {  
+    this.dataService.viewList.subscribe(message => {
+      this.view = message
+      console.log(this.view, "notelist component");
+    })   
   }
 /**
  * @function eventDone() invoked when there is an event in the child component
@@ -57,7 +65,8 @@ console.log(note);
    });
   }
   deleteLabel(note,label){
-    this.service.postDel("/notes/" + note['id'] + "/addLabelToNotes/" + label.id + "/remove", null, localStorage.getItem('id'))
+    this.NoteService.removeLabelFromNotes(null, note['id'], label.id)
+    // this.service.postDel("/notes/" + note['id'] + "/addLabelToNotes/" + label.id + "/remove", null, localStorage.getItem('id'))
       .subscribe(Response => {
         console.log(Response);
         this.eventEmit.emit({})
@@ -84,8 +93,9 @@ console.log(note);
       "itemName": this.modifiedCheckList.itemName,
       "status": this.modifiedCheckList.status
     }
-    var url = "notes/" + id + "/checklist/" + this.modifiedCheckList.id + "/update";
-    this.service.postDel(url, JSON.stringify(apiData), localStorage.getItem('id')).subscribe(response => {
+  
+    this.NoteService.UpdateChecklist(JSON.stringify(apiData), id, this.modifiedCheckList.id)
+    .subscribe(response => {
       console.log(response);
 
     })

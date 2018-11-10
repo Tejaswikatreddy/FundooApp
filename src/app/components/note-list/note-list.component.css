@@ -42,3 +42,15 @@
 .chip{
     padding-top: 10px
 }
+.layout{
+    width:800px
+}
+.Flayout{
+     margin:1%;
+    height:min-content;border-radius:10px;
+    margin-top:5px;
+    width:100%
+}
+.grid{
+/* width */
+}

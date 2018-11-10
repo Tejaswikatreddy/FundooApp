@@ -1,5 +1,6 @@
 import { Component, OnInit, Input,Output,EventEmitter } from '@angular/core';
 import { httpService } from '../../core/services/http.service';
+import { NoteService } from '../../core/services/note.service';
 
 @Component({
   selector: 'app-archive',
@@ -9,7 +10,7 @@ import { httpService } from '../../core/services/http.service';
 export class ArchiveComponent implements OnInit {
   @Input() Note;
   @Input() Archive;
-  constructor(private service: httpService) { }
+  constructor(private service: httpService, private NoteService: NoteService,) { }
 public isArchived=false;
 public isDeleted=false;
   ngOnInit() {
@@ -30,13 +31,13 @@ public isDeleted=false;
     arr.push(this.Note.id)
     console.log(arr);
     if(this.Note.id!=undefined){
-    this.service.postDel("notes/archiveNotes",
-      {
+      var RequestBody = {
         "isArchived": flag,
         "noteIdList": arr
 
-      }, localStorage.getItem("id"))
-      .subscribe(response => {
+      }
+      this.NoteService.archive(RequestBody)
+          .subscribe(response => {
         console.log(response);
         this.eventEmit.emit({})
       },error=>{

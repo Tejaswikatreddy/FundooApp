@@ -6,6 +6,8 @@
 
 
 import { Component, OnInit,Inject } from '@angular/core';
+import { NoteService } from '../../core/services/note.service';
+
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { httpService } from '../../core/services/http.service';
 //component decorator
@@ -17,7 +19,9 @@ import { httpService } from '../../core/services/http.service';
 export class UpdateNoteComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<UpdateNoteComponent>,
-                   @Inject(MAT_DIALOG_DATA)public data:any,public service:httpService) { }
+                   @Inject(MAT_DIALOG_DATA)public data:any,
+                  private NoteService:NoteService,
+                  public service:httpService) { }
 public title;
 public description;
 public id;
@@ -45,19 +49,29 @@ public arrayObj:any={}
     this.updateNotes();
 
   }
-  //a function to call the update notes api
+  getFormUrlEncoded(toConvert) {
+    const formBody = [];
+    for (const property in toConvert) {
+      const encodedKey = encodeURIComponent(property);
+      const encodedValue = encodeURIComponent(toConvert[property]);
+      formBody.push(encodedKey + '=' + encodedValue);
+    }
+    return formBody.join('&');
+  }
+ 
   updateNotes(){
     if(this.checklist==false){
     console.log(document.getElementById("Updatedtitle").innerHTML)
     this.title = document.getElementById("Updatedtitle").innerHTML;
     this.description = document.getElementById("Updatednote").innerHTML;
     this.id=this.data.id;
-    this.service.post("notes/updateNotes",{
-      "noteId":[this.id],
-      "title":this.title,
-      "description":this.description
+      var RequestBody = {
+        "noteId": [this.id],
+        "title": this.title,
+        "description": this.description
 
-    },localStorage.getItem("id")).subscribe(response=>{
+      }
+      this.NoteService.UpdateNote(this.getFormUrlEncoded(RequestBody)).subscribe(response=>{
       console.log(response);
      
     })
@@ -67,9 +81,9 @@ public arrayObj:any={}
          "itemName": this.modifiedCheckList.itemName,
          "status":this.modifiedCheckList.status
     }
-      var url = "notes/" +this.data.id+ "/checklist/" + this.modifiedCheckList.id + "/update";
-      this.service.postDel(url, JSON.stringify(apiData), localStorage.getItem('id')).subscribe(response => {
-        console.log(response);
+      this.NoteService.UpdateChecklist(JSON.stringify(apiData), this.data.id, this.modifiedCheckList.id)
+     .subscribe(response => {
+        console.log(response,"NNNN");
       })
   }
     }
@@ -119,8 +133,8 @@ public arrayObj:any={}
     this.removeCheckList()
   }
   removeCheckList(){
-    var url = "notes/" + this.data.id + "/checklist/" + this.removedList.id + "/remove";
-    this.service.postDel(url, null, localStorage.getItem('id')).subscribe(response => {
+    this.NoteService.removeChecklist(null, this.data.id, this.removedList.id)
+    .subscribe(response => {
       console.log(response);
       for(var i=0;i<this.tempArray.length;i++){
         if(this.tempArray[i].id==this.removedList.id){
@@ -151,9 +165,8 @@ public arrayObj:any={}
         "itemName":this.newList,
         "status":this.status
       }
-    
-    var url = "notes/" + this.data.id + "/checklist/add";
-    this.service.postDel(url, this.newData, localStorage.getItem('id')).subscribe(response => {
+    this.NoteService.addChecklist(this.newData,this.data.id)
+    .subscribe(response => {
       console.log(response);
       this.newList=null;
       this.addCheck=false;

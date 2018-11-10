@@ -26,7 +26,7 @@ export class httpService {
       })
     };
     // console.log(this.getFormUrlEncoded(input))
-    return this.http.post(this.URL+"/"+name,this.getFormUrlEncoded(input),httpOptions)
+    return this.http.post(this.URL+name,this.getFormUrlEncoded(input),httpOptions)
   }
   getFormUrlEncoded(toConvert) {
     const formBody = [];
@@ -59,17 +59,6 @@ postDel(name, input, access_token){
 
   return this.http.post(this.URL + "/" + name, input, httpOptions)
 }
-delete(name,token){
-  // var url = `${this.URL + "/" + name}/${id}/${"deleteNoteLabel"}`;
-  const httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': token
-    })
-  };
-  return this.http.delete(this.URL + "/" + name,httpOptions)
-
-}
   addImage(name, input, access_token){
   const httpOptions = {
     headers: new HttpHeaders({
@@ -81,4 +70,17 @@ delete(name,token){
 
   return this.http.post(this.URL + "/" + name, input, httpOptions)
 }
+ NewPost(url,RequestBody,httpHeaders){
+   return this.http.post(url, RequestBody, httpHeaders)
+ }
+ NewGet(url,httpHeaders){
+   return this.http.get( url,  httpHeaders)
+ }
+  delete(url,httpHeaders) {
+   
+   
+    return this.http.delete(url, httpHeaders)
+
+  }
+
 }

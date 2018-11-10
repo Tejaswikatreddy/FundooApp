@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../core/services/data.service';
 import { httpService } from '../../core/services/http.service';
+import { NoteService } from '../../core/services/note.service';
+
 
 
 @Component({
@@ -10,7 +12,7 @@ import { httpService } from '../../core/services/http.service';
 })
 export class SearchAllComponent implements OnInit {
 
-  constructor(private dataService: DataService, public service: httpService) { }
+  constructor(private dataService: DataService, public service: httpService,public noteService:NoteService) { }
   // public message;
   public searchInput;
   ngOnInit() {
@@ -22,7 +24,8 @@ export class SearchAllComponent implements OnInit {
   }
   public notes = [];
   public getNotes() {
-    this.service.get("notes/getNotesList", localStorage.getItem('id')).subscribe(response => {
+    this.noteService.getNotes()
+  .subscribe(response => {
       if (response) {
         // this.notes = [];
         //whenever  the api call is a success,push the response into an array
