@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { httpService } from './http.service';
 import {  HttpHeaders } from '@angular/common/http';
+import { environment } from '../../../environments/environment'
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  URL = "http://34.213.106.173/api";
+  // URL = "http://34.213.106.173/api";
+  URL = environment.URL;
 
 public url;
 public access_token=localStorage.getItem('id');

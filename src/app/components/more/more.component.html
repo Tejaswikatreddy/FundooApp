@@ -20,7 +20,7 @@
 
 <mat-icon  [matMenuTriggerFor]="delete" *ngIf="isDeleted">more_vert</mat-icon>
 <mat-menu #delete="matMenu">
-<button mat-menu-item>Delete Forever</button>
+<button mat-menu-item (click)=deleteForever()>Delete Forever</button>
 <button mat-menu-item (click)="deleteFunction(false)">Restore</button>
 
 </mat-menu>

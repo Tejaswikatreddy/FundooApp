@@ -58,7 +58,7 @@
           <p class="label">Labels<button mat-button class="editButton"  (click)="openDialog()">EDIT</button></p>
           <a mat-list-item *ngFor="let label of labelArray" (click)="labelClicked(label)">
             <img src="../../../assets/label.svg" class="svg">
-            <span class="sideNotes">{{label.label}}</span></a>
+            <span class="sideNotes" [innerHTML]="label.label"></span></a>
           <a mat-list-item (click)="openDialog()"><img src="../../../assets/create.svg" class="svg">
             <span class="sideNotes">Edit Labels</span></a>
           <a mat-list-item (click)=ArchiveClicked()><img src="../../../assets/archive.svg" class="svg" >

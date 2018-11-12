@@ -14,7 +14,7 @@ import { httpService } from '../../core/services/http.service';
 @Component({
   selector: 'app-update-note',
   templateUrl: './update-note.component.html',
-  styleUrls: ['./update-note.component.css']
+  styleUrls: ['./update-note.component.scss']
 })
 export class UpdateNoteComponent implements OnInit {
 
@@ -33,7 +33,9 @@ public bgcolor=this.data.color;
   public tempArray=[]
   public newData:any={}
 public arrayObj:any={}
+public reminder=[];
   ngOnInit() {
+    this.reminder.push(this.data.reminder);
    this.tempArray=[]
     this.labels=this.data.noteLabels;
     if (this.data.noteCheckLists.length>0){
@@ -46,6 +48,7 @@ public arrayObj:any={}
    */
   onClose(): void {
     this.dialogRef.close();
+    
     this.updateNotes();
 
   }
@@ -77,6 +80,7 @@ public arrayObj:any={}
     })
   }
   else{
+      if (this.modifiedCheckList != null){
     var apiData={
          "itemName": this.modifiedCheckList.itemName,
          "status":this.modifiedCheckList.status
@@ -86,6 +90,7 @@ public arrayObj:any={}
         console.log(response,"NNNN");
       })
   }
+}
     }
     editing(editedList,event){
       
@@ -179,6 +184,11 @@ public arrayObj:any={}
 
     })
   }
+  }
+  timeAdded(event){ 
+    console.log(event);
+    this.reminder.pop();
+    this.reminder.push(event)
   }
   }
 

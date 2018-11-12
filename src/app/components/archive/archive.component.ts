@@ -5,7 +5,7 @@ import { NoteService } from '../../core/services/note.service';
 @Component({
   selector: 'app-archive',
   templateUrl: './archive.component.html',
-  styleUrls: ['./archive.component.css']
+  styleUrls: ['./archive.component.scss']
 })
 export class ArchiveComponent implements OnInit {
   @Input() Note;

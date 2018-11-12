@@ -17,7 +17,7 @@ import { DataService } from '../../core/services/data.service';
 @Component({
   selector: 'app-note-list',
   templateUrl: './note-list.component.html',
-  styleUrls: ['./note-list.component.css']
+  styleUrls: ['./note-list.component.scss']
 })
 export class NotelistComponent implements OnInit {
  @Input() NoteArray;
@@ -41,6 +41,7 @@ export class NotelistComponent implements OnInit {
  eventDone(event){
    console.log("deleted in note list",event)
    if(event){
+
      this.eventEmit.emit({});
      //event emitted to the parent component
    }
@@ -99,6 +100,10 @@ console.log(note);
       console.log(response);
 
     })
+  }
+  reminder(event){
+    console.log("notelist",event);
+    this.eventEmit.emit({})
   }
   }
 

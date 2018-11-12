@@ -106,4 +106,17 @@ public toEvent=[];
   hideCheck(){
     this.eventEmit.emit("hide")
   }
+  deleteForever(){
+    var arr = []
+    arr.push(this.Note['id'])
+    var RequestBody={
+      "noteIdList":arr,
+    }
+    this.NoteService.deleteForever(RequestBody).subscribe(
+      response=>{
+        console.log("success");
+        this.eventEmit.emit({})
+      }
+    )
+  }
 }

@@ -8,15 +8,17 @@
 import { Component, OnInit } from '@angular/core';
 import { httpService } from '../../core/services/http.service';
 import { AuthService } from "../../core/services/auth.service"
+
+import { NoteService } from "../../core/services/note.service"
 //component decorator
 @Component({
   selector: 'app-all-note',
   templateUrl: './all-note.component.html',
-  styleUrls: ['./all-note.component.css']
+  styleUrls: ['./all-note.component.scss']
 })
 export class AllNoteComponent implements OnInit {
 
-  constructor(private auth: AuthService, public service: httpService) { }
+  constructor(private auth: AuthService, public service: httpService,public noteservice:NoteService) { }
   public notes = [];
 
   ngOnInit() {
@@ -31,16 +33,17 @@ export class AllNoteComponent implements OnInit {
     //calling the getNOtes Api when ever there is an event occured in the child components
     
     console.log(event);
-    if(event){
+  
       this.getNotes();
-    }
+  
    
   }
   /**
    * @function getNotes() to call the getNotes() api through services
    */
   public getNotes() {
-    this.service.get("notes/getNotesList", this.auth.getToken()).subscribe(response => {
+    this.noteservice.getNotes()
+  .subscribe(response => {
       if (response) {
         this.notes = [];
         //whenever  the api call is a success,push the response into an array

@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import {  HttpHeaders } from '@angular/common/http';
 import { httpService } from './http.service';
-
+import { environment} from '../../../environments/environment'
 @Injectable({
   providedIn: 'root'
 })
 export class NoteService {
-  URL = "http://34.213.106.173/api";
-
+  // URL = "http://34.213.106.173/api";
+ URL=environment.URL;
   public url;
   public access_token = localStorage.getItem('id');
   public httpOptions = {
@@ -124,5 +124,13 @@ export class NoteService {
   getNotes(){
     this.url = this.URL +"/notes/getNotesList";
     return this.service.NewGet(this.url,this.httpOptions)
+  }
+  addReminder(RequestBody){
+    this.url = this.URL +"/notes/addUpdateReminderNotes";
+    return this.service.NewPost(this.url, RequestBody, this.httpO)
+  }
+  deleteForever(RequestBody){
+    this.url = this.URL +"/notes/deleteForeverNotes";
+    return this.service.NewPost(this.url,RequestBody,this.httpO)
   }
 }

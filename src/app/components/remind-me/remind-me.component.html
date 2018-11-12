@@ -1,1 +1,48 @@
- <mat-icon matTooltip="Remind Me" *ngIf="!isDeleted">touch_app</mat-icon>
+<mat-icon matTooltip="Remind Me" *ngIf="!isDeleted" [matMenuTriggerFor]="menu">touch_app</mat-icon>
+<mat-menu #menu="matMenu" class="menu">
+    <div *ngIf="!dateTime">
+        <span>Reminder:</span>
+        <button mat-menu-item (click)="today()" fxFlexLayout="row">
+            <span fxFlex="80%">Later Today</span>
+            <span fxFlex="20%">8:00PM</span>
+        </button>
+        <button mat-menu-item (click)="tomorrow()" fxFlexLayout="row">
+            <span fxFlex="80%">Tomorrow</span>
+            <span fxFlex="20%">8:00AM</span>
+        </button>
+        <button mat-menu-item (click)="nextWeek()" fxFlexLayout="row">
+            <span>Next Week</span>
+        </button>
+        <button mat-menu-item (click)="dateTime=!dateTime  ;$event.stopPropagation()">
+            <mat-icon>access_time</mat-icon>
+            <span>Pick date & time</span>
+        </button>
+    </div>
+    <div *ngIf="dateTime">
+        <div fxFlexLayout="row">
+            <mat-icon fxFlex="10%" (click)="dateTime=false;$event.stopPropagation()">keyboard_backspace</mat-icon>
+            <span mat-menu-item fxFlex="90%">Pick Date & Time</span>
+        </div>
+         <mat-form-field >
+            <input matInput mat-menu-item [matDatepicker]="picker" [(ngModel)]=timeObj.date [min]=minDate > 
+            <mat-datepicker-toggle matSuffix [for]="picker">
+                <mat-icon matDatepickerToggleIcon >keyboard_arrow_down</mat-icon>
+            </mat-datepicker-toggle>
+            <mat-datepicker #picker ></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput [matMenuTriggerFor]="addTime" (click)=$event.stopPropagation() [(ngModel)]=timeObj.time>
+        </mat-form-field>
+          
+
+    </div>
+</mat-menu>
+<mat-menu #addTime="matMenu" [overlapTrigger]="false" >
+ <div *ngFor="let data of timeArray" (click)=$event.stopPropagation()>
+<div fxFlexLayout="row" mat-menu-item >
+    <span fxFlex="60%" (click)="timeObj.time=data.time;$event.stopPropagation()">{{data.value}}</span>
+    <span fxFlex="40%">{{data.time}}</span>
+</div>
+</div>
+<button mat-button (click)=saveTime()>save</button>
+</mat-menu>

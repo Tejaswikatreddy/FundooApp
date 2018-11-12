@@ -20,7 +20,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { AddNoteComponent } from './components/AddNote/AddNote.component';
-import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -49,6 +48,8 @@ import { PinComponent } from './components/pin/pin.component';
 import { LabelSearchPipe } from './core/pipes/label-search.pipe';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { CropImageComponent } from './components/crop-image/crop-image.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,6 @@ import { CropImageComponent } from './components/crop-image/crop-image.component
     ForgotPasswordComponent,
     ResetPasswordComponent,
     AddNoteComponent,
-    ToolbarComponent,
     NavbarComponent,
     IconsComponent,
     RemindMeComponent,
@@ -105,12 +105,15 @@ import { CropImageComponent } from './components/crop-image/crop-image.component
     MatListModule,
     MatCheckboxModule,
     MatChipsModule,
-    ImageCropperModule
+    MatDatepickerModule,
+    ImageCropperModule,
+    MatNativeDateModule
 
   ],
   entryComponents: [UpdateNoteComponent, EditLabelComponent, CropImageComponent],
   providers: [
     httpService,
+    MatDatepickerModule
   ],
   bootstrap: [AppComponent],
 

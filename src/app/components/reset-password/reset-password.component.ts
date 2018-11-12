@@ -7,7 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
-  styleUrls: ['./reset-password.component.css']
+  styleUrls: ['./reset-password.component.scss']
 })
 export class ResetPasswordComponent implements OnInit {
   model: any = {
@@ -36,8 +36,7 @@ export class ResetPasswordComponent implements OnInit {
     this.userservice.setPassword(this.getFormUrlEncoded(body))
    .subscribe(response=>{
       console.log("successfull",response);
-    },error=>{
-      console.log("failed",error)
+  
     })
     console.log("accessToken",this.accessToken)
   }

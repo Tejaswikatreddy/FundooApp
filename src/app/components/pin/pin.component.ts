@@ -5,7 +5,7 @@ import { NoteService } from '../../core/services/note.service';
 @Component({
   selector: 'app-pin',
   templateUrl: './pin.component.html',
-  styleUrls: ['./pin.component.css']
+  styleUrls: ['./pin.component.scss']
 })
 export class PinComponent implements OnInit {
 @Output() eventEmit=new EventEmitter();

@@ -11,7 +11,7 @@ import { NoteService } from '../../core/services/note.service';
 @Component({
   selector: 'app-add-note',
   templateUrl: './AddNote.component.html',
-  styleUrls: ['./AddNote.component.css'],
+  styleUrls: ['./AddNote.component.scss'],
  
 })
 
@@ -40,6 +40,7 @@ public status="open"
   public body:any={}
   public check=false;
   addNotes(){
+    this.reminder=[];
     var apiColor=this.changedColor;
     this.changedColor = "#ffffff"
     this.title = document.getElementById("title").innerHTML;
@@ -182,6 +183,14 @@ if (this.title != "") {
   }
   checklist($event){
     this.check=true;
+  }
+  public reminder=[];
+  reminderAdded(event){
+    if (this.reminder.length >= 1) {
+      this.reminder.pop();
+    }
+    this.reminder.push(event);
+   
   }
   }
 

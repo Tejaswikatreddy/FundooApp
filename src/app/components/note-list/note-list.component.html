@@ -33,12 +33,15 @@
   <div *ngFor="let label of note.noteLabels" class="chip">
     <mat-chip [removable]=true *ngIf="!label.isDeleted">{{label.label}}
   <mat-icon matChipRemove (click)=deleteLabel(note,label)>cancel</mat-icon>
-
     </mat-chip></div>
- 
+    <div *ngFor="let time of note.reminder">
+ <mat-chip *ngIf="!isDeleted">
+   <mat-icon>access_time</mat-icon>
+   {{time|date:"medium"}}
+   </mat-chip></div>
 </mat-chip-list>
 <span fxLayout="row " fxLayoutAlign="space-around" class="icons" >
-  <div><app-remind-me [Note]=note></app-remind-me></div>
+  <div><app-remind-me [Note]=note (eventEmit)="reminder($event)"></app-remind-me></div>
   <div><app-collaborator [Note]=note ></app-collaborator></div>
   <div><app-change-color [Note]=note (eventEmitter)="eventDone($event)" ></app-change-color></div>
   <div> <app-add-image [Note]=note></app-add-image></div>

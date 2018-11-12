@@ -1,0 +1,22 @@
+.material-icons {
+    cursor: pointer;
+    opacity: 0.5;
+}
+.material-icons:hover {
+    cursor: pointer;
+    opacity: 1.5;
+}
+::ng-deep.mat-menu-panel {
+   width:auto;
+  height:auto;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    /* max-height: calc(100vh - 48px); */
+    border-radius: 2px;
+    outline: 0;
+}
+::ng-deep.mat-menu-content:not(:empty) {
+    padding: 5px !important;
+    overflow: hidden;
+    width: 250px !important
+}

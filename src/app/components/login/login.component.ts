@@ -70,7 +70,7 @@ export class LoginComponent implements OnInit {
       this.snackbar.open('login', 'success', {
         duration: 2000,
       });
-      this.router.navigate(['home'])
+      this.router.navigate(['home']);
     },
       error => {
         console.log("Error", error);
