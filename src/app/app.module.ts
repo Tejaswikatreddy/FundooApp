@@ -61,7 +61,7 @@ import { MatNativeDateModule } from '@angular/material';
     AddNoteComponent,
     NavbarComponent,
     IconsComponent,
-    RemindMeComponent,
+    RemindMeComponent,  
     CollaboratorComponent,
     ChangeColorComponent,
     AddImageComponent,

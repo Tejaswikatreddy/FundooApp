@@ -40,7 +40,7 @@ public status="open"
   public body:any={}
   public check=false;
   addNotes(){
-    this.reminder=[];
+   
     var apiColor=this.changedColor;
     this.changedColor = "#ffffff"
     this.title = document.getElementById("title").innerHTML;
@@ -57,7 +57,9 @@ public status="open"
           "isPined": this.isPinned,
           "color": apiColor,
           "isArchived": this.isArchived,
-          "labelIdList": JSON.stringify(this.labelId)
+          "labelIdList": JSON.stringify(this.labelId),
+             "reminder": this.reminder[0]
+
         }
     
     }
@@ -75,15 +77,15 @@ public status="open"
    this.dataArrayApi.push(apiObj)
    this.status="open"
  }
- console.log(this.dataArrayApi);
- 
+//  console.log(this.dataArrayApi);
        this.body={
          "title": this.title,
          "checklist":JSON.stringify(this.dataArrayApi),
          "isPined": this.isPinned,
          "color": apiColor,
          "isArchived": this.isArchived,
-         "labelIdList": JSON.stringify(this.labelId)
+         "labelIdList": JSON.stringify(this.labelId),
+         "reminder":this.reminder[0]
         }
  }
 if (this.title != "") {
@@ -106,6 +108,7 @@ if (this.title != "") {
 
     })
   }
+    this.reminder = [];
   }
   getFormUrlEncoded(toConvert) {
     const formBody = [];
