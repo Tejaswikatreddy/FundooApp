@@ -21,9 +21,12 @@ export class RemindMeComponent implements OnInit {
   public timeArray=[];
  public setTime;
 public save=false;
+public inputfield=true;
 
  public minDate=new Date(this.date.getFullYear(),this.date.getMonth(),this.date.getDate())
   ngOnInit() {
+    if(this.Note!=undefined && this.Note.reminder!=undefined){
+    }
         if (this.Note!=undefined && this.Note.isDeleted == true) {
       this.isDeleted = true;
     }

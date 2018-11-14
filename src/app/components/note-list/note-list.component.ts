@@ -67,7 +67,6 @@ console.log(note);
   }
   deleteLabel(note,label){
     this.NoteService.removeLabelFromNotes(null, note['id'], label.id)
-    // this.service.postDel("/notes/" + note['id'] + "/addLabelToNotes/" + label.id + "/remove", null, localStorage.getItem('id'))
       .subscribe(Response => {
         console.log(Response);
         this.eventEmit.emit({})
@@ -104,6 +103,18 @@ console.log(note);
   reminder(event){
     console.log("notelist",event);
     this.eventEmit.emit({})
+  }
+  deleteReminder(note){
+    let id=[];
+    id.push(note['id'])
+    let RequestBody={
+      "noteIdList":id
+    }
+    this.NoteService.deleteReminder(RequestBody).subscribe(response=>{
+      console.log(response);
+      this.eventEmit.emit({})
+      
+    })
   }
   }
 

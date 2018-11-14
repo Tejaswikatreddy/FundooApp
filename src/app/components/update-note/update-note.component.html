@@ -41,13 +41,15 @@
   <mat-chip-list>
     <div *ngFor="let label of labels" class=divicon>
       <mat-chip [removable]=true *ngIf="!label.isDeleted">{{label.label}}
-        <mat-icon matChipRemove (click)=deleteLabel()>cancel</mat-icon>
+        <mat-icon matChipRemove (click)=deleteLabel(label)>cancel</mat-icon>
         </mat-chip> </div>
     <div *ngFor="let time of reminder">
-      <mat-chip *ngIf="!isDeleted">
+      <mat-chip *ngIf="!time.isDeleted">
         <mat-icon>access_time</mat-icon>
         {{time|date:"medium"}}
-      </mat-chip>  </div>
+    <mat-icon matChipRemove (click)=deleteReminder()>cancel</mat-icon>
+
+      </mat-chip></div>
   
   </mat-chip-list>
 

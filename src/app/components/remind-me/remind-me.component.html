@@ -33,7 +33,7 @@
         </mat-form-field>
         <mat-form-field>
             <input matInput [matMenuTriggerFor]="addTime"  (click)=$event.stopPropagation()
-             [(ngModel)]=timeObj.time (keyup)=regexValidate() >
+             [(ngModel)]=timeObj.time (keyup)=regexValidate()>
             
         </mat-form-field>
             <button mat-button (click)=saveTime() [disabled]=this.save>save</button>
@@ -48,7 +48,7 @@
 </div>
 </div>
 <div mat-menu-item>
-<span (click)="timeObj.time=timeObj.time;$event.stopPropagation()">Custom</span>
+<span (click)="timeObj.time=timeObj.time;inputfield=false;$event.stopPropagation()" >Custom</span>
 
 </div>
 </mat-menu>

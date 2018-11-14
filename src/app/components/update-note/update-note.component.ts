@@ -35,8 +35,9 @@ public bgcolor=this.data.color;
 public arrayObj:any={}
 public reminder=[];
   ngOnInit() {
-    this.reminder.push(this.data.reminder);
-   this.tempArray=[]
+   if(this.data.reminder!=undefined){
+     this.reminder.push(this.data.reminder);
+   }
     this.labels=this.data.noteLabels;
     if (this.data.noteCheckLists.length>0){
       this.checklist=true;
@@ -189,6 +190,36 @@ public reminder=[];
     console.log(event);
     this.reminder.pop();
     this.reminder.push(event)
+  }
+  deleteLabel(label) {
+    let index;
+    this.NoteService.removeLabelFromNotes(null, this.data['id'], label.id)
+      .subscribe(Response => {
+        console.log(Response);
+        for (var i = 0; i < this.labels.length; i++) {
+          if (label.id == this.labels[i].id) {
+              index = i;
+              break;
+          }
+        }
+        this.labels.splice(index,1)
+       
+      }, error => {
+        console.log(error)
+      })
+
+  }
+  deleteReminder() {
+    let id = [];
+    id.push(this.data['id'])
+    let RequestBody = {
+      "noteIdList": id
+    }
+    this.NoteService.deleteReminder(RequestBody).subscribe(response => {
+      console.log(response);
+    this.reminder=[];
+
+     })
   }
   }
 

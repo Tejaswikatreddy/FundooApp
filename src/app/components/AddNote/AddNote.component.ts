@@ -58,7 +58,7 @@ public status="open"
           "color": apiColor,
           "isArchived": this.isArchived,
           "labelIdList": JSON.stringify(this.labelId),
-             "reminder": this.reminder[0]
+             "reminder": this.reminder
 
         }
     
@@ -85,7 +85,7 @@ public status="open"
          "color": apiColor,
          "isArchived": this.isArchived,
          "labelIdList": JSON.stringify(this.labelId),
-         "reminder":this.reminder[0]
+         "reminder":this.reminder
         }
  }
 if (this.title != "") {

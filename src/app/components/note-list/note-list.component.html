@@ -38,6 +38,8 @@
  <mat-chip *ngIf="!isDeleted">
    <mat-icon>access_time</mat-icon>
    {{time|date:"medium"}}
+    <mat-icon matChipRemove (click)=deleteReminder(note)>cancel</mat-icon>
+
    </mat-chip></div>
 </mat-chip-list>
 <span fxLayout="row " fxLayoutAlign="space-around" class="icons" >

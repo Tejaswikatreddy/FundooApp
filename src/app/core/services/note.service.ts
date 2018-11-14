@@ -133,4 +133,8 @@ export class NoteService {
     this.url = this.URL +"/notes/deleteForeverNotes";
     return this.service.NewPost(this.url,RequestBody,this.httpO)
   }
+  deleteReminder(RequestBody){
+    this.url = this.URL +"/notes/removeReminderNotes";
+    return this.service.NewPost(this.url,RequestBody,this.httpO)
+  }
 }
