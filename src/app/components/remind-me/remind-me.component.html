@@ -23,8 +23,9 @@
             <mat-icon fxFlex="10%" (click)="dateTime=false;$event.stopPropagation()">keyboard_backspace</mat-icon>
             <span mat-menu-item fxFlex="90%">Pick Date & Time</span>
         </div>
-         <mat-form-field >
-            <input matInput mat-menu-item [matDatepicker]="picker" [(ngModel)]=timeObj.date [min]=minDate value="this.setData"> 
+         <mat-form-field (click)=$event.stopPropagation()>
+            <input matInput mat-menu-item [matDatepicker]="picker" (click)=$event.stopPropagation()
+             [(ngModel)]=timeObj.date [min]=minDate value="this.setData" (dateChange)=dateChanged()> 
             <mat-datepicker-toggle matSuffix [for]="picker">
                 <mat-icon matDatepickerToggleIcon >keyboard_arrow_down</mat-icon>
             </mat-datepicker-toggle>
@@ -32,17 +33,18 @@
         </mat-form-field>
         <mat-form-field>
             <input matInput [matMenuTriggerFor]="addTime"  (click)=$event.stopPropagation()
-             [(ngModel)]=timeObj.time >
+             [(ngModel)]=timeObj.time (keyup)=regexValidate() >
             
         </mat-form-field>
-            <button mat-button (click)=saveTime()>save</button>
+            <button mat-button (click)=saveTime() [disabled]=this.save>save</button>
  </div>
 </mat-menu>
 <mat-menu #addTime="matMenu" [overlapTrigger]="false" >
- <div *ngFor="let data of timeArray" (click)=$event.stopPropagation()>
-<div fxFlexLayout="row" mat-menu-item >
-    <span fxFlex="60%" (click)="timeObj.time=data.time;$event.stopPropagation()">{{data.value}}</span>
-    <span fxFlex="40%">{{data.time}}</span>
+ <div *ngFor="let data of timeArray" (click)=$event.stopPropagation() >
+     
+<div fxFlexLayout="row" mat-menu-item  >
+    <button mat-button fxFlex="60%" (click)="timeObj.time=data.time;$event.stopPropagation()" [disabled]="data.disable">{{data.value}}</button>
+    <button mat-button fxFlex="40%" (click)="timeObj.time=data.time;$event.stopPropagation()" [disabled]="data.disable">{{data.time}}</button>
 </div>
 </div>
 <div mat-menu-item>

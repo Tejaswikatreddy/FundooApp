@@ -20,6 +20,7 @@ export class RemindMeComponent implements OnInit {
   public setData;
   public timeArray=[];
  public setTime;
+public save=false;
 
  public minDate=new Date(this.date.getFullYear(),this.date.getMonth(),this.date.getDate())
   ngOnInit() {
@@ -28,29 +29,11 @@ export class RemindMeComponent implements OnInit {
     }
     this.setData=this.dateForm.value;
     this.timeArray=[
-      {"value":"Morning","time":"08:00AM"},
-      { "value": "AfterNoon", "time": "01:00PM" },
-      { "value": "Evening", "time": "06:00PM" },
-      { "value": "Night", "time": "08:00PM" },
+      { "value": "Morning", "time": "08:00AM", "disable": false},
+      { "value": "AfterNoon", "time": "01:00PM", "disable": false },
+      { "value": "Evening", "time": "06:00PM", "disable":false},
+      { "value": "Night", "time": "08:00PM", "disable":false},
     ]
-    if(this.timeObj.date.getFullYear()==this.date.getFullYear() && 
-      this.timeObj.date.getMonth()==this.date.getMonth() &&
-      this.timeObj.date.getDate()==this.date.getDate())
-      {
-        console.log("heyy");
-        
-      }
-
-
-
-
-
-
-
-
-
-
-
   }
   reminderClick(){
     if(this.Note!=undefined && this.Note.reminder.length>0){
@@ -117,8 +100,9 @@ export class RemindMeComponent implements OnInit {
     }
       this.timeObj.time = this.setTime;
   }
-
+    this.disabler()
   }
+ 
   public timeObj={
     "date": this.setData,
     "time": ""
@@ -162,6 +146,7 @@ export class RemindMeComponent implements OnInit {
     this.addReminder = this.apiData;
     this.adding();
   }
+  
 
   }
   adding(){
@@ -188,7 +173,7 @@ export class RemindMeComponent implements OnInit {
       hr+=12
     }
     let date = new Date(this.timeObj.date.getFullYear(), this.timeObj.date.getMonth(), this.timeObj.date.getDate()+0, hr, min, 0)
-  
+    this.eventEmit.emit(date)
     
     if (this.Note != undefined) {   
      this.apiData = {
@@ -199,6 +184,63 @@ export class RemindMeComponent implements OnInit {
        this.adding();
   }
 
+  }
+  dateChanged(){
+    console.log("jhfdgyudf vhjgsdb ygfhgvrb");
+    this.timeArray[0].disable = false;
+    this.timeArray[1].disable = false;
+    this.timeArray[2].disable = false;
+    this.timeArray[3].disable = false;
+     this.disabler();
+  }
+  disabler() {
+    if (this.timeObj.date.getFullYear() == this.date.getFullYear() &&
+      this.timeObj.date.getMonth() == this.date.getMonth() &&
+      this.timeObj.date.getDate() == this.date.getDate()) {
+      var month = this.date.getMonth();
+      var year = this.date.getFullYear();
+      var date = this.date.getDate();
+      console.log("heyy");
+      console.log(this.timeObj.date.getTime())
+      console.log(new Date(year, month, date + 0, 8, 0, 0).getTime())
+      if (this.date.getTime() > new Date(year, month, date + 0, 8, 0, 0).getTime()) {
+        this.timeArray[0].disable = true;
+      }
+      if (this.date.getTime() > new Date(year, month, date + 0, 13, 0, 0).getTime()) {
+        this.timeArray[1].disable = true;
+      }
+      if (this.date.getTime() > new Date(year, month, date + 0, 18, 0, 0).getTime()) {
+        this.timeArray[2].disable = true;
+      }
+      if (this.date.getTime() > new Date(year, month, date + 0, 20, 0, 0).getTime()) {
+        this.timeArray[3].disable = true;
+      }
+    }
+    if (this.timeObj.date.getFullYear() < this.date.getFullYear() ||
+      this.timeObj.date.getMonth() < this.date.getMonth() ||
+      this.timeObj.date.getDate() < this.date.getDate()) {
+      this.timeArray[0].disable = true;
+      this.timeArray[1].disable = true;
+      this.timeArray[2].disable = true;
+      this.timeArray[3].disable = true;
+    }
+    if (this.timeObj.date.getFullYear() > this.date.getFullYear() ||
+      this.timeObj.date.getMonth() > this.date.getMonth() ||
+      this.timeObj.date.getDate() > this.date.getDate()){
+      this.timeArray[0].disable = false;
+      this.timeArray[1].disable = false;
+      this.timeArray[2].disable = false;
+      this.timeArray[3].disable = false;
+      }
+  }
+  regexValidate(){
+    let regex = /^(2[0-3]|1?[0-9]|0?[1-9]):[0-5][0-9] (AM|PM|pm|am|Pm|pM)$/
+    if(!regex.test(this.timeObj.time)){
+      this.save=true;
+    }
+    else{
+      this.save=false;
+    }
   }
 }
 
