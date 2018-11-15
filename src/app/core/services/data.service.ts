@@ -9,20 +9,32 @@ export class DataService {
   private messageSource = new BehaviorSubject('default message');
   currentMessage = this.messageSource.asObservable();
 
-  // public isViewChanged: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
   private viewSource = new Subject<boolean>()
   viewList = this.viewSource.asObservable();
 
+  private previous = new BehaviorSubject('default message');
+  private previous1 = new BehaviorSubject('default message');
+  viewDate=this.previous.asObservable()
+  viewDate1 = this.previous1.asObservable()
+   
+  private labelName = new BehaviorSubject('default message');
+  viewLabel = this.labelName.asObservable()
+
   constructor() { }
   changeMessage(message: string) {
-    console.log("data Service changeMessage method",message);
-    
     this.messageSource.next(message);
-   
-  }
+}
   changeView(message:boolean){
-    console.log("data Service changeMessage method", message);
 
     this.viewSource.next(message)
+  }
+  // previousDate(message:string){
+  //   this.previous.next(message);
+  // }
+  previous1Date(message: string) {
+    this.previous1.next(message);
+  }
+  labeldata(message:string){
+    this.labelName.next(message)
   }
 }

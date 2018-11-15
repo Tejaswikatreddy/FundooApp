@@ -1,0 +1,11 @@
+<div fxLayout="column">
+  <div fxFlex=10% fxLayout="row" fxLayoutAlign="center center">
+
+    <app-add-note [reminderComponent]=reminder></app-add-note>
+  </div>
+  <div fxFlex=90%>
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px" ngStyle.xs="width:100%">
+      <app-note-list [NoteArray]=reminderArray ></app-note-list>
+    </div>
+  </div>
+</div>

@@ -62,3 +62,7 @@
 .doneButton{
     float:right
 }
+.msg{
+    font-size: 10px;
+    color:red
+}

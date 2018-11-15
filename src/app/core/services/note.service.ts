@@ -106,6 +106,10 @@ export class NoteService {
     this.url = this.URL +"/notes/getTrashNotesList";
     return this.service.NewGet(this.url, this.httpOptions)
   }
+  getReminderNOteList(){
+    this.url = this.URL +"/notes/getReminderNotesList";
+    return this.service.NewGet(this.url,this.httpO)
+  }
   addLabeltoNotes(RequestBody,noteId,labelId){
     this.url = this.URL + "/notes/" + noteId + "/addLabelToNotes/" + labelId + "/add"
     return this.service.NewPost(this.url, RequestBody, this.httpO)

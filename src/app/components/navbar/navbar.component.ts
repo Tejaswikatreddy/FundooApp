@@ -136,8 +136,14 @@ isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Ha
       })
 
     }
+  ReminderClicked(){
+    this.router.navigate(['remainder'])
+  }
   ngOnInit() {
-   
+    this.dataService.viewLabel.subscribe(response=>{
+      if (response !="default message")
+      this.router.navigate(["label/"+response])
+    })
     
    
   }

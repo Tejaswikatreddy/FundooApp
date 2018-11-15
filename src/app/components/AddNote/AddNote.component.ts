@@ -7,7 +7,6 @@
 import { Component, OnInit, EventEmitter, Output, Input, ElementRef, ViewChild} from '@angular/core';
 import { NoteService } from '../../core/services/note.service';
 
-
 @Component({
   selector: 'app-add-note',
   templateUrl: './AddNote.component.html',
@@ -19,6 +18,8 @@ export class AddNoteComponent implements OnInit {
 public title;
 public note;
 public changedColor="#ffffff"
+  @Input() reminderComponent;
+
   @Output() onNewEntryAdded = new EventEmitter();
  
 //creating an object for eventEmitter
@@ -32,7 +33,11 @@ public dataArray=[];
 public dataArrayApi=[];
 public isChecked=false;
 public status="open"
+public d=new Date()
   ngOnInit() {
+    if(this.reminderComponent==true){
+      this.reminder.push(this.d.getTime())
+    }
 
   }
   public isPinned = false;
@@ -108,7 +113,12 @@ if (this.title != "") {
 
     })
   }
+  if(this.reminderComponent==false)
     this.reminder = [];
+    if(this.reminderComponent==true){
+    
+      this.reminder[0]=this.d.getTime()
+    }
   }
   getFormUrlEncoded(toConvert) {
     const formBody = [];
@@ -194,6 +204,27 @@ if (this.title != "") {
     }
     this.reminder.push(event);
    
+  }
+  deleteReminder(){
+    this.reminder=[];
+  }
+  public todayDate
+  checkreminder(noteTime) {
+
+ 
+    if (new Date(noteTime).getDate() == new Date().getDate()) {
+      this.todayDate = "Today,8:00PM"
+      return 3;
+    }
+    else if (new Date(noteTime).getDate() == new Date().getDate() + 1) {
+      this.todayDate = "Tomorrow,8:00AM"
+      return 3;
+    }
+
+    else {
+      return 2;
+
+    }
   }
   }
 

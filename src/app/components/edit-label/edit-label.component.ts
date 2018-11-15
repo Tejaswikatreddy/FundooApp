@@ -24,6 +24,7 @@ public label;
 
   
   ngOnInit() {
+    this.span=false;
     this.getLabels();
   }
   onClose(): void {
@@ -32,9 +33,16 @@ public label;
     // this.getLabels();
 
   }
+  public span;
   addLabel(){
     console.log("addLabel method")
-   
+    for (var i = 0; i < this.labelArray.length;i++){
+      if (this.myDiv.nativeElement.innerHTML==this.labelArray[i].label){
+        this.span=true;
+        return;
+      }
+    }
+    this.span=false;
       var RequestBody={
         "label": this.myDiv.nativeElement.innerHTML,
         "isDeleted": false,
@@ -42,7 +50,9 @@ public label;
       }
       this.NoteService.addLabel(RequestBody)
   .subscribe(response=>{
-      console.log(response)
+      console.log(response);
+    this.getLabels();
+
     })
   
   }
@@ -67,7 +77,6 @@ public label;
 
   done(){
     this.addLabel();
-    this.getLabels();
     this.myDiv.nativeElement.innerHTML = null;
 
   }

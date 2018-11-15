@@ -1,31 +1,39 @@
-<div  class="mainDiv">
-<h1 mat-dialog-title>Create Labels</h1>
-<div mat-dialog-content>
-<div flexLayout="row" fxLayoutAlign="space-between center"> 
-  <div fxFlex="10%"><mat-icon (click)=clear()>clear</mat-icon></div>
-  <div contenteditable="true" class="note" id="title" fxFlex="80%" placeholder="enter label" #myDiv></div>
-  <div fxFlex="10%"><mat-icon (click)=done()>done</mat-icon></div>
-</div>
+<div class="mainDiv">
+  <h1 mat-dialog-title>Create Labels</h1>
+  <div mat-dialog-content>
+    <div flexLayout="row" fxLayoutAlign="space-between center">
+      <div fxFlex="10%">
+        <mat-icon (click)=clear()>clear</mat-icon>
+      </div>
+      <div contenteditable="true" class="note" id="title" fxFlex="80%" placeholder="enter label" #myDiv></div>
+      <div fxFlex="10%">
+        <mat-icon (click)=done()>done</mat-icon>
+      </div>
+    </div>
+    <span *ngIf="span" class="msg">label already exists</span>
 
 
 
 
 
-<div *ngFor="let label of labelArray"   fxFlexLayout="row">
-<div fxFlex="10%"><span class="hovericon">
-   <mat-icon (click)=delete(label.id) class="delete">delete</mat-icon>
-</span>
-</div>
-<div fxFlex="80%" [innerHTML]="label.label" class="label" *ngIf="!editable || label.label!=editLabel"></div>
-<div fxFlex="80%" [innerHTML]="label.label" class="label" contenteditable="true" *ngIf="editable && label.label==editLabel"  #editDiv></div>
-<div fxFlex="10%"><mat-icon (click)=edit(label) *ngIf="editDoneIcon || label.id!=editId">edit</mat-icon>
-                  <mat-icon (click)=editDone(label) *ngIf="editClick && label.id==editId">done</mat-icon></div>
+    <div *ngFor="let label of labelArray" fxFlexLayout="row">
+      <div fxFlex="10%"><span class="hovericon">
+          <mat-icon (click)=delete(label.id) class="delete">delete</mat-icon>
+        </span>
+      </div>
+      <div fxFlex="80%" [innerHTML]="label.label" class="label" *ngIf="!editable || label.label!=editLabel"></div>
+      <div fxFlex="80%" [innerHTML]="label.label" class="label" contenteditable="true" *ngIf="editable && label.label==editLabel"
+        #editDiv></div>
+      <div fxFlex="10%">
+        <mat-icon (click)=edit(label) *ngIf="editDoneIcon || label.id!=editId">edit</mat-icon>
+        <mat-icon (click)=editDone(label) *ngIf="editClick && label.id==editId">done</mat-icon>
+      </div>
 
-</div>
-  
-</div>
-<div mat-dialog-actions>
-  
-  <button mat-button  cdkFocusInitial (click)=onClose() class="doneButton">Done</button>
-</div>
+    </div>
+
+  </div>
+  <div mat-dialog-actions>
+
+    <button mat-button cdkFocusInitial (click)=onClose() class="doneButton">Done</button>
+  </div>
 </div>

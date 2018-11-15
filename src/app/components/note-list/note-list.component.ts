@@ -4,29 +4,34 @@
  *  @author         : K.Dhana Tejaswi
 */
 
-import { Component, OnInit,Input,Output ,EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { httpService } from '../../core/services/http.service';
+import { DataService } from '../../core/services/data.service';
 
 import { NoteService } from '../../core/services/note.service';
 import { AuthService } from "../../core/services/auth.service"
 import { MatDialog } from '@angular/material';
 import { UpdateNoteComponent } from '../update-note/update-note.component';
-import { DataService } from '../../core/services/data.service';
-
-//component decorator
+import { RemindMeComponent} from '../remind-me/remind-me.component'
+/*component decorator*/
 @Component({
   selector: 'app-note-list',
   templateUrl: './note-list.component.html',
-  styleUrls: ['./note-list.component.scss']
+  styleUrls: ['./note-list.component.scss'],
+  // directives: [RemindMeComponent],
 })
 export class NotelistComponent implements OnInit {
+  @ViewChild('remindme') remind: RemindMeComponent;
  @Input() NoteArray;
   @Input() searchInput;
   public checkArray=[];
- //creating an object for EventEmitter
+ /*creating an object for EventEmitter*/
  @Output() eventEmit=new EventEmitter();
  public isChecked=false;
  public view;
+ public date=new Date();
+ public currenttime;
+ 
   constructor(private auth: AuthService, public service: httpService,
     public dialog: MatDialog, private dataService: DataService,private NoteService:NoteService) { }
   ngOnInit() {  
@@ -34,7 +39,55 @@ export class NotelistComponent implements OnInit {
       this.view = message
       console.log(this.view, "notelist component");
     })   
+    this.currenttime=this.date.getTime();
   }
+  reminderClicked(note){
+    console.log("reminder cllicked");
+    this.remind.reminderClick(note.id);
+    // this.dataService.previous1Date(note.id)
+  }
+  labelClicked(labelName){
+    console.log(labelName);
+    this.dataService.labeldata(labelName)
+  }
+  public todayDate;
+  checkreminder(noteTime){    
+    let hrs=new Date(noteTime).getHours();
+    let mins=new Date(noteTime).getMinutes();
+    let amPm="AM"
+    if(hrs>12){
+      hrs = hrs - 12;
+      amPm="PM"
+
+    }
+         if(new Date(noteTime).getTime()<new Date().getTime()){
+      return 1;
+      } 
+    else if (new Date(noteTime).getDate() == new Date().getDate()){
+      if(mins<10){
+         this.todayDate = "Today,"+"0" + hrs + ":"+"0" + mins+":00"+amPm
+         return 3;
+      }
+           this.todayDate = "Today," + "0" + hrs + ":" + mins +":00"+ amPm
+
+      return 3;
+    }
+      else if (new Date(noteTime).getDate() == new Date().getDate()+1) {
+
+           if (mins < 10) {
+             this.todayDate = "Tomorrow," + "0" + hrs + ":" + "0" + mins + ":00" + amPm
+             return 3;
+           }
+           this.todayDate = "Tommorow," + "0" + hrs + ":" + mins + ":00" + amPm
+
+           return 3;
+      }
+      
+    else{
+        return 2;
+
+    }
+    }
 /**
  * @function eventDone() invoked when there is an event in the child component
  */
@@ -43,7 +96,7 @@ export class NotelistComponent implements OnInit {
    if(event){
 
      this.eventEmit.emit({});
-     //event emitted to the parent component
+     /*event emitted to the parent component*/
    }
   
  }
@@ -101,6 +154,7 @@ console.log(note);
     })
   }
   reminder(event){
+    
     console.log("notelist",event);
     this.eventEmit.emit({})
   }
@@ -120,4 +174,3 @@ console.log(note);
 
   
 
-// noteCheckLists  itemName

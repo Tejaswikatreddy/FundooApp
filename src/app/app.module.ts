@@ -50,6 +50,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { CropImageComponent } from './components/crop-image/crop-image.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
+import { ReminderListComponent } from './components/reminder-list/reminder-list.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import { MatNativeDateModule } from '@angular/material';
     PinComponent,
     LabelSearchPipe,
     CropImageComponent,
+    ReminderListComponent,
    
   ],
   imports: [
