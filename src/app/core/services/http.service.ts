@@ -9,6 +9,7 @@ export class httpService {
   constructor(private http: HttpClient) { }
 
  NewPost(url,RequestBody,httpHeaders){
+   
    return this.http.post(url, RequestBody, httpHeaders)
  }
  NewGet(url,httpHeaders){

@@ -1,7 +1,7 @@
 <mat-icon matTooltip="Change Color" [matMenuTriggerFor]="menu" *ngIf="!isDeleted">palette</mat-icon>
 <mat-menu #menu="matMenu"  yPosition="above"  class="menu" [overlapTrigger]="false" style="position: absolute">
     <!-- <div class="menulist"> -->
-<div style="padding:0px">
+<div style="padding:0px" class="colordiv">
         <button mat-mini-fab id="color1" (click)="change('#ffffff')"></button>
         <button mat-mini-fab id="color2" (click)="change('#90ee90')"></button>
         <button mat-mini-fab id="color3" (click)="change('#f66ef6')"></button>

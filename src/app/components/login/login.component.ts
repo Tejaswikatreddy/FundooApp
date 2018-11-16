@@ -61,15 +61,20 @@ export class LoginComponent implements OnInit {
       localStorage.setItem("lastName", response['lastName']);
       localStorage.setItem("email", response['email']); 
       localStorage.setItem("imageUrl", response['imageUrl']); 
-
-      console.log("in");
-
       localStorage.setItem("userId", response['userId']);
-      console.log("out");
-
       this.snackbar.open('login', 'success', {
         duration: 2000,
       });
+      let pushToken=localStorage.getItem("pushToken")
+      console.log(pushToken,"login page");
+      
+      let ReqBody={
+        "pushToken": pushToken
+      }
+      this.loginService.registerToken(ReqBody).subscribe(response=>{
+        console.log("registered");
+        
+      })
       this.router.navigate(['home']);
     },
       error => {

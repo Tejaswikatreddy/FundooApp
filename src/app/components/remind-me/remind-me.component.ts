@@ -16,6 +16,8 @@ export class RemindMeComponent implements OnInit {
   @Input() Note;
   public isDeleted = false;
   @Output() eventEmit = new EventEmitter();
+  @Output() eventEmit1 = new EventEmitter();
+
   constructor(public service: NoteService, public dataService: DataService) { }
   public date = new Date();
   public apiData = {};
@@ -25,10 +27,10 @@ export class RemindMeComponent implements OnInit {
   public dateForm = new FormControl(new Date())
   public setData;
   public timeArray = [
-    { "value": "Morning", "time": "08:00AM", "disable": false },
-    { "value": "AfterNoon", "time": "01:00PM", "disable": false },
-    { "value": "Evening", "time": "06:00PM", "disable": false },
-    { "value": "Night", "time": "08:00PM", "disable": false },
+    { "value": "Morning", "time": "08:00 AM", "disable": false },
+    { "value": "AfterNoon", "time": "01:00 PM", "disable": false },
+    { "value": "Evening", "time": "06:00 PM", "disable": false },
+    { "value": "Night", "time": "08:00 PM", "disable": false },
   ];
   public setTime;
   public save = false;
@@ -37,22 +39,12 @@ export class RemindMeComponent implements OnInit {
 
   public minDate = new Date(this.date.getFullYear(), this.date.getMonth(), this.date.getDate())
   ngOnInit() {
-    //   this.sub=this.dataService.viewDate1.subscribe(data=>{
-    //    if (this.Note !=undefined && data == this.Note.id ){
-    //      this.reminderClick()
-    //   }
-    //  }
-    //  )
+   
     if (this.Note != undefined && this.Note.isDeleted == true) {
       this.isDeleted = true;
     }
     this.setData = this.dateForm.value;
-    // this.timeArray=[
-    //   { "value": "Morning", "time": "08:00AM", "disable": false},
-    //   { "value": "AfterNoon", "time": "01:00PM", "disable": false },
-    //   { "value": "Evening", "time": "06:00PM", "disable":false},
-    //   { "value": "Night", "time": "08:00PM", "disable":false},
-    // ]
+  
   }
   reminderClick(id) {
     console.log("reminder click function");
@@ -184,26 +176,27 @@ export class RemindMeComponent implements OnInit {
 
   }
   adding() {
+   
+    
+   
+    if (new Date(this.addReminder['reminder']).getTime() < new Date().getTime() ){
+      
+      return;
+    }
     this.service.addReminder(this.addReminder).subscribe(response => {
-      console.log(response);
-      this.eventEmit.emit({})
+      this.eventEmit1.emit({})
       this.eventEmit.emit(this.addReminder['reminder']);
-      console.log("emitting event");
 
     })
   }
 
   saveTime() {
     let time = this.timeObj.time.split(' ');
-    console.log("time1", time);
-
     let time2 = time[0].split(':')
-    console.log("2nd", time2);
-
     time2.push(time[1])
     let min = Number(time2[1]);
     let hr = Number(time2[0])
-    if (time2[2].toUpperCase() == "PM" && hr < 12) {
+    if (time2[2] == "PM" && hr < 12) {
       hr += 12
     }
     let date = new Date(this.timeObj.date.getFullYear(), this.timeObj.date.getMonth(), this.timeObj.date.getDate() + 0, hr, min, 0)
@@ -234,9 +227,6 @@ export class RemindMeComponent implements OnInit {
       var month = this.date.getMonth();
       var year = this.date.getFullYear();
       var date = this.date.getDate();
-      console.log("heyy");
-      console.log(this.timeObj.date.getTime())
-      console.log(new Date(year, month, date + 0, 8, 0, 0).getTime())
       if (this.date.getTime() > new Date(year, month, date + 0, 8, 0, 0).getTime()) {
         this.timeArray[0].disable = true;
       }
@@ -274,7 +264,6 @@ export class RemindMeComponent implements OnInit {
     console.log("validate function");
 
     let regex = /^(2[0-3]|1?[0-9]|0?[1-9]):[0-5][0-9] (AM|PM|pm|am|Pm|pM|Am)$/;
-    // let dateregex = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/;
     if (!regex.test(this.timeObj.time)) {
       this.save = true;
     }
@@ -282,11 +271,7 @@ export class RemindMeComponent implements OnInit {
       this.save = false;
     }
   }
-  // ngOnDestroy() {
-  //   // ...
-  //   console.log("distroy hit");
-  //   this.sub.unsubscribe();
-  // }
+
 }
 
 

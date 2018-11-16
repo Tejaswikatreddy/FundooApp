@@ -9,7 +9,7 @@ export class DataService {
   private messageSource = new BehaviorSubject('default message');
   currentMessage = this.messageSource.asObservable();
 
-  private viewSource = new Subject<boolean>()
+  private viewSource = new BehaviorSubject('default message')
   viewList = this.viewSource.asObservable();
 
   private previous = new BehaviorSubject('default message');
@@ -24,7 +24,7 @@ export class DataService {
   changeMessage(message: string) {
     this.messageSource.next(message);
 }
-  changeView(message:boolean){
+  changeView(message:any){
 
     this.viewSource.next(message)
   }

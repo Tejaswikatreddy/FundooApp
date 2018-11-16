@@ -1,1 +1,4 @@
-<mat-icon (click)=pin() *ngIf="!isDeleted">fiber_pin</mat-icon>
+<!-- <mat-icon (click)=pin() *ngIf="!isDeleted">fiber_pin</mat-icon> -->
+
+<a  (click)=pin()><img src="../../../assets/pin.svg" class="svg" *ngIf="!isDeleted && isPinned==false"></a>
+<a (click)=pin()><img src="../../../assets/pinned.svg" class="svg" *ngIf="!isDeleted && isPinned==true"></a>

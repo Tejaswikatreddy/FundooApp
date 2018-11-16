@@ -18,7 +18,7 @@ import { RemindMeComponent} from '../remind-me/remind-me.component'
   selector: 'app-note-list',
   templateUrl: './note-list.component.html',
   styleUrls: ['./note-list.component.scss'],
-  // directives: [RemindMeComponent],
+  
 })
 export class NotelistComponent implements OnInit {
   @ViewChild('remindme') remind: RemindMeComponent;
@@ -36,8 +36,8 @@ export class NotelistComponent implements OnInit {
     public dialog: MatDialog, private dataService: DataService,private NoteService:NoteService) { }
   ngOnInit() {  
     this.dataService.viewList.subscribe(message => {
-      this.view = message
-      console.log(this.view, "notelist component");
+      if (message !="default message")
+      this.view = message;
     })   
     this.currenttime=this.date.getTime();
   }
@@ -94,7 +94,6 @@ export class NotelistComponent implements OnInit {
  eventDone(event){
    console.log("deleted in note list",event)
    if(event){
-
      this.eventEmit.emit({});
      /*event emitted to the parent component*/
    }
@@ -156,6 +155,7 @@ console.log(note);
   reminder(event){
     
     console.log("notelist",event);
+
     this.eventEmit.emit({})
   }
   deleteReminder(note){

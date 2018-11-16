@@ -6,10 +6,11 @@
 
 
 import { Component, OnInit } from '@angular/core';
-import { httpService } from '../../core/services/http.service';
 import { AuthService } from "../../core/services/auth.service"
 
 import { NoteService } from "../../core/services/note.service"
+import { LoggerService } from "../../core/services/logger.service"
+
 //component decorator
 @Component({
   selector: 'app-all-note',
@@ -18,7 +19,9 @@ import { NoteService } from "../../core/services/note.service"
 })
 export class AllNoteComponent implements OnInit {
 
-  constructor(private auth: AuthService, public service: httpService,public noteservice:NoteService) { }
+  constructor(private auth: AuthService,
+  
+     public noteservice:NoteService) { }
   public notes = [];
 
   ngOnInit() {
@@ -52,6 +55,7 @@ export class AllNoteComponent implements OnInit {
                this.notes.push(response['data'].data[i])
           }
           }
+        LoggerService.log(this.notes)
         console.log("array", this.notes)
 
       }

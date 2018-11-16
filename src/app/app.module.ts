@@ -51,7 +51,7 @@ import { CropImageComponent } from './components/crop-image/crop-image.component
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
 import { ReminderListComponent } from './components/reminder-list/reminder-list.component';
-
+import { MessageService } from './core/services/message-service/message.service'
 @NgModule({
   declarations: [
       AppComponent,
@@ -115,7 +115,7 @@ import { ReminderListComponent } from './components/reminder-list/reminder-list.
   entryComponents: [UpdateNoteComponent, EditLabelComponent, CropImageComponent],
   providers: [
     httpService,
-    MatDatepickerModule
+    MatDatepickerModule, MessageService
   ],
   bootstrap: [AppComponent],
 

@@ -12,15 +12,12 @@ export class UserService {
 
 public url;
 public access_token=localStorage.getItem('id');
-  public httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': this.access_token
-    })
-  };
+  public httpOptions ;
+  public httpO;
   constructor(private service: httpService) { }
 
   loginPost(RequestBody){
+   
     this.url = this.URL+"/user/login";
     return this.service.NewPost(this.url,RequestBody,{})
   }
@@ -39,14 +36,36 @@ public access_token=localStorage.getItem('id');
     
   }
   logout(RequestBody){
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': localStorage.getItem('id')
+      })
+    };
     this.url = this.URL +"/user/logout";
     return this.service.NewPost(this.url, RequestBody, this.httpOptions)
 
   }
   setPassword(RequestBody){
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': localStorage.getItem('id')
+      })
+    };
     
     this.url = this.URL +"/user/reset-password";
     return this.service.NewPost(this.url, RequestBody, this.httpOptions)
 
+  }
+  registerToken(RequestBody){
+    this.httpO = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.getItem('id')
+      })
+    };
+    this.url = this.URL +"/user/registerPushToken";
+    return this.service.NewPost(this.url,RequestBody,this.httpO)
   }
 }

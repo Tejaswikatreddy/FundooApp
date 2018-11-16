@@ -94,31 +94,11 @@
 .mat-mini-fab:not([class*=mat-elevation-z]) {
     width: 25px;
     height: 25px;
-    /* box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12); */
 }
-.mat-menu-panel{
-    /* min-width: 112px; */
-    /* max-width: 270px; */
-    /* overflow: auto; */
-    /* -webkit-overflow-scrolling: touch; */
-    /* max-height: calc(100vh - 48px); */
-    /* border-radius: 2px;
-    outline: 0;
-    width:auto;
-        overflow: hidden; */
-        width:95px;
+.colordiv {
+    padding: 10px;
+    overflow: hidden;
+    width: 120px !important
+}
 
-}
-/* .mat-menu-content:not(:menu) {
-    padding-top: 0px;
-    padding-bottom: 0px;
-} */
-.menulist{
-    width:136px;
-    overflow: none;padding: 0px
-}
-.menu{
-    width:100px;
-      padding-top: 0px;
-    padding-bottom: 0px;
-}
+   

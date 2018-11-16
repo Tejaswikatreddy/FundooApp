@@ -1,12 +1,12 @@
 <div fxLayoutAlign="center center" ngStyle.xs="width:100%" fxLayout="row wrap" fxLayoutWrap fxLayoutGap="10px" class="maindiv">
   <!-- repeating the notes with for loop -->
-  <div *ngFor="let note of NoteArray | search:searchInput" ngStyle.xs="width:100%" [ngClass]="{'layout':view ,'grid':!view}">
+  <div  *ngFor="let note of NoteArray | search:searchInput" ngStyle.xs="width:100%" [ngClass]="{'layout':view ,'grid':!view}">
     <mat-card [style.backgroundColor]="note.color" ngStyle.xs="width:95%;font-size:20px" [ngClass]="{'Flayout':view ,'card':!view}">
       <div>
         <div fxLayout="row">
           <div fxFlex=90% class="note" [innerHTML]="note.title" (click)="open(note)"></div>
           <span fxFlex=10%>
-            <app-pin [Note]=note></app-pin>
+            <app-pin [Note]=note (eventEmit)=eventDone($event)></app-pin>
           </span>
         </div>
         <!-- description -->
@@ -60,7 +60,7 @@
         <!-- selectors of all the icon components -->
         <span fxLayout="row " fxLayoutAlign="space-around" class="icons">
           <div>
-            <app-remind-me [Note]=note (eventEmit)="reminder($event)" #remindme></app-remind-me>
+            <app-remind-me [Note]=note (eventEmit1)="reminder($event)" #remindme></app-remind-me>
           </div>
           <div>
             <app-collaborator [Note]=note></app-collaborator>

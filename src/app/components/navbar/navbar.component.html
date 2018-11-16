@@ -7,9 +7,9 @@
             <mat-icon aria-label="Side nav toggle icon" (click)=getLabels()>menu</mat-icon>
           </button>
         </div>
-        <div fxFlex=60% fxFlex>
-          <div fxFlex=60% fxHide.xs="true"><span>Fundoo Keep</span></div>
-          <div fxFlex=40% fxHide.xl="true" fxHide.lg="true" fxHide.md="true" fxHide.sm="true"><span>Keep</span></div>
+        <div fxFlex=60% fxFlex >
+          <div fxFlex=60% fxHide.xs="true"><span>Fundoo Notes</span></div>
+          <div fxFlex=40% fxHide.xl="true" fxHide.lg="true" fxHide.md="true" fxHide.sm="true"><span>Notes</span></div>
         </div>
       </div>
 
@@ -34,8 +34,8 @@
           <button type="button" mat-icon-button  class="refreshButton">
             <mat-icon>refresh</mat-icon>
           </button></div>
-        <div fxFlex="20%">
-          <button type="button" mat-icon-button  ngStyle.xs="visibility:collapse" (click)=viewClicked()>
+        <div fxFlex="20%" ngStyle.xs="visibility:collapse">
+          <button type="button" mat-icon-button  (click)=viewClicked()>
             <mat-icon *ngIf="list">view_module</mat-icon>
             <mat-icon *ngIf="!list">view_stream</mat-icon>
 

@@ -6,11 +6,11 @@
     cursor: pointer;
     opacity: 1.5;
 }
-::ng-deep.mat-menu-content:not(:empty) {
+.menupanel{
     padding:10px;
     /* padding-bottom: 8px; */
     overflow:hidden;
-        width: 153px;
+        width: 153px  !important
 
 }
 .mat-checkbox-inner-container {

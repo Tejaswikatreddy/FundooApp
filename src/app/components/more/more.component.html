@@ -1,5 +1,5 @@
 <mat-icon  [matMenuTriggerFor]="menu" *ngIf="!isDeleted">more_vert</mat-icon>
-  <mat-menu #menu="matMenu" >
+  <mat-menu #menu="matMenu" class="menupanel">
     <button mat-menu-item (click)="deleteFunction(true)">Delete Note</button>
     <button mat-menu-item [matMenuTriggerFor]="AddLabels" (click)=getLabels()>Add Label</button>
     <button mat-menu-item (click)=checklist() *ngIf="!checkFlag">Show CheckList</button>

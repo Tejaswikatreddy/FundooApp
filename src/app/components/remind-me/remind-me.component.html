@@ -1,6 +1,6 @@
 <mat-icon matTooltip="Remind Me" *ngIf="!isDeleted" [matMenuTriggerFor]="menu" (click)=reminderClick()>touch_app</mat-icon>
-<mat-menu #menu="matMenu" class="menu">
-    <div *ngIf="!dateTime">
+<mat-menu #menu="matMenu" class="menupanel">
+    <div *ngIf="!dateTime" class="menu">
         <span>Reminder:</span>
         <button mat-menu-item (click)="today()" fxFlexLayout="row">
             <span fxFlex="80%">Later Today</span>
@@ -18,7 +18,7 @@
             <span>Pick date & time</span>
         </button>
     </div>
-    <div *ngIf="dateTime">
+    <div *ngIf="dateTime" >
         <div fxFlexLayout="row">
             <mat-icon fxFlex="10%" (click)="dateTime=false;$event.stopPropagation()">keyboard_backspace</mat-icon>
             <span mat-menu-item fxFlex="90%">Pick Date & Time</span>
@@ -43,12 +43,11 @@
  <div *ngFor="let data of timeArray" (click)=$event.stopPropagation() >
      
 <div fxFlexLayout="row" mat-menu-item  >
-    <button mat-button fxFlex="60%" (click)="timeObj.time=data.time;$event.stopPropagation()" [disabled]="data.disable">{{data.value}}</button>
-    <button mat-button fxFlex="40%" (click)="timeObj.time=data.time;$event.stopPropagation()" [disabled]="data.disable">{{data.time}}</button>
+    <button mat-button fxFlex="50%" (click)="timeObj.time=data.time;$event.stopPropagation()" [disabled]="data.disable">{{data.value}}</button>
+    <button mat-button fxFlex="30%" (click)="timeObj.time=data.time;$event.stopPropagation()" [disabled]="data.disable">{{data.time}}</button>
 </div>
 </div>
 <div mat-menu-item>
 <span (click)="timeObj.time=timeObj.time;inputfield=false;$event.stopPropagation()" >Custom</span>
-
 </div>
 </mat-menu>

@@ -61,7 +61,6 @@ isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Ha
  */
   logout(){
     console.log("logout function")
-   console.log(this.auth.getToken())
    this.Userservice.logout(null)
   .subscribe(response=>{
       localStorage.removeItem('firstName')
@@ -121,11 +120,6 @@ isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Ha
     });
   }
 
-
-  
-
-
-
   public labelArray=[];
   public labelName;
   getLabels() {
@@ -139,6 +133,7 @@ isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Ha
   ReminderClicked(){
     this.router.navigate(['remainder'])
   }
+  public labels=false;
   ngOnInit() {
     this.dataService.viewLabel.subscribe(response=>{
       if (response !="default message")
@@ -180,7 +175,6 @@ this.imagepath = "http://34.213.106.173/" + this.image
   }
   viewClicked(){
     this.list=!this.list;
-   
     this.dataService.changeView(this.list)
   
  

@@ -14,9 +14,17 @@
 //     /* max-height: calc(100vh - 48px); */
 //     border-radius: 2px;
 //     outline: 0;
+// // }
+// ::ng-deep.menupanel {
+//     padding: 5px !important;
+//     overflow: hidden;
+//     width: 250px  !important;
 // }
-::ng-deep.mat-menu-content:not(:empty) {
-    padding: 5px !important;
-    overflow: hidden;
-    width: 250px !important
-}
+// .menu{
+//     width:max-content
+// }
+// .mat-menu-content:not(:empty) {
+//     padding: 5px !important;
+//     overflow: hidden;
+//     width: auto !important  
+// }

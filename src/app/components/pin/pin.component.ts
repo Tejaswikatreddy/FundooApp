@@ -42,7 +42,7 @@ public apiPinned=true;;
        }
        this.NoteService.pin(Request)
          .subscribe(response => {
-           console.log(response);
+       
            this.eventEmit.emit({})
          }, error => {
            console.log(error)
