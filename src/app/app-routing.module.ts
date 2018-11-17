@@ -20,12 +20,12 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent},
   { path: 'forgot', component: ForgotPasswordComponent},
   { path: '', component: NavbarComponent, canActivate: [AuthGuard],children:[
+    { path: 'label/:labelName', component: LabelNotesComponent },
       { path: 'home', component: AllNoteComponent }, 
       {path:'archive',component:MainArchiveComponent },
       { path: 'trash', component: MainTrashComponent },
       { path: 'remainder', component: ReminderListComponent },
       { path: 'search', component:SearchAllComponent },
-      {path:'label/:labelName',component:LabelNotesComponent}
     ]},
   {path:"resetpassword/:forgotToken",component:ResetPasswordComponent},
  

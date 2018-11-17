@@ -35,9 +35,11 @@
 .card{
     margin:1%;
     height:min-content;border-radius:10px;width:280px;
+    
 }
 .chip{
-    padding-top: 10px
+    padding-top: 10px;
+    
 }
 .layout{
     width:800px
@@ -49,8 +51,18 @@
     width:100%
 }
 .grid{
-/* width */
+// width 
 }
 .previous{
     text-decoration: line-through
+}
+.labelChip{
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  overflow:hidden !important
+}
+ .chip{
+    max-width:150px;
+    
+ 
 }

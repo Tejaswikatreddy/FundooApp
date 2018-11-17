@@ -19,6 +19,7 @@ export class LabelNotesComponent implements OnInit {
     console.log("in 12");
     this.route.params.subscribe(
       (params: Params) => {
+        console.log("hhhhh",params);
         this.labelName = params['labelName']
         this.getLabelNOtes(this.labelName);
         

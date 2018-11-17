@@ -35,8 +35,8 @@ public bgcolor=this.data.color;
 public arrayObj:any={}
 public reminder=[];
   ngOnInit() {
-   if(this.data.reminder!=undefined){
-     this.reminder.push(this.data.reminder);
+   if(this.data.reminder.length>0){
+     this.reminder=this.data.reminder;
    }
     this.labels=this.data.noteLabels;
     if (this.data.noteCheckLists.length>0){
@@ -188,7 +188,8 @@ public reminder=[];
   }
   timeAdded(event){ 
     console.log(event);
-    this.reminder.pop();
+    if(this.reminder.length>0)
+    this.reminder=[];
     this.reminder.push(event)
   }
   deleteLabel(label) {

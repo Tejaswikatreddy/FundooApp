@@ -94,7 +94,15 @@ input:focus {
     background-color: #fb0;
 }
 .sideNotes{
-  padding-left: 10px
+  padding-left: 10px;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  overflow:hidden !important
+}
+.navbarlabel{
+   white-space:nowrap;
+  text-overflow:ellipsis;
+  overflow:hidden!important
 }
 .example-header-image {
   background-size: cover;
@@ -150,10 +158,19 @@ input:focus {
   
 }
 .profileCard{
-  position:fixed;margin-top:64px;right: 0;top: 0
+  position:fixed;
+  margin-top:64px;
+  right: 0;
+  top: 0;
+  font-size: 30px;
+  box-shadow: 0
 }
 .uploadButton{
   float:left;
   /* font-size:10px; */
   margin-right: 5px;
+}
+.mat-mini-fab {
+background-color: #fb0;
+    /* box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12); */
 }

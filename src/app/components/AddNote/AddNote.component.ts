@@ -226,6 +226,9 @@ if (this.title != "") {
 
     }
   }
+  checklistMore(event){
+    this.check=event;
+  }
   }
 
 

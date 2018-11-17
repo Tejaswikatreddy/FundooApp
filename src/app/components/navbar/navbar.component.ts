@@ -9,7 +9,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { Router, Params, ActivatedRoute,ParamMap } from '@angular/router';
 import { httpService } from '../../core/services/http.service';
 import { DataService } from '../../core/services/data.service';
 import { CropImageComponent } from '../crop-image/crop-image.component';
@@ -37,17 +37,51 @@ public frstLetter=this.firstname[0];
 public email = localStorage.getItem("email")
   public image=localStorage.getItem("imageUrl")
   public imagepath = "http://34.213.106.173/"+this.image
+ public Fundoo;
 //creating an object for EventEmitter
   @Output() eventEmit = new EventEmitter();
+
 public searchInput;
-isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+  public labels = false;
+  public plz;
+ 
+  ngOnInit() {
+    this.route.firstChild.paramMap.subscribe(
+      (params: ParamMap) => {
+        this.Fundoo = params['params'].labelName;
+      })
+    this.dataService.viewLabel.subscribe(response => {
+      if (response != "default message") {
+        this.router.navigate(["label/" + response])
+      }
+    })
+    if (this.router.url == "/home") {
+      this.Fundoo = "Fundoo Notes"
+    }
+    else if (this.router.url == "/archive") {
+      this.Fundoo = "Archive"
+    }
+    else if (this.router.url == "/remainder") {
+      this.Fundoo = "Reminder";
+    }
+    else if (this.router.url == "/trash") {
+      this.Fundoo = "Trash";
+    }
+    else if (this.router.url == "/search") {
+      this.Fundoo = "Search";
+    }
+    
+  }
+isHandset$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.Handset,Breakpoints.Tablet])
     .pipe(
       map(result => result.matches)
     );
+ 
     
   constructor(private breakpointObserver: BreakpointObserver, public router: Router, 
     private service: httpService, private auth: AuthService, public dialog: MatDialog,
-    public dataService: DataService,public Userservice:UserService,public NoteService:NoteService) {
+    public dataService: DataService, public Userservice: UserService, public NoteService: NoteService,
+    public route: ActivatedRoute) {
    
   
     }
@@ -85,6 +119,7 @@ isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Ha
    */
   ArchiveClicked(){
     this.searchInput="";
+    this.Fundoo = "Archive"
     this.router.navigate(['archive'])
   }
   /**
@@ -92,6 +127,7 @@ isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Ha
    */
   TrashClicked(){
     this.searchInput = "";
+    this.Fundoo="Trash"
     this.router.navigate(['trash'])
 
   }
@@ -100,7 +136,8 @@ isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Ha
    */
   NoteClicked(){
     this.searchInput = "";
-    this.router.navigate(['home'])
+    this.Fundoo = "Fundoo Notes"
+     this.router.navigate(['home'])
   }
   /**
    * 
@@ -119,7 +156,6 @@ isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Ha
      
     });
   }
-
   public labelArray=[];
   public labelName;
   getLabels() {
@@ -131,27 +167,21 @@ isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Ha
 
     }
   ReminderClicked(){
+    this.Fundoo = "Reminder";
     this.router.navigate(['remainder'])
   }
-  public labels=false;
-  ngOnInit() {
-    this.dataService.viewLabel.subscribe(response=>{
-      if (response !="default message")
-      this.router.navigate(["label/"+response])
-    })
-    
-   
-  }
+ 
   searchClicked(){
-   
+    this.Fundoo = "Search";
     this.router.navigate(['search'])
   }
   passMessage(){
     this.dataService.changeMessage(this.searchInput)
   }
+
   labelClicked(label){
-    //this.dataService.isLabelChanged.next(true)
-    var label=label.label;
+     var label=label.label;
+    this.Fundoo = label;
     this.router.navigate(["label/"+label])
   }
   
@@ -175,10 +205,9 @@ this.imagepath = "http://34.213.106.173/" + this.image
   }
   viewClicked(){
     this.list=!this.list;
-    this.dataService.changeView(this.list)
-  
- 
+    this.dataService.changeView(this.list) 
+  }
+  refresh(){
 
-   
   }
   }

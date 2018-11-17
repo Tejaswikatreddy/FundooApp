@@ -18,36 +18,37 @@
             <span>Pick date & time</span>
         </button>
     </div>
-    <div *ngIf="dateTime" >
+    <div *ngIf="dateTime">
         <div fxFlexLayout="row">
             <mat-icon fxFlex="10%" (click)="dateTime=false;$event.stopPropagation()">keyboard_backspace</mat-icon>
-            <span mat-menu-item fxFlex="90%">Pick Date & Time</span>
+            <div fxFlex="90%">Pick Date & Time</div>
         </div>
-         <mat-form-field (click)=$event.stopPropagation()>
-            <input matInput mat-menu-item [matDatepicker]="picker" (click)=$event.stopPropagation()
-             [(ngModel)]=timeObj.date [min]=minDate value="this.setData" (dateChange)=dateChanged() (keyup)=regexValidate()> 
+
+        <mat-form-field (click)=$event.stopPropagation()>
+            <input matInput mat-menu-item [matDatepicker]="picker" (click)=$event.stopPropagation() [(ngModel)]=timeObj.date
+                [min]=minDate value="this.setData" (dateChange)=dateChanged() (keyup)=regexValidate()>
             <mat-datepicker-toggle matSuffix [for]="picker">
-                <mat-icon matDatepickerToggleIcon >keyboard_arrow_down</mat-icon>
+                <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
             </mat-datepicker-toggle>
-            <mat-datepicker #picker ></mat-datepicker>
+            <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
         <mat-form-field>
-            <input matInput [matMenuTriggerFor]="addTime"  (click)=$event.stopPropagation()
-             [(ngModel)]=timeObj.time (keyup)=regexValidate()>
-            
+            <input matInput [matMenuTriggerFor]="addTime" (click)=$event.stopPropagation() [(ngModel)]=timeObj.time
+                (keyup)=regexValidate() class="timeInput">
+
         </mat-form-field>
-            <button mat-button (click)=saveTime() [disabled]=this.save>save</button>
- </div>
+        <button mat-button (click)=saveTime() [disabled]=this.save>save</button>
+    </div>
 </mat-menu>
-<mat-menu #addTime="matMenu" [overlapTrigger]="false" >
- <div *ngFor="let data of timeArray" (click)=$event.stopPropagation() >
-     
-<div fxFlexLayout="row" mat-menu-item  >
-    <button mat-button fxFlex="50%" (click)="timeObj.time=data.time;$event.stopPropagation()" [disabled]="data.disable">{{data.value}}</button>
-    <button mat-button fxFlex="30%" (click)="timeObj.time=data.time;$event.stopPropagation()" [disabled]="data.disable">{{data.time}}</button>
-</div>
-</div>
-<div mat-menu-item>
-<span (click)="timeObj.time=timeObj.time;inputfield=false;$event.stopPropagation()" >Custom</span>
-</div>
+<mat-menu #addTime="matMenu" [overlapTrigger]="false">
+    <div *ngFor="let data of timeArray" (click)=$event.stopPropagation()>
+
+        <div fxFlexLayout="row" mat-menu-item>
+            <button mat-button fxFlex="50%" (click)="timeObj.time=data.time;$event.stopPropagation()" [disabled]="data.disable">{{data.value}}</button>
+            <button mat-button fxFlex="30%" (click)="timeObj.time=data.time;$event.stopPropagation()" [disabled]="data.disable">{{data.time}}</button>
+        </div>
+    </div>
+    <div mat-menu-item>
+        <span (click)="timeObj.time=timeObj.time;inputfield=false;$event.stopPropagation()">Custom</span>
+    </div>
 </mat-menu>

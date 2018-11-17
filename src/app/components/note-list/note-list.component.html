@@ -1,10 +1,10 @@
 <div fxLayoutAlign="center center" ngStyle.xs="width:100%" fxLayout="row wrap" fxLayoutWrap fxLayoutGap="10px" class="maindiv">
   <!-- repeating the notes with for loop -->
   <div  *ngFor="let note of NoteArray | search:searchInput" ngStyle.xs="width:100%" [ngClass]="{'layout':view ,'grid':!view}">
-    <mat-card [style.backgroundColor]="note.color" ngStyle.xs="width:95%;font-size:20px" [ngClass]="{'Flayout':view ,'card':!view}">
+    <mat-card [style.backgroundColor]="note.color" ngStyle.xs="width:95%"  [ngClass]="{'Flayout':view ,'card':!view}">
       <div>
         <div fxLayout="row">
-          <div fxFlex=90% class="note" [innerHTML]="note.title" (click)="open(note)"></div>
+          <div fxFlex=90% class="note" [innerHTML]="note.title" (click)="open(note)" ngStyle.xs="font-size:25px"></div>
           <span fxFlex=10%>
             <app-pin [Note]=note (eventEmit)=eventDone($event)></app-pin>
           </span>
@@ -12,42 +12,44 @@
         <!-- description -->
         <div class="note" [innerHTML]="note.description" (click)="open(note)"> </div>
         <!--opened checklist starts -->
-        <div class="note" *ngFor="let checklist of note.noteCheckLists" fxLayout="row">
-          <mat-checkbox fxFlex="10%" *ngIf="checklist.status=='open'&& !checklist.isDeleted" (click)=checkBox(checklist,note)></mat-checkbox>
-          <input *ngIf="!checklist.isDeleted && checklist.status=='open' " [(ngModel)]=checklist.itemName fxFlex="90%"
+        <div class="note" *ngFor="let checklist of note.noteCheckLists" fxLayout="row" >
+          <mat-checkbox fxFlex="10%" ngStyle.xs="font-size:25px" *ngIf="checklist.status=='open'&& !checklist.isDeleted" (click)=checkBox(checklist,note)></mat-checkbox>
+          <input ngStyle.xs="font-size:25px" *ngIf="!checklist.isDeleted && checklist.status=='open' " [(ngModel)]=checklist.itemName fxFlex="90%"
             class="note" (click)="open(note)" [style.backgroundColor]="note.color">
         </div>
         <!-- opened checklist ends -->
         <!-- closed checklist starts -->
-        <div class="note" *ngFor="let checklist of note.noteCheckLists" fxLayout="row">
-          <mat-checkbox fxFlex="10%" checked=true *ngIf="checklist.status=='close'&& !checklist.isDeleted" (click)=checkBox(checklist,note)></mat-checkbox>
-          <del *ngIf="!checklist.isDeleted && checklist.status=='close'" (click)="open(note)">{{checklist.itemName}}</del>
+        <div class="note" *ngFor="let checklist of note.noteCheckLists" fxLayout="row" >
+          <mat-checkbox ngStyle.xs="font-size:25px" fxFlex="10%" checked=true *ngIf="checklist.status=='close'&& !checklist.isDeleted" (click)=checkBox(checklist,note)></mat-checkbox>
+          <del ngStyle.xs="font-size:25px" *ngIf="!checklist.isDeleted && checklist.status=='close'" (click)="open(note)" >
+            {{checklist.itemName}}</del>
         </div>
         <!-- closed checklist ends -->
         <mat-chip-list>
           <!-- labels added to the note -->
-          <div *ngFor="let label of note.noteLabels" class="chip">
-            <mat-chip [removable]=true *ngIf="!label.isDeleted" (click)=labelClicked(label.label)>{{label.label}}
+          <span *ngFor="let label of note.noteLabels" >
+            <mat-chip [removable]=true  class="chip" *ngIf="!label.isDeleted" ngStyle.xs="font-size:25px" (click)=labelClicked(label.label)>
+              <span class="labelChip">{{label.label}}</span>
               <mat-icon matChipRemove (click)=deleteLabel(note,label)>cancel</mat-icon>
             </mat-chip>
-          </div>
+          </span>
           <!-- reminders added to the note -->
           <div *ngFor="let time of note.reminder">
-            <mat-chip *ngIf="checkreminder(time)==1" (click)=reminderClicked(note)>
+            <mat-chip *ngIf="checkreminder(time)==1" (click)=reminderClicked(note) ngStyle.xs="font-size:25px">
               <mat-icon>access_time</mat-icon>
               <div class="previous">{{time|date:"medium"}}</div>
               <div class="close">
                 <mat-icon matChipRemove (click)=deleteReminder(note)>cancel</mat-icon>
               </div>
             </mat-chip>
-            <mat-chip *ngIf="checkreminder(time)==3" (click)=reminderClicked(note)>
+            <mat-chip *ngIf="checkreminder(time)==3" (click)=reminderClicked(note) ngStyle.xs="font-size:25px">
               <mat-icon>access_time</mat-icon>
               <div>{{todayDate}}</div>
               <div class="close">
                 <mat-icon matChipRemove (click)=deleteReminder(note)>cancel</mat-icon>
               </div>
             </mat-chip>
-            <mat-chip *ngIf="checkreminder(time)==2" (click)=reminderClicked(note)>
+            <mat-chip *ngIf="checkreminder(time)==2" (click)=reminderClicked(note) ngStyle.xs="font-size:25px">
               <mat-icon>access_time</mat-icon>
               <div>{{time|date:"medium"}}</div>
               <div class="close">

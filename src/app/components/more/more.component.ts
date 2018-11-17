@@ -17,6 +17,7 @@ export class MoreComponent implements OnInit {
   public isDeleted=false;
   @Output() eventEmit = new EventEmitter();
   @Output() labelEvent = new EventEmitter();
+  @Output() Showchecklist = new EventEmitter();
   public noteLabels = [];
   public search;
   public checkFlag=false;
@@ -31,14 +32,17 @@ export class MoreComponent implements OnInit {
         this.noteLabels.push(this.Note['noteLabels'][i])
       }
     }
-    if (this.Note != null && this.Note['noteCheckLists'] != null) {    
-      this.checkFlag=true;
-    }
-
-    
+      
       
   }
-  
+  checklist(){
+    this.checkFlag=true;
+    this.Showchecklist.emit(this.checkFlag)
+  }
+  hideCheck(){
+    this.checkFlag=false;
+    this.Showchecklist.emit(this.checkFlag)
+  }
  
   deleteFunction(val) {
     console.log("delete funtion")
@@ -99,13 +103,7 @@ public toEvent=[];
         })
     }
     }
-  checklist(){
-    this.eventEmit.emit({})
-
-  }
-  hideCheck(){
-    this.eventEmit.emit("hide")
-  }
+ 
   deleteForever(){
     var arr = []
     arr.push(this.Note['id'])
