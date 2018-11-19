@@ -35,11 +35,18 @@ public isChecked=false;
 public status="open"
 public d=new Date()
   ngOnInit() {
+    
+
+  }
+  matClick(){
     if(this.reminderComponent==true){
       this.reminder.push(this.d.getTime())
+      console.log(this.reminder);
+      
     }
 
   }
+  
   public isPinned = false;
   public isArchived=false;
   public body:any={}
@@ -110,8 +117,8 @@ if (this.title != "") {
       this.dataArray=[];
       this.dataArrayApi=[];
       this.adding = false
-
     })
+      
   }
   if(this.reminderComponent==false)
     this.reminder = [];
@@ -119,6 +126,13 @@ if (this.title != "") {
     
       this.reminder[0]=this.d.getTime()
     }
+    this.labelId = []
+      this.labelName = [];
+      this.dataArray=[];
+      this.dataArrayApi=[];
+      this.adding = false;
+      this.data="";
+        this.reminder = [];
   }
   getFormUrlEncoded(toConvert) {
     const formBody = [];
@@ -210,15 +224,41 @@ if (this.title != "") {
   }
   public todayDate
   checkreminder(noteTime) {
-
+    let hrs=new Date(noteTime).getHours();
+    let mins=new Date(noteTime).getMinutes();
+      let amPm="AM"
+   
  
     if (new Date(noteTime).getDate() == new Date().getDate()) {
-      this.todayDate = "Today,8:00PM"
+      if(new Date(noteTime).getHours()==new Date().getHours()){
+      hrs=hrs+4;
+      
+      }
+      if(hrs>12){
+      hrs = hrs - 12;
+      amPm="PM"
+
+    }
+        if(mins<10){
+         this.todayDate = "Today,"+"0" + hrs + ":"+"0" + mins+":00"+amPm
+         return 3;
+      }
+           this.todayDate = "Today," + "0" + hrs + ":" + mins +":00"+ amPm
       return 3;
     }
     else if (new Date(noteTime).getDate() == new Date().getDate() + 1) {
-      this.todayDate = "Tomorrow,8:00AM"
-      return 3;
+       if(hrs>12){
+      hrs = hrs - 12;
+      amPm="PM"
+
+    }
+      if (mins < 10) {
+             this.todayDate = "Tomorrow," + "0" + hrs + ":" + "0" + mins + ":00" + amPm
+             return 3;
+           }
+           this.todayDate = "Tommorow," + "0" + hrs + ":" + mins + ":00" + amPm
+
+           return 3;
     }
 
     else {

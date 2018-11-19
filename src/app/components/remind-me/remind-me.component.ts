@@ -8,10 +8,12 @@ import { MatMenuTrigger } from '@angular/material';
 @Component({
   selector: 'app-remind-me',
   templateUrl: './remind-me.component.html',
-  styleUrls: ['./remind-me.component.scss']
+  styleUrls: ['./remind-me.component.scss'],
+  exportAs: 'menuInOtherComponent',
 })
 export class RemindMeComponent implements OnInit {
   @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
+
 
   @Input() Note;
   public isDeleted = false;
@@ -36,20 +38,23 @@ export class RemindMeComponent implements OnInit {
   public save = false;
   public inputfield = true;
   sub: Subscription;
-
+private inputArray=[];
   public minDate = new Date(this.date.getFullYear(), this.date.getMonth(), this.date.getDate())
   ngOnInit() {
    
     if (this.Note != undefined && this.Note.isDeleted == true) {
       this.isDeleted = true;
     }
+    if(this.Note!=undefined){
+      this.inputArray.push(this.Note.id)
+    }
     this.setData = this.dateForm.value;
-  
+    
   }
   reminderClick(id) {
-    console.log("reminder click function");
-    console.log(id);
-    console.log(this.Note.id, "child");
+   console.log(this.inputArray);
+   
+console.log("reminder clicked");
 
 
     if (this.Note != undefined && id == this.Note.id) {
@@ -89,13 +94,13 @@ export class RemindMeComponent implements OnInit {
 
       }
       this.timeObj.time = this.setTime;
-      console.log(this.setTime);
+      // console.log(this.setTime);
       let form = new FormControl(d)
       this.setData = form.value;
       this.timeObj.date = this.setData;
-      console.log(d);
+      // console.log(d);
     }
-    else {
+    else  {
       let d = new Date();
       let form = new FormControl(d)
       this.setData = form.value;
@@ -126,6 +131,7 @@ export class RemindMeComponent implements OnInit {
       }
       this.timeObj.time = this.setTime;
     }
+   
     this.disabler()
   }
 

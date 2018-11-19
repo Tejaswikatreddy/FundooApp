@@ -49,7 +49,15 @@
 .icondiv{
     padding-top: 15px
 }
-/* mat-card{
-    width:600px;
-} */
 
+
+.labelChip{
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  overflow:hidden !important
+}
+ .chip{
+    max-width:150px;
+    
+ 
+}

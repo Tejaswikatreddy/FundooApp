@@ -55,3 +55,13 @@ word-wrap:break-word;
 .clearIcon{
     opacity: 1
 }
+.labelChip{
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  overflow:hidden !important
+}
+ .chip{
+    max-width:150px;
+    
+ 
+}

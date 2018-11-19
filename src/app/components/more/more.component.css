@@ -34,7 +34,7 @@
 }
 .mat-checkbox .mat-checkbox-frame {
     border-color: black;
-    background-color: #dddddd
+    background-color: black;
 }
 .searchLabel{
     border:none;
@@ -42,4 +42,12 @@
 }
 input:focus{
     outline:none
+}
+.labelChip{
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  overflow:hidden !important
+}
+ .chip{
+    max-width:150px;
 }

@@ -28,6 +28,7 @@ export class ReminderListComponent implements OnInit {
           }
             
         }
+        
       }
     })
   

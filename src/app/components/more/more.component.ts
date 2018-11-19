@@ -21,6 +21,7 @@ export class MoreComponent implements OnInit {
   public noteLabels = [];
   public search;
   public checkFlag=false;
+  public deleteFlag=false;
   ngOnInit() {
 
     if (this.Note != undefined && this.Note['isDeleted']==true){
@@ -31,6 +32,9 @@ export class MoreComponent implements OnInit {
       for (var i = 0; i < this.Note['noteLabels'].length; i++) {
         this.noteLabels.push(this.Note['noteLabels'][i])
       }
+    }
+    if(this.Note==undefined){
+      this.deleteFlag=true;
     }
       
       

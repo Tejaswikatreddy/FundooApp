@@ -7,7 +7,7 @@
       <div *ngIf="!clicked">
         <mat-card class="example-card" class="card" >
           <mat-card-header fxLayout="row" fxLayoutAlign="center center">
-            <input type="text" class="note" placeholder="Take a note.." (click)="clicked=true" ngStyle.xs="font-size:20px">
+            <input type="text" class="note" placeholder="Take a note.." (click)="clicked=true;matClick()" ngStyle.xs="font-size:20px">
 
             <div fxLayout="row" fxLayoutGap="10%">
               <div>
@@ -33,7 +33,7 @@
             </div>
           </div>
           <div ngStyle.xs="font-size:20px" contenteditable="true" class="note" placeholder="Take a Note" id="note" *ngIf="!check"></div>
-          <!-- when checklist editing mode is on -->
+          <!-- displaying the checklist items that are added-->
           <div *ngIf="check">
             <div *ngFor="let data of dataArray" fxLayout="row">
               <mat-checkbox fxFlex="5%" [(ngModel)]=data.isChecked (click)="isChecked=!isChecked"></mat-checkbox>
@@ -41,6 +41,7 @@
               <mat-icon fxFlex="5%" (click)=onDelete(data) matTooltip="delete">clear</mat-icon>
             </div>
             <hr>
+            <!-- adding the new checklist item -->
             <div fxLayout="row">
               <mat-icon fxFlex="5%" *ngIf="!adding">add</mat-icon>
               <mat-checkbox fxFlex="5%" *ngIf="adding" [(ngModel)]=addCheck (click)="isChecked=!isChecked"></mat-checkbox>
@@ -51,11 +52,14 @@
             <hr>
           </div>
           <mat-chip-list>
+            <!-- adding labels to the note -->
             <div *ngFor="let label of labelName">
-              <mat-chip [removable]=true *ngIf="!label.isDeleted" ngStyle.xs="font-size:20px">{{label.label}}
-                <mat-icon matChipRemove (click)=deleteLabel(label)>cancel</mat-icon>
-              </mat-chip>
-            </div>
+               <mat-chip [removable]=true  class="chip" *ngIf="!label.isDeleted" ngStyle.xs="font-size:25px" (click)=labelClicked(label.label)>
+              <span class="labelChip">{{label.label}}</span>
+              <mat-icon matChipRemove (click)=deleteLabel(label)>cancel</mat-icon>
+            </mat-chip>
+          </div>
+            <!-- adding reminders to the note -->
             <div *ngFor="let time of reminder">
 
               <mat-chip *ngIf="checkreminder(time)==3" (click)=reminderClicked(note) ngStyle.xs="font-size:20px">

@@ -24,6 +24,7 @@ export class NotelistComponent implements OnInit {
   @ViewChild('remindme') remind: RemindMeComponent;
  @Input() NoteArray;
   @Input() searchInput;
+  
   public checkArray=[];
  /*creating an object for EventEmitter*/
  @Output() eventEmit=new EventEmitter();
@@ -81,6 +82,16 @@ export class NotelistComponent implements OnInit {
            this.todayDate = "Tommorow," + "0" + hrs + ":" + mins + ":00" + amPm
 
            return 3;
+      }
+      else if (new Date(noteTime).getDate() == new Date().getDate()-1) {
+
+           if (mins < 10) {
+             this.todayDate = "Yesterday," + "0" + hrs + ":" + "0" + mins + ":00" + amPm
+             return 4;
+           }
+           this.todayDate = "Yesterday," + "0" + hrs + ":" + mins + ":00" + amPm
+
+           return 4;
       }
       
     else{

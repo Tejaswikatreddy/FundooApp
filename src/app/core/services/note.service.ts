@@ -16,258 +16,136 @@ export class NoteService {
 
   constructor(private service: httpService) { }
   NewNote(RequestBody){
-    this.httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': localStorage.getItem('id')
-      })
-    };
     this.url = this.URL+"/notes/addNotes";
-    console.log(RequestBody);
-    
-   return this.service.NewPost(this.url, RequestBody, this.httpOptions)
+   return this.service.PostUrlEncoded(this.url, RequestBody)
   }
   UpdateNote(RequestBody){
-    this.httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': localStorage.getItem('id')
-      })
-    };
+  
     this.url = this.URL + "/notes/updateNotes";
-    return this.service.NewPost(this.url, RequestBody, this.httpOptions)
+    return this.service.PostUrlEncoded(this.url, RequestBody)
 
   }
   UpdateChecklist(RequestBody,noteId,ChecklistId){
-    this.httpO = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('id')
-      })
-    };
+    
     this.url = this.URL + "/notes/" + noteId + "/checklist/" + ChecklistId + "/update";
-    return this.service.NewPost(this.url, RequestBody, this.httpO)
+    return this.service.PostJson(this.url, RequestBody)
 
   }
   removeChecklist(RequestBody,noteId,checklistId){
-    this.httpO = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('id')
-      })
-    };
+   
     this.url = this.URL + "/notes/" + noteId + "/checklist/" + checklistId + "/remove";
-    return this.service.NewPost(this.url, RequestBody, this.httpO)
+    return this.service.PostJson(this.url, RequestBody)
 
   }
   addChecklist(RequestBody,noteId){
-    this.httpO = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('id')
-      })
-    };
+   
     this.url = this.URL + "/notes/"+noteId+"/checklist/add";
-    return this.service.NewPost(this.url, RequestBody, this.httpO)
+    return this.service.PostJson(this.url, RequestBody)
 
   }
   archive(RequestBody){
-    this.httpO = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('id')
-      })
-    };
+   
     this.url = this.URL +"/notes/archiveNotes";
-    return this.service.NewPost(this.url, RequestBody, this.httpO)
+    return this.service.PostJson(this.url, RequestBody)
 
   }
   trash(RequestBody){
-    this.httpO = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('id')
-      })
-    };
+  
     this.url = this.URL +"/notes/trashNotes";
-    return this.service.NewPost(this.url, RequestBody, this.httpO)
+    return this.service.PostJson(this.url, RequestBody)
 
   }
   changeColor(RequestBody){
-    this.httpO = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('id')
-      })
-    };
+   
     this.url = this.URL +"/notes/changesColorNotes";
-    return this.service.NewPost(this.url, RequestBody, this.httpO)
+    return this.service.PostJson(this.url, RequestBody)
 
   }
   addImage(RequestBody){
-    this.httpImage = {
-      headers: new HttpHeaders({
-
-        'Authorization': localStorage.getItem('id')
-      })
-    };
+   
     this.url = this.URL +"/user/uploadProfileImage";
-    return this.service.NewPost(this.url, RequestBody, this.httpImage)
+    return this.service.PostImage(this.url, RequestBody)
 
   }
   addLabel(RequestBody){
-    this.httpO = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('id')
-      })
-    };
+    
     this.url = this.URL +"/noteLabels"
-    return this.service.NewPost(this.url, RequestBody, this.httpO)
+    return this.service.PostJson(this.url, RequestBody)
 
   }
-  getNoteLabellist(){
-    this.httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': localStorage.getItem('id')
-      })
-    };
-    this.url = this.URL + "/noteLabels/getNoteLabelList"
-    return this.service.NewGet(this.url, this.httpOptions)
-  }
-  deleteLabel(labelId){
-    this.httpO = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('id')
-      })
-    };
-    this.url = this.URL + "/noteLabels/" + labelId +"/deleteNoteLabel";
-    return this.service.delete(this.url,this.httpO);
-  }
-  editLabel(labelId, RequestBody){
-    this.httpO = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('id')
-      })
-    };
+   editLabel(labelId, RequestBody){
+   
     this.url = this.URL + "/noteLabels/"+labelId+"/updateNoteLabel";
-    return this.service.NewPost(this.url, RequestBody, this.httpO)
+    return this.service.PostJson(this.url, RequestBody)
 
   }
-  getLabelNotes(labelName){
-    this.httpO = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('id')
-      })
-    };
-    this.url = this.URL +"/notes/getNotesListByLabel/"+labelName;
-    return this.service.NewPost(this.url,null,this.httpO)
-  }
-  getArchiveNotes(){
-    this.httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': localStorage.getItem('id')
-      })
-    };
-    this.url = this.URL +"/notes/getArchiveNotesList";
-  return  this.service.NewGet(this.url,this.httpOptions)
-  }
-  getTrashNotes(){
-    this.httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': localStorage.getItem('id')
-      })
-    };
-    this.url = this.URL +"/notes/getTrashNotesList";
-    return this.service.NewGet(this.url, this.httpOptions)
-  }
-  getReminderNOteList(){
-    this.httpO = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('id')
-      })
-    };
-    this.url = this.URL +"/notes/getReminderNotesList";
-    return this.service.NewGet(this.url,this.httpO)
-  }
-  addLabeltoNotes(RequestBody,noteId,labelId){
-    this.httpO = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('id')
-      })
-    };
+    addLabeltoNotes(RequestBody,noteId,labelId){
+  
     this.url = this.URL + "/notes/" + noteId + "/addLabelToNotes/" + labelId + "/add"
-    return this.service.NewPost(this.url, RequestBody, this.httpO)
+    return this.service.PostJson(this.url, RequestBody)
 
   }
   removeLabelFromNotes(RequestBody,noteId,labelId){
-    this.httpO = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('id')
-      })
-    };
+   
     this.url = this.URL + "/notes/"+noteId+"/addLabelToNotes/" +labelId+ "/remove";
-    return this.service.NewPost(this.url, RequestBody, this.httpO)
+    return this.service.PostJson(this.url, RequestBody)
 
   }
   pin(RequestBody){
-    this.httpO = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('id')
-      })
-    };
+   
     this.url = this.URL +"/notes/pinUnpinNotes";
-    return this.service.NewPost(this.url, RequestBody, this.httpO)
+    return this.service.PostJson(this.url, RequestBody)
 
   }
-  getNotes(){
-    this.httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': localStorage.getItem('id')
-      })
-    };
-    this.url = this.URL +"/notes/getNotesList";
-    return this.service.NewGet(this.url,this.httpOptions)
+  getNoteLabellist(){
+    
+    this.url = this.URL + "/noteLabels/getNoteLabelList"
+    return this.service.getUrlEncoded(this.url)
   }
-  addReminder(RequestBody){
-    this.httpO = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('id')
-      })
-    };
+  
+  getLabelNotes(labelName){
+   
+    this.url = this.URL +"/notes/getNotesListByLabel/"+labelName;
+    return this.service.PostJson(this.url,null)
+  }
+   addReminder(RequestBody){
+   
     this.url = this.URL +"/notes/addUpdateReminderNotes";
-    return this.service.NewPost(this.url, RequestBody, this.httpO)
+    return this.service.PostJson(this.url, RequestBody)
   }
   deleteForever(RequestBody){
-    this.httpO = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('id')
-      })
-    };
+  
     this.url = this.URL +"/notes/deleteForeverNotes";
-    return this.service.NewPost(this.url,RequestBody,this.httpO)
+    return this.service.PostJson(this.url,RequestBody)
   }
   deleteReminder(RequestBody){
-    this.httpO = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('id')
-      })
-    };
     this.url = this.URL +"/notes/removeReminderNotes";
-    return this.service.NewPost(this.url,RequestBody,this.httpO)
+    return this.service.PostJson(this.url,RequestBody)
   }
+  getArchiveNotes(){
+       this.url = this.URL +"/notes/getArchiveNotesList";
+    return this.service.getUrlEncoded(this.url)
+  }
+  getTrashNotes(){
+    
+    this.url = this.URL +"/notes/getTrashNotesList";
+    return this.service.getUrlEncoded(this.url)
+  }
+  getReminderNOteList(){
+    
+    this.url = this.URL +"/notes/getReminderNotesList";
+    return this.service.getJson(this.url);
+  }
+
+  getNotes(){
+   
+    this.url = this.URL +"/notes/getNotesList";
+    return this.service.getUrlEncoded(this.url)
+  }
+  deleteLabel(labelId) {
+
+    this.url = this.URL + "/noteLabels/" + labelId + "/deleteNoteLabel";
+    return this.service.delete(this.url);
+  }
+
 }
