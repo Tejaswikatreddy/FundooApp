@@ -20,6 +20,15 @@ export class httpService {
     };
    return this.http.post(url, RequestBody, this.httpOptions)
  }
+ PostnewPassword(url,RequestBody,token){
+   this.httpOptions = {
+     headers: new HttpHeaders({
+       'Content-Type': 'application/x-www-form-urlencoded',
+       'Authorization': token
+     })
+   };
+   return this.http.post(url, RequestBody, this.httpOptions)
+ }
  PostJson(url,RequestBody){
    this.httpO = {
       headers: new HttpHeaders({

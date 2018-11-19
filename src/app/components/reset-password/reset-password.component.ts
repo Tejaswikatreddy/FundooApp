@@ -33,7 +33,7 @@ export class ResetPasswordComponent implements OnInit {
       return;
     }
   
-    this.userservice.setPassword(this.getFormUrlEncoded(body))
+    this.userservice.setPassword(this.getFormUrlEncoded(body),this.accessToken)
    .subscribe(response=>{
       console.log("successfull",response);
   

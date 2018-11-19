@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { httpService } from '../../core/services/http.service';
 import { NoteService } from '../../core/services/note.service';
+import { Label } from "../../core/models/noteModel"
 
 @Component({
   selector: 'app-more',
@@ -22,6 +23,8 @@ export class MoreComponent implements OnInit {
   public search;
   public checkFlag=false;
   public deleteFlag=false;
+    labelList: Label[]=[];
+
   ngOnInit() {
 
     if (this.Note != undefined && this.Note['isDeleted']==true){
@@ -66,13 +69,14 @@ export class MoreComponent implements OnInit {
  
  
   getLabels() {
-    console.log("hghjdgfjhgsfd");
+   
     
     this.NoteService.getNoteLabellist()
    .subscribe(
       response => {
         this.labelArray=[];
-        this.labelArray = response['data'].details;
+        this.labelList = response['data'].details;
+        this.labelArray = this.labelList;
         if(this.noteLabels.length>0){
         for (var i = 0; i < this.labelArray.length; i++) {
           for (var j = 0; j < this.noteLabels.length; j++) {

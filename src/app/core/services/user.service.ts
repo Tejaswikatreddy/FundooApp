@@ -40,10 +40,10 @@ public access_token=localStorage.getItem('id');
     return this.service.PostUrlEncoded(this.url, RequestBody)
 
   }
-  setPassword(RequestBody){
+  setPassword(RequestBody,accesToken){
     
     this.url = this.URL +"/user/reset-password";
-    return this.service.PostUrlEncoded(this.url, RequestBody)
+    return this.service.PostnewPassword(this.url, RequestBody,accesToken)
 
   }
   registerToken(RequestBody){

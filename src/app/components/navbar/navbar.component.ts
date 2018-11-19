@@ -16,6 +16,7 @@ import { CropImageComponent } from '../crop-image/crop-image.component';
 
 import { AuthService } from "../../core/services/auth.service"
 import { NoteService } from "../../core/services/note.service"
+import { Label } from "../../core/models/noteModel"
 
 
 import { UserService } from "../../core/services/user.service"
@@ -38,6 +39,8 @@ public email = localStorage.getItem("email")
   public image=localStorage.getItem("imageUrl")
   public imagepath = "http://34.213.106.173/"+this.image
  public Fundoo;
+  labelList: Label[] = [];
+
 //creating an object for EventEmitter
   @Output() eventEmit = new EventEmitter();
 
@@ -162,7 +165,8 @@ isHandset$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.H
     this.NoteService.getNoteLabellist()
    .subscribe(
       response => {
-        this.labelArray = response['data'].details;
+        this.labelList = response['data'].details;
+        this.labelArray = this.labelList;
       })
 
     }

@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject, ElementRef, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { NoteService } from '../../core/services/note.service';
+import { Label } from "../../core/models/noteModel"
 
 @Component({
   selector: 'app-edit-label',
@@ -56,16 +57,18 @@ public label;
     })
   
   }
+  labelList: Label[]=[];
   getLabels(){
    console.log("get labels")
    this.NoteService.getNoteLabellist()
   .subscribe(
       response=>{
         this.labelArray=[];
-              console.log(response['data'].details);
-        for (var i =0;i< (response['data'].details.length);i++){
-          if (response['data'].details[i].isDeleted!=true){
-            this.labelArray.push(response['data'].details[i])
+        this.labelList = response['data'].details;
+             
+        for (var i = 0; i < (this.labelList.length);i++){
+          if (this.labelList[i].isDeleted!=true){
+            this.labelArray.push(this.labelList[i])
           }
         }
         console.log(this.labelArray,"labelArray")
