@@ -18,17 +18,13 @@ export class MessageService {
   getPermission() {    
     this.messaging.requestPermission()
       .then(() => {
-        console.log('Notification permission granted.');
         return this.messaging.getToken()
       })
       .then(token => {
-        console.log("in");
         localStorage.setItem("pushToken",token)
-        console.log(token)
         
       })
       .catch((err) => {
-        console.log('Unable to get permission to notify.', err);
       });
   }
 }

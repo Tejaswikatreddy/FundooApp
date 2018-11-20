@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {  HttpHeaders } from '@angular/common/http';
-import { httpService } from './http.service';
-import { environment} from '../../../environments/environment'
+import { httpService } from '../httpService/http.service';
+import { environment} from '../../../../environments/environment'
 @Injectable({
   providedIn: 'root'
 })
@@ -127,6 +127,7 @@ export class NoteService {
     return this.service.getUrlEncoded(this.url)
   }
   getTrashNotes(){
+    
     
     this.url = this.URL +"/notes/getTrashNotesList";
     return this.service.getUrlEncoded(this.url)

@@ -4,8 +4,10 @@
  *  @author         : K.Dhana Tejaswi
 */
 
-import { Component, OnInit, EventEmitter, Output, Input, ElementRef, ViewChild} from '@angular/core';
-import { NoteService } from '../../core/services/note.service';
+import { Component, OnInit, EventEmitter, Output, Input, ElementRef, OnDestroy, ViewChild} from '@angular/core';
+import { NoteService } from '../../core/services/NoteService/note.service';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-add-note',
@@ -15,14 +17,16 @@ import { NoteService } from '../../core/services/note.service';
 })
 
 export class AddNoteComponent implements OnInit {
+  destroy$: Subject<boolean> = new Subject<boolean>();
+
 public title;
 public note;
 public changedColor="#ffffff"
   @Input() reminderComponent;
 
+  /*creating an object for eventEmitter*/
   @Output() onNewEntryAdded = new EventEmitter();
  
-//creating an object for eventEmitter
   constructor(private NoteService:NoteService) { }
   @ViewChild('editDiv') public editDiv: ElementRef;
 
@@ -35,33 +39,35 @@ public isChecked=false;
 public status="open"
 public d=new Date()
   ngOnInit() {
-    
-
   }
+  /**
+   * @function matClick() is called when we click on the initial mat-card
+   */
   matClick(){
+    /*it checks if the mat-card is in reminder component */
     if(this.reminderComponent==true){
       this.reminder.push(this.d.getTime())
-      console.log(this.reminder);
-      
     }
-
   }
   
   public isPinned = false;
   public isArchived=false;
   public body:any={}
   public check=false;
+  /**
+   * @function addNotes() method is called when we click close button on the mat-card
+   */
   addNotes(){
    
-    var apiColor=this.changedColor;
+    let apiColor=this.changedColor;
     this.changedColor = "#ffffff"
     this.title = document.getElementById("title").innerHTML;
     this.clicked = !this.clicked;
 
-    //binding values from the html page
+    /*binding values from the html page*/
     if(this.check==false){
     this.note=document.getElementById("note").innerHTML;
-    //calling the api to add the Note through services
+    /*calling the api to add the Note through services*/
    
            this.body={
           "title": this.title,
@@ -76,20 +82,18 @@ public d=new Date()
     
     }
       else{
-        console.log("else part");
         
- for(var i=0;i<this.dataArray.length;i++){
+ for(let i=0;i<this.dataArray.length;i++){
    if(this.dataArray[i].isChecked==true){
     this.status="close"
    }
-   var apiObj={
+   let apiObj={
      "itemName":this.dataArray[i].data,
      "status":this.status
    }
    this.dataArrayApi.push(apiObj)
    this.status="open"
  }
-//  console.log(this.dataArrayApi);
        this.body={
          "title": this.title,
          "checklist":JSON.stringify(this.dataArrayApi),
@@ -101,17 +105,18 @@ public d=new Date()
         }
  }
 if (this.title != "") {
-  this.NoteService.NewNote(this.getFormUrlEncoded(this.body)).subscribe(response=>{
-   
+  this.NoteService.NewNote(this.getFormUrlEncoded(this.body))
+  .pipe(takeUntil(this.destroy$))
+  .subscribe(response=>{
+      /*reinitializing all the arrays after the response from the api */
       this.labelId = []
       this.labelName=[];
       this.dataArray=[];
       this.dataArrayApi=[];
       this.adding=false
-      //emitting an event when the note is added
+      /*emitting an event when the note is added*/
       this.onNewEntryAdded.emit({})         
     },error=>{
-      console.log(error);
       this.labelId = []
       this.labelName = [];
       this.dataArray=[];
@@ -134,6 +139,9 @@ if (this.title != "") {
       this.data="";
         this.reminder = [];
   }
+  /**
+   * @function getFormUrlEncoded() to encode the data to be posted in the database
+   */
   getFormUrlEncoded(toConvert) {
     const formBody = [];
     for (const property in toConvert) {
@@ -143,13 +151,20 @@ if (this.title != "") {
     }
     return formBody.join('&');
   }
+  /**
+   * @function pinEvent() the function is called when the event is triggered from the pin component
+   */
    pinEvent(event){
       this.isPinned=true;
    }
+   /**
+    * @function colorChanged() when the event is triggered from the change-color component
+    */
   colorChanged(event){
     this.changedColor=event;
   }
   public labelName=[];
+  /**@function labelEvent() is called when the event is triggered from the more-component when the label is added */
   labelEvent(event){
     if(this.labelName.indexOf(event)<0){
       this.labelId.push(event.id);
@@ -159,12 +174,14 @@ if (this.title != "") {
       this.labelName.splice(this.labelName.indexOf(event),1);
       this.labelId.splice(this.labelId.indexOf(event), 1);
     }
-    console.log("add component label",event)
   }
   public data;
   public i=0;
   public adding=false;
   public addCheck=false;
+  /**
+   * @function onEnter() is called when we press enter on a checklist item
+   */
   onEnter(event){
     if (this.data != "") {
       this.adding = true;
@@ -175,54 +192,71 @@ if (this.title != "") {
    this.i++;
    this.isChecked=this.addCheck
     if (this.data != null && event.code == "Enter"){
-    console.log(event,"keydown");
-    var obj={
+    let obj={
       "index":this.i,
       "data":this.data,
       "isChecked":this.isChecked
     }
     this.dataArray.push(obj)
-    console.log(this.dataArray);
     this.data=null;
     this.adding=false;
     this.isChecked=false;
       this.addCheck = false;
      }
   }
+  /**
+   * @function onDelete() is called when we click cancel button of the checklist item
+   */
   onDelete(deletedObj){
-    console.log("onDelete function");
-       for(var i=0;i<this.dataArray.length;i++){
+       for(let i=0;i<this.dataArray.length;i++){
           if(deletedObj.index==this.dataArray[i].index){
             this.dataArray.splice(i,1);
             break;
        }
         
       }
-    console.log(this.dataArray)
   }
- 
+ /**
+  * @function deleteLabel() is called when we click the cancel button of the label mat-chip
+  */
   deleteLabel(label){
     this.labelName.splice(this.labelName.indexOf(label), 1);
     this.labelId.splice(this.labelId.indexOf(label), 1);
   }
+  /**
+   * @function archiveEvent() is called when an event is triggered from the archive component when the archive buttonis clicked
+   */
   archiveEvent(event){
     this.isArchived=true;
   }
+  /**
+   * @function checklist() is called when the event is triggered from the more component to hide and show checklist mat-card
+   */
   checklist($event){
     this.check=true;
   }
   public reminder=[];
+  /**
+   * @function reminderAdded() is called when the event is triggered from the reminder component
+   */
   reminderAdded(event){
+    /* if there is a reminder present in the array already delete it and push the new reminder*/
     if (this.reminder.length >= 1) {
       this.reminder.pop();
     }
     this.reminder.push(event);
    
   }
+  /**
+   * @function deleteReminder() is called when we click the cancel button of reminder mat-chip
+   */
   deleteReminder(){
     this.reminder=[];
   }
   public todayDate
+  /**
+   * @function checkreminder() is called when printing the reminders in mat-chip
+   */
   checkreminder(noteTime) {
     let hrs=new Date(noteTime).getHours();
     let mins=new Date(noteTime).getMinutes();
@@ -268,6 +302,12 @@ if (this.title != "") {
   }
   checklistMore(event){
     this.check=event;
+  }
+  ngOnDestroy() {
+    console.log("ondestroy called");
+    this.destroy$.next(true);
+    // Now let's also unsubscribe from the subject itself:
+    this.destroy$.unsubscribe();
   }
   }
 

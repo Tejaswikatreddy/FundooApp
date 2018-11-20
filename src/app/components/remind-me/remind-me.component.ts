@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output, ViewChild, OnDestroy } from '@angular/core';
-import { NoteService } from '../../core/services/note.service'
-import { DataService } from '../../core/services/data.service';
+import { NoteService } from '../../core/services/NoteService/note.service'
+import { DataService } from '../../core/services/dataServices/data.service';
 import { Subscription } from "rxjs";
 
 import { FormControl } from '@angular/forms';
@@ -52,11 +52,6 @@ private inputArray=[];
     
   }
   reminderClick(id) {
-   console.log(this.inputArray);
-   
-console.log("reminder clicked");
-
-
     if (this.Note != undefined && id == this.Note.id) {
       this.trigger.openMenu();
     }
@@ -94,11 +89,9 @@ console.log("reminder clicked");
 
       }
       this.timeObj.time = this.setTime;
-      // console.log(this.setTime);
       let form = new FormControl(d)
       this.setData = form.value;
       this.timeObj.date = this.setData;
-      // console.log(d);
     }
     else  {
       let d = new Date();
@@ -230,9 +223,9 @@ console.log("reminder clicked");
     if (this.timeObj.date.getFullYear() == this.date.getFullYear() &&
       this.timeObj.date.getMonth() == this.date.getMonth() &&
       this.timeObj.date.getDate() == this.date.getDate()) {
-      var month = this.date.getMonth();
-      var year = this.date.getFullYear();
-      var date = this.date.getDate();
+      let month = this.date.getMonth();
+      let year = this.date.getFullYear();
+      let date = this.date.getDate();
       if (this.date.getTime() > new Date(year, month, date + 0, 8, 0, 0).getTime()) {
         this.timeArray[0].disable = true;
       }
@@ -267,7 +260,6 @@ console.log("reminder clicked");
     }
   }
   regexValidate() {
-    console.log("validate function");
 
     let regex = /^(2[0-3]|1?[0-9]|0?[1-9]):[0-5][0-9] (AM|PM|pm|am|Pm|pM|Am)$/;
     if (!regex.test(this.timeObj.time)) {

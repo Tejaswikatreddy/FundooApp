@@ -1,45 +1,51 @@
-import { Component, OnInit } from '@angular/core';
-import { httpService } from '../../core/services/http.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
-import { UserService } from '../../core/services/user.service';
-
+import { UserService } from '../../core/services/UserService/user.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.component.html',
-  styleUrls: ['./forgot-password.component.css']
+  styleUrls: ['./forgot-password.component.scss']
 })
-export class ForgotPasswordComponent implements OnInit {
+export class ForgotPasswordComponent implements OnInit,OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
+
 model:any={
   "email":"",
 }
-  constructor(private service : httpService,
+  constructor(
     public snackBar: MatSnackBar, private UserService: UserService) { }
 
   ngOnInit() {
   }
   send(){
     if(this.model.email.length==0){
-      console.log("enter the email id");
       this.snackBar.open("please enter", "email id", {
         duration: 2000
       })
       return;
     }
-    var RequestBody={
+    let RequestBody={
       "email": this.model.email,
 
     }
     this.UserService.resetPassword(RequestBody)
+      .pipe(takeUntil(this.destroy$))
    .subscribe(response=>{
-      console.log(response)
       this.snackBar.open("reset link","sent",{
         duration:2000
       })
     },error=>{
-      console.log(error);
       this.snackBar.open("sorry", "reset failed", {
         duration: 2000
       })
     })
+  }
+  ngOnDestroy() {
+    console.log("ondestroy called");
+    this.destroy$.next(true);
+    // Now let's also unsubscribe from the subject itself:
+    this.destroy$.unsubscribe();
   }
 }

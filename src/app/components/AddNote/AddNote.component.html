@@ -3,9 +3,9 @@
   <div fxFlex="100%" fxLayout="row">
     <div fxFlex="20%"></div>
     <div fxFlex="80%" fxFlex.xs="100%" fxLayoutAlign="space-around center">
-      <!-- mat-card in the intial design -->
+      <!------------------------ mat-card in the intial design ------------------------------->
       <div *ngIf="!clicked">
-        <mat-card class="example-card" class="card" >
+        <mat-card class="example-card" class="card">
           <mat-card-header fxLayout="row" fxLayoutAlign="center center">
             <input type="text" class="note" placeholder="Take a note.." (click)="clicked=true;matClick()" ngStyle.xs="font-size:20px">
 
@@ -23,7 +23,7 @@
           </mat-card-header>
         </mat-card>
       </div>
-      <!-- mat-card in the editingMode -->
+      <!------------------------------ mat-card in the editingMode ------------------------------>
       <div *ngIf="clicked">
         <mat-card class="example-card" class=card [style.backgroundColor]="changedColor">
           <div fxLayout="row">
@@ -32,34 +32,36 @@
               <app-pin (eventEmit)=pinEvent()></app-pin>
             </div>
           </div>
-          <div ngStyle.xs="font-size:20px" contenteditable="true" class="note" placeholder="Take a Note" id="note" *ngIf="!check"></div>
-          <!-- displaying the checklist items that are added-->
+          <div ngStyle.xs="font-size:20px" contenteditable="true" class="note" placeholder="Take a Note" id="note"
+            *ngIf="!check"></div>
+          <!--------------------- displaying the checklist items that are added---------------------->
           <div *ngIf="check">
             <div *ngFor="let data of dataArray" fxLayout="row">
               <mat-checkbox fxFlex="5%" [(ngModel)]=data.isChecked (click)="isChecked=!isChecked"></mat-checkbox>
-              <input ngStyle.xs="font-size:20px" fxFlex="90%" class="note" [(ngModel)]=data.data [style.backgroundColor]="changedColor">
+              <input ngStyle.xs="font-size:20px" fxFlex="90%" class="note" [(ngModel)]=data.data
+                [style.backgroundColor]="changedColor">
               <mat-icon fxFlex="5%" (click)=onDelete(data) matTooltip="delete">clear</mat-icon>
             </div>
             <hr>
-            <!-- adding the new checklist item -->
+            <!--------------------- adding the new checklist item -------------------------------->
             <div fxLayout="row">
               <mat-icon fxFlex="5%" *ngIf="!adding">add</mat-icon>
               <mat-checkbox fxFlex="5%" *ngIf="adding" [(ngModel)]=addCheck (click)="isChecked=!isChecked"></mat-checkbox>
 
-              <input ngStyle.xs="font-size:20px" [(ngModel)]=data fxFlex="95%" class="note" placeholder="List Item" (keydown)="onEnter($event)"
-                [style.backgroundColor]="changedColor" (keydown.backspace)="onDelete()" />
+              <input ngStyle.xs="font-size:20px" [(ngModel)]=data fxFlex="95%" class="note" placeholder="List Item"
+                (keydown)="onEnter($event)" [style.backgroundColor]="changedColor" (keydown.backspace)="onDelete()" />
             </div>
             <hr>
           </div>
           <mat-chip-list>
-            <!-- adding labels to the note -->
+            <!------------------------ adding labels to the note --------------------------------->
             <div *ngFor="let label of labelName">
-               <mat-chip [removable]=true  class="chip" *ngIf="!label.isDeleted" ngStyle.xs="font-size:25px" (click)=labelClicked(label.label)>
-              <span class="labelChip">{{label.label}}</span>
-              <mat-icon matChipRemove (click)=deleteLabel(label)>cancel</mat-icon>
-            </mat-chip>
-          </div>
-            <!-- adding reminders to the note -->
+              <mat-chip [removable]=true class="chip" *ngIf="!label.isDeleted" ngStyle.xs="font-size:25px" (click)=labelClicked(label.label)>
+                <span class="labelChip">{{label.label}}</span>
+                <mat-icon matChipRemove (click)=deleteLabel(label)>cancel</mat-icon>
+              </mat-chip>
+            </div>
+            <!------------------------- adding reminders to the note ------------------------------->
             <div *ngFor="let time of reminder">
 
               <mat-chip *ngIf="checkreminder(time)==3" (click)=reminderClicked(note) ngStyle.xs="font-size:20px">
@@ -79,7 +81,7 @@
             </div>
           </mat-chip-list>
 
-
+  <!------------------------- selectors of all the icon components------------------------->
           <div fxLayout="row" fxLayoutAlign="space-around center" class="icondiv">
             <div>
               <app-remind-me (eventEmit)="reminderAdded($event)"></app-remind-me>

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AuthService } from '../authServices/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,13 +10,12 @@ export class httpService {
   public httpOptions; 
   public httpO; 
   public httpImage; 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private auth:AuthService) { }
 
  PostUrlEncoded(url,RequestBody){
    this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': localStorage.getItem('id')
       })
     };
    return this.http.post(url, RequestBody, this.httpOptions)
@@ -24,7 +24,6 @@ export class httpService {
    this.httpOptions = {
      headers: new HttpHeaders({
        'Content-Type': 'application/x-www-form-urlencoded',
-       'Authorization': token
      })
    };
    return this.http.post(url, RequestBody, this.httpOptions)
@@ -33,7 +32,6 @@ export class httpService {
    this.httpO = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('id')
       })
     };
     return this.http.post(url, RequestBody, this.httpO)
@@ -41,8 +39,6 @@ export class httpService {
  PostImage(url,RequestBody){
     this.httpImage = {
       headers: new HttpHeaders({
-
-        'Authorization': localStorage.getItem('id')
       })
     };
   return this.http.post(url, RequestBody, this.httpImage)
@@ -51,22 +47,20 @@ export class httpService {
    return this.http.post(url, RequestBody)
  }
  get(url){
-   return this.http.get(url)
+   return this.http.get(url,{})
  }
  getUrlEncoded(url){
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': localStorage.getItem('id')
       })
     };
-   return this.http.get( url,   this.httpOptions)
+   return this.http.get( url,this.httpOptions)
  }
  getJson(url){
    this.httpO = {
      headers: new HttpHeaders({
        'Content-Type': 'application/json',
-       'Authorization': localStorage.getItem('id')
      })
    };
    return this.http.get(url, this.httpO)
@@ -76,7 +70,6 @@ export class httpService {
     this.httpO = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('id')
       })
     };
     return this.http.delete(url, this.httpO)

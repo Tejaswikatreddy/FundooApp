@@ -1,17 +1,18 @@
-import { Component, OnInit,Inject } from '@angular/core';
+import { Component, OnInit,Inject, OnDestroy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { httpService } from '../../core/services/http.service';
-import { NoteService } from '../../core/services/note.service';
-
+import { NoteService } from '../../core/services/NoteService/note.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-crop-image',
   templateUrl: './crop-image.component.html',
   styleUrls: ['./crop-image.component.scss']
 })
-export class CropImageComponent implements OnInit {
+export class CropImageComponent implements OnInit ,OnDestroy{
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(public dialogRef: MatDialogRef<CropImageComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any, public service: httpService, private NoteService: NoteService) { }
+    @Inject(MAT_DIALOG_DATA) public data: any, private NoteService: NoteService) { }
 
   ngOnInit() {
   }
@@ -21,19 +22,23 @@ export class CropImageComponent implements OnInit {
     this.croppedImage = event.file;
   }
   uploadPic(){
-    console.log(this.croppedImage)
     this.selectedFile = this.croppedImage
-    var upLoadData=new FormData()
+    let upLoadData=new FormData()
    upLoadData.append("file", this.selectedFile,this.selectedFile.name);
- console.log(upLoadData);
 this.NoteService.addImage(upLoadData)
+  .pipe(takeUntil(this.destroy$))
     .subscribe(response=>{
-      console.log(response)
        localStorage.setItem("imageUrl",response['status'].imageUrl)
 
       this.dialogRef.close();
 
 
     })
+  }
+  ngOnDestroy() {
+    console.log("ondestroy called");
+    this.destroy$.next(true);
+    // Now let's also unsubscribe from the subject itself:
+    this.destroy$.unsubscribe();
   }
 }

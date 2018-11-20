@@ -5,23 +5,26 @@
 */
 
 
-import { Component, OnInit,Inject } from '@angular/core';
-import { NoteService } from '../../core/services/note.service';
+import { Component, OnInit,Inject, OnDestroy } from '@angular/core';
+import { NoteService } from '../../core/services/NoteService/note.service';
 
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { httpService } from '../../core/services/http.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
 //component decorator
 @Component({
   selector: 'app-update-note',
   templateUrl: './update-note.component.html',
   styleUrls: ['./update-note.component.scss']
 })
-export class UpdateNoteComponent implements OnInit {
+export class UpdateNoteComponent implements OnInit,OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(public dialogRef: MatDialogRef<UpdateNoteComponent>,
                    @Inject(MAT_DIALOG_DATA)public data:any,
                   private NoteService:NoteService,
-                  public service:httpService) { }
+                  ) { }
 public title;
 public description;
 public id;
@@ -65,37 +68,38 @@ public reminder=[];
  
   updateNotes(){
     if(this.checklist==false){
-    console.log(document.getElementById("Updatedtitle").innerHTML)
     this.title = document.getElementById("Updatedtitle").innerHTML;
     this.description = document.getElementById("Updatednote").innerHTML;
     this.id=this.data.id;
-      var RequestBody = {
+      let RequestBody = {
         "noteId": [this.id],
         "title": this.title,
         "description": this.description
 
       }
-      this.NoteService.UpdateNote(this.getFormUrlEncoded(RequestBody)).subscribe(response=>{
-      console.log(response);
+      this.NoteService.UpdateNote(this.getFormUrlEncoded(RequestBody))
+        .pipe(takeUntil(this.destroy$))
+
+      .subscribe(response=>{
      
     })
   }
   else{
       if (this.modifiedCheckList != null){
-    var apiData={
+    let apiData={
          "itemName": this.modifiedCheckList.itemName,
          "status":this.modifiedCheckList.status
     }
       this.NoteService.UpdateChecklist(JSON.stringify(apiData), this.data.id, this.modifiedCheckList.id)
+        .pipe(takeUntil(this.destroy$))
+
      .subscribe(response => {
-        console.log(response,"NNNN");
       })
   }
 }
     }
     editing(editedList,event){
       
-      console.log(editedList);
       if(event.code=="Enter"){
       this.modifiedCheckList=editedList;
       this.updateNotes();
@@ -105,8 +109,8 @@ public reminder=[];
     this.bgcolor=event; 
   }
   labelAdded(event){
-    var flag=false,index;
-  for(var i=0;i<this.labels.length;i++){
+    let flag=false,index;
+  for(let i=0;i<this.labels.length;i++){
     if(event.id==this.labels[i].id){
       flag=true;
       index=i;
@@ -128,21 +132,20 @@ public reminder=[];
     else{
       checkList.status = "open"
     }
-    console.log(checkList);
     this.modifiedCheckList=checkList;
     this.updateNotes();
   }
   public removedList;
   removeList(checklist){
-    console.log(checklist)
     this.removedList=checklist;
     this.removeCheckList()
   }
   removeCheckList(){
     this.NoteService.removeChecklist(null, this.data.id, this.removedList.id)
+      .pipe(takeUntil(this.destroy$))
+
     .subscribe(response => {
-      console.log(response);
-      for(var i=0;i<this.tempArray.length;i++){
+      for(let i=0;i<this.tempArray.length;i++){
         if(this.tempArray[i].id==this.removedList.id){
           this.tempArray.splice(i,1)
         }
@@ -172,22 +175,18 @@ public reminder=[];
         "status":this.status
       }
     this.NoteService.addChecklist(this.newData,this.data.id)
+      .pipe(takeUntil(this.destroy$))
+
     .subscribe(response => {
-      console.log(response);
       this.newList=null;
       this.addCheck=false;
       this.adding=false;
-      console.log(response['data'].details);
-      
       this.tempArray.push(response['data'].details)
-
-      console.log(this.tempArray)
 
     })
   }
   }
   timeAdded(event){ 
-    console.log(event);
     if(this.reminder.length>0)
     this.reminder=[];
     this.reminder.push(event)
@@ -195,9 +194,10 @@ public reminder=[];
   deleteLabel(label) {
     let index;
     this.NoteService.removeLabelFromNotes(null, this.data['id'], label.id)
+      .pipe(takeUntil(this.destroy$))
+
       .subscribe(Response => {
-        console.log(Response);
-        for (var i = 0; i < this.labels.length; i++) {
+        for (let i = 0; i < this.labels.length; i++) {
           if (label.id == this.labels[i].id) {
               index = i;
               break;
@@ -206,7 +206,6 @@ public reminder=[];
         this.labels.splice(index,1)
        
       }, error => {
-        console.log(error)
       })
 
   }
@@ -216,11 +215,19 @@ public reminder=[];
     let RequestBody = {
       "noteIdList": id
     }
-    this.NoteService.deleteReminder(RequestBody).subscribe(response => {
-      console.log(response);
+    this.NoteService.deleteReminder(RequestBody)
+      .pipe(takeUntil(this.destroy$))
+
+    .subscribe(response => {
     this.reminder=[];
 
      })
+  }
+  ngOnDestroy() {
+
+    this.destroy$.next(true);
+    // Now let's also unsubscribe from the subject itself:
+    this.destroy$.unsubscribe();
   }
   }
 

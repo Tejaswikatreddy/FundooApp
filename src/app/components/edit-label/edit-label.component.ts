@@ -1,14 +1,17 @@
-import { Component, OnInit, Inject, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, Inject, ElementRef, ViewChild, OnDestroy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { NoteService } from '../../core/services/note.service';
+import { NoteService } from '../../core/services/NoteService/note.service';
 import { Label } from "../../core/models/noteModel"
-
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-edit-label',
   templateUrl: './edit-label.component.html',
-  styleUrls: ['./edit-label.component.css']
+  styleUrls: ['./edit-label.component.scss']
 })
-export class EditLabelComponent implements OnInit {
+export class EditLabelComponent implements OnInit,OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
+
   public labelArray=[];
   public labelNames=[];
   public editId;
@@ -36,22 +39,21 @@ public label;
   }
   public span;
   addLabel(){
-    console.log("addLabel method")
-    for (var i = 0; i < this.labelArray.length;i++){
+    for (let i = 0; i < this.labelArray.length;i++){
       if (this.myDiv.nativeElement.innerHTML==this.labelArray[i].label){
         this.span=true;
         return;
       }
     }
     this.span=false;
-      var RequestBody={
+      let RequestBody={
         "label": this.myDiv.nativeElement.innerHTML,
         "isDeleted": false,
         "userId": localStorage.getItem('userId')
       }
       this.NoteService.addLabel(RequestBody)
+        .pipe(takeUntil(this.destroy$))
   .subscribe(response=>{
-      console.log(response);
     this.getLabels();
 
     })
@@ -59,19 +61,18 @@ public label;
   }
   labelList: Label[]=[];
   getLabels(){
-   console.log("get labels")
    this.NoteService.getNoteLabellist()
+     .pipe(takeUntil(this.destroy$))
   .subscribe(
       response=>{
         this.labelArray=[];
         this.labelList = response['data'].details;
              
-        for (var i = 0; i < (this.labelList.length);i++){
+        for (let i = 0; i < (this.labelList.length);i++){
           if (this.labelList[i].isDeleted!=true){
             this.labelArray.push(this.labelList[i])
           }
         }
-        console.log(this.labelArray,"labelArray")
         this.labelNames.sort()
       }
     )
@@ -85,11 +86,10 @@ public label;
   }
   delete(labelId){
     this.NoteService.deleteLabel(labelId)
+     .pipe(takeUntil(this.destroy$))
     .subscribe(response=>{
-      console.log(response)
         this.getLabels()
     },error=>{
-        console.log(error)
       })
   }
   clear(){
@@ -101,7 +101,6 @@ public label;
     this.editLabel=label.label;
     this.editDoneIcon=false;
     this.editable=true;
-    console.log(this.editClick)
    
   }
   editDone(label){
@@ -115,15 +114,20 @@ public label;
       "userId": localStorage.getItem('userId')
     }
     this.NoteService.editLabel(label.id, RequestBody)
+      .pipe(takeUntil(this.destroy$))
+
    .subscribe(response=>{
-      console.log(response)
       this.getLabels();
     },error=>{
-      console.log(error)
     })
   }
   findLabel(newLabel){
-    console.log(this.labelArray.indexOf(newLabel))
     return this.labelArray.indexOf(newLabel);
+  }
+  ngOnDestroy() {
+    console.log("ondestroy called");
+    this.destroy$.next(true);
+    // Now let's also unsubscribe from the subject itself:
+    this.destroy$.unsubscribe();
   }
 }

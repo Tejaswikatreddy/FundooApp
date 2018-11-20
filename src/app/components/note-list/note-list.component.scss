@@ -18,7 +18,7 @@
  }
 .maindiv{
        flex-wrap: wrap;
-       padding-bottom: 15%;
+    //    padding-bottom: 15%;
 }
 .material-icons {
     cursor: pointer;
@@ -34,7 +34,7 @@
 }
 .card{
     margin:1%;
-    height:min-content;border-radius:10px;width:280px;
+    height:min-content;border-radius:10px;width:210px;
     
 }
 .chip{
@@ -42,16 +42,17 @@
     
 }
 .layout{
-    width:800px
+    width:750px
 }
 .Flayout{
-     margin:1%;
+    margin:1%;
     height:min-content;border-radius:10px;
     // margin-top:5px;
     width:100%
 }
 .grid{
 // width 
+
 }
 .previous{
     text-decoration: line-through
@@ -65,7 +66,7 @@
     max-width:150px;
 }
 .cardsm{
-     margin:1%;
+     padding:1%;
     height:min-content;border-radius:10px;width:350px;
     
 }

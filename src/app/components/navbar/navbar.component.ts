@@ -5,30 +5,35 @@
 */
 
 
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router, Params, ActivatedRoute,ParamMap } from '@angular/router';
-import { httpService } from '../../core/services/http.service';
-import { DataService } from '../../core/services/data.service';
+import { DataService } from '../../core/services/dataServices/data.service';
 import { CropImageComponent } from '../crop-image/crop-image.component';
 
-import { AuthService } from "../../core/services/auth.service"
-import { NoteService } from "../../core/services/note.service"
+import { AuthService } from "../../core/services/authServices/auth.service"
+import { NoteService } from "../../core/services/NoteService/note.service"
 import { Label } from "../../core/models/noteModel"
 
 
-import { UserService } from "../../core/services/user.service"
+import { UserService } from "../../core/services/UserService/user.service"
 import { MatDialog } from '@angular/material';
 import { EditLabelComponent } from '../edit-label/edit-label.component';
+
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
 //component decorator
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit,OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
+
 public clicked=false;
 public list;
 public data:any={}
@@ -82,7 +87,7 @@ isHandset$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.H
  
     
   constructor(private breakpointObserver: BreakpointObserver, public router: Router, 
-    private service: httpService, private auth: AuthService, public dialog: MatDialog,
+    private auth: AuthService, public dialog: MatDialog,
     public dataService: DataService, public Userservice: UserService, public NoteService: NoteService,
     public route: ActivatedRoute) {
    
@@ -97,21 +102,21 @@ isHandset$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.H
  * @function logout() is invoked when the logout button is clicked
  */
   logout(){
-    console.log("logout function")
    this.Userservice.logout(null)
+     .pipe(takeUntil(this.destroy$))
+
   .subscribe(response=>{
       localStorage.removeItem('firstName')
       localStorage.removeItem('lastName')
       localStorage.removeItem('userId')
       localStorage.removeItem('email')
+      localStorage.removeItem('imageUrl')
         this.auth.removeToken();
-        // console.log(response);
         //when logged out navigate the page to login page
         this.router.navigate(['login']);
       
     },error=>{
         if(error){
-          console.log(error);
         }
     })
   
@@ -151,9 +156,7 @@ isHandset$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.H
     const dialogRef = this.dialog.open(EditLabelComponent, {
   'panelClass':"label"
     });
-    console.log();
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       this.getLabels();
       this.eventEmit.emit({});
      
@@ -163,6 +166,8 @@ isHandset$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.H
   public labelName;
   getLabels() {
     this.NoteService.getNoteLabellist()
+      .pipe(takeUntil(this.destroy$))
+
    .subscribe(
       response => {
         this.labelList = response['data'].details;
@@ -184,9 +189,9 @@ isHandset$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.H
   }
 
   labelClicked(label){
-     var label=label.label;
-    this.Fundoo = label;
-    this.router.navigate(["label/"+label])
+     let labelN=label.label;
+    this.Fundoo = labelN;
+    this.router.navigate(["label/" + labelN])
   }
   
   public selectedFile;
@@ -196,7 +201,6 @@ isHandset$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.H
       data: event
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       this.image = localStorage.getItem("imageUrl")
 this.imagepath = "http://34.213.106.173/" + this.image
     });
@@ -213,5 +217,11 @@ this.imagepath = "http://34.213.106.173/" + this.image
   }
   refresh(){
 
+  }
+  ngOnDestroy() {
+
+    this.destroy$.next(true);
+    // Now let's also unsubscribe from the subject itself:
+    this.destroy$.unsubscribe();
   }
   }

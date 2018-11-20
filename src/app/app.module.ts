@@ -13,8 +13,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { SignupComponent } from './components/signup/signup.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatIconModule } from '@angular/material/icon';
-import { HttpClientModule } from '@angular/common/http';
-import { httpService } from './core/services/http.service';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { httpService } from './core/services/httpService/http.service';
 import { FormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
@@ -24,7 +24,6 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatMenuModule } from '@angular/material/menu';
-import { IconsComponent } from './components/icons/icons.component';
 import { RemindMeComponent } from './components/remind-me/remind-me.component';
 import { CollaboratorComponent } from './components/collaborator/collaborator.component';
 import { ChangeColorComponent } from './components/change-color/change-color.component';
@@ -51,7 +50,8 @@ import { CropImageComponent } from './components/crop-image/crop-image.component
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
 import { ReminderListComponent } from './components/reminder-list/reminder-list.component';
-import { MessageService } from './core/services/message-service/message.service'
+import { MessageService } from './core/services/message-service/message.service';
+import { InterceptService} from './core/services/interceptor/intercept.service'
 @NgModule({
   declarations: [
       AppComponent,
@@ -61,7 +61,6 @@ import { MessageService } from './core/services/message-service/message.service'
     ResetPasswordComponent,
     AddNoteComponent,
     NavbarComponent,
-    IconsComponent,
     RemindMeComponent,  
     CollaboratorComponent,
     ChangeColorComponent,
@@ -115,7 +114,13 @@ import { MessageService } from './core/services/message-service/message.service'
   entryComponents: [UpdateNoteComponent, EditLabelComponent, CropImageComponent],
   providers: [
     httpService,
-    MatDatepickerModule, MessageService
+    MatDatepickerModule, MessageService, InterceptService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptService,
+      multi: true
+    }
+  
   ],
   bootstrap: [AppComponent],
 

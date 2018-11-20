@@ -1,5 +1,5 @@
 .sidenav-container {
-  height: 100%;
+  max-height: 100%;
   
    /* flex: 1 0 auto;
    margin: -7px -9px 0px -8px;
@@ -9,7 +9,7 @@
 }
 
 .sidenav {
-  width: 200px;
+  width: 250px;
   position: fixed;
   z-index:2;
   margin-top: 65px;
@@ -82,7 +82,7 @@ input:focus {
 }
 #viewStream{
   padding-right: 5%
-} */
+} 
 /* #notifications{
   padding-right: 50px
 } */

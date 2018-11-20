@@ -1,26 +1,29 @@
-<div fxLayoutAlign="center center"  fxLayout="row wrap" fxLayoutWrap fxLayoutGap="10px" class="maindiv">
-  <!-- repeating the notes with for loop -->
-  <div *ngFor="let note of NoteArray | search:searchInput"  ngStyle.xs="width:100%"  [ngClass]="{'layout':view ,'grid':!view}">
+
+<div fxFlex="15%" fxFlex.xs="2%" fxFlex.md="5%" ></div>
+<div fxFlex="80%" fxFlex.xs="96%"  fxFlex.md="90%" fxLayoutAlign="start start"  fxLayout="row wrap" fxLayoutGap="10px" class="maindiv">
+  <!----------------------- repeating the notes with for loop ---------------------------------->
+ 
+  <div  *ngFor="let note of NoteArray | search:searchInput"  ngStyle.xs="width:100%"  [ngClass]="{'layout':view ,'grid':!view}">
     <mat-card [style.backgroundColor]="note.color" ngStyle.xs="width:95%" [ngClass.sm]="{'Flayout':view ,'cardsm':!view}" [ngClass]="{'Flayout':view ,'card':!view}">
       <div>
         <div fxLayout="row">
           <div fxFlex=95% class="note" [innerHTML]="note.title" (click)="open(note)" ngStyle.xs="font-size:25px"></div>
-          <!-- pin component -->
+          <!------------------------- pin component ------------------------------------------>
           <span fxFlex=5%>
             <app-pin [Note]=note (eventEmit)=eventDone($event)></app-pin>
           </span>
         </div>
-        <!-- description -->
+        <!------------------------- description --------------------------------------------->
         <div class="note" [innerHTML]="note.description" (click)="open(note)"> </div>
-        <!--opened checklist starts -->
+        <!----------------------opened checklist starts ------------------------------------->
         <div class="note" *ngFor="let checklist of note.noteCheckLists" fxLayout="row">
           <mat-checkbox fxFlex="10%" ngStyle.xs="font-size:25px" *ngIf="checklist.status=='open'&& !checklist.isDeleted"
             (click)=checkBox(checklist,note)></mat-checkbox>
           <input ngStyle.xs="font-size:25px" *ngIf="!checklist.isDeleted && checklist.status=='open' " [(ngModel)]=checklist.itemName
             fxFlex="90%" class="note" (click)="open(note)" [style.backgroundColor]="note.color">
         </div>
-        <!-- opened checklist ends -->
-        <!-- closed checklist starts -->
+        <!---------------------------- opened checklist ends-------------------------------------->
+        <!---------------------------closed checklist starts -------------------------------------->
         <div class="note" *ngFor="let checklist of note.noteCheckLists" fxLayout="row">
           <mat-checkbox ngStyle.xs="font-size:25px" fxFlex="10%" checked=true *ngIf="checklist.status=='close'&& !checklist.isDeleted"
             (click)=checkBox(checklist,note)></mat-checkbox>
@@ -28,16 +31,16 @@
             (click)="open(note)">
             {{checklist.itemName}}</div>
         </div>
-        <!-- closed checklist ends -->
+        <!-------------------------- closed checklist ends ------------------------------------->
         <mat-chip-list>
-          <!-- labels added to the note -->
+          <!------------------------ labels added to the note---------------------------->
           <span *ngFor="let label of note.noteLabels">
             <mat-chip [removable]=true class="chip" *ngIf="!label.isDeleted" ngStyle.xs="font-size:25px" (click)=labelClicked(label.label)>
               <span class="labelChip">{{label.label}}</span>
               <mat-icon matChipRemove (click)=deleteLabel(note,label)>cancel</mat-icon>
             </mat-chip>
           </span>
-          <!-- reminders added to the note -->
+          <!------------------------------ reminders added to the note--------------------->
           <div *ngFor="let time of note.reminder">
             <mat-chip *ngIf="checkreminder(time)==1" (click)=reminderClicked(note) ngStyle.xs="font-size:25px">
               <mat-icon>access_time</mat-icon>
@@ -69,9 +72,9 @@
             </mat-chip>
 
           </div>
-          <!-- reminders ended -->
+          <!--------------------------- reminders ended------------------------------------------>
         </mat-chip-list>
-        <!-- selectors of all the icon components -->
+        <!------------------------- selectors of all the icon components------------------------->
         <span fxLayout="row " fxLayoutAlign="space-around" class="icons">
           <div>
             <app-remind-me [Note]=note (eventEmit1)="reminder($event)" #remindme></app-remind-me>
@@ -96,3 +99,4 @@
     </mat-card>
   </div>
 </div>
+<div fxFlex="5%" fxFlex.xs="2%" fxFlex.md="5%"></div>

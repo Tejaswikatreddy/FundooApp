@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { httpService } from './http.service';
-import {  HttpHeaders } from '@angular/common/http';
-import { environment } from '../../../environments/environment'
+import { httpService } from '../httpService/http.service';
+import { environment } from '../../../../environments/environment'
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +26,8 @@ public access_token=localStorage.getItem('id');
   }
   getCards(){
     this.url = this.URL +"/user/service";
+    console.log(this.url);
+    
     return this.service.get(this.url)
   }
   resetPassword(RequestBody){

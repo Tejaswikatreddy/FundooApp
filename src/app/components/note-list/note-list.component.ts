@@ -4,15 +4,16 @@
  *  @author         : K.Dhana Tejaswi
 */
 
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
-import { httpService } from '../../core/services/http.service';
-import { DataService } from '../../core/services/data.service';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, OnDestroy } from '@angular/core';
+import { DataService } from '../../core/services/dataServices/data.service';
 
-import { NoteService } from '../../core/services/note.service';
-import { AuthService } from "../../core/services/auth.service"
+import { NoteService } from '../../core/services/NoteService/note.service';
+import { AuthService } from "../../core/services/authServices/auth.service"
 import { MatDialog } from '@angular/material';
 import { UpdateNoteComponent } from '../update-note/update-note.component';
-import { RemindMeComponent} from '../remind-me/remind-me.component'
+import { RemindMeComponent} from '../remind-me/remind-me.component';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 /*component decorator*/
 @Component({
   selector: 'app-note-list',
@@ -20,7 +21,9 @@ import { RemindMeComponent} from '../remind-me/remind-me.component'
   styleUrls: ['./note-list.component.scss'],
   
 })
-export class NotelistComponent implements OnInit {
+export class NotelistComponent implements OnInit,OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
+
   @ViewChild('remindme') remind: RemindMeComponent;
  @Input() NoteArray;
   @Input() searchInput;
@@ -33,7 +36,7 @@ export class NotelistComponent implements OnInit {
  public date=new Date();
  public currenttime;
  
-  constructor(private auth: AuthService, public service: httpService,
+  constructor(private auth: AuthService,
     public dialog: MatDialog, private dataService: DataService,private NoteService:NoteService) { }
   ngOnInit() {  
     this.dataService.viewList.subscribe(message => {
@@ -43,12 +46,10 @@ export class NotelistComponent implements OnInit {
     this.currenttime=this.date.getTime();
   }
   reminderClicked(note){
-    console.log("reminder cllicked");
     this.remind.reminderClick(note.id);
     // this.dataService.previous1Date(note.id)
   }
   labelClicked(labelName){
-    console.log(labelName);
     this.dataService.labeldata(labelName)
   }
   public todayDate;
@@ -103,7 +104,6 @@ export class NotelistComponent implements OnInit {
  * @function eventDone() invoked when there is an event in the child component
  */
  eventDone(event){
-   console.log("deleted in note list",event)
    if(event){
      this.eventEmit.emit({});
      /*event emitted to the parent component*/
@@ -115,26 +115,23 @@ export class NotelistComponent implements OnInit {
   * @param note is the object with the details of the note on which it is clicked
   */
   open(note): void {
-    console.log(note.color)
 
     const dialogRef = this.dialog.open(UpdateNoteComponent, {
      
            data:note,
         });
-console.log(note);
     dialogRef.afterClosed().subscribe(result => {
 
-      console.log('The dialog was closed');
       this.eventEmit.emit({});
    });
   }
   deleteLabel(note,label){
     this.NoteService.removeLabelFromNotes(null, note['id'], label.id)
+      .pipe(takeUntil(this.destroy$))
+
       .subscribe(Response => {
-        console.log(Response);
         this.eventEmit.emit({})
       }, error => {
-        console.log(error)
       })
   
   }
@@ -147,25 +144,24 @@ console.log(note);
     else {
       checkList.status = "open"
     }
-    console.log(checkList);
     this.modifiedCheckList = checkList;
     this.updatelist(note.id);
   }
   updatelist(id){
-    var apiData = {
+    let apiData = {
       "itemName": this.modifiedCheckList.itemName,
       "status": this.modifiedCheckList.status
     }
   
     this.NoteService.UpdateChecklist(JSON.stringify(apiData), id, this.modifiedCheckList.id)
+      .pipe(takeUntil(this.destroy$))
+
     .subscribe(response => {
-      console.log(response);
 
     })
   }
   reminder(event){
     
-    console.log("notelist",event);
 
     this.eventEmit.emit({})
   }
@@ -175,11 +171,19 @@ console.log(note);
     let RequestBody={
       "noteIdList":id
     }
-    this.NoteService.deleteReminder(RequestBody).subscribe(response=>{
-      console.log(response);
+    this.NoteService.deleteReminder(RequestBody)
+      .pipe(takeUntil(this.destroy$))
+
+    .subscribe(response=>{
       this.eventEmit.emit({})
       
     })
+  }
+  ngOnDestroy() {
+
+    this.destroy$.next(true);
+    // Now let's also unsubscribe from the subject itself:
+    this.destroy$.unsubscribe();
   }
   }
 

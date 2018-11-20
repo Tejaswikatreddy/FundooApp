@@ -1,44 +1,43 @@
-import { Component, OnInit } from '@angular/core';
-import { httpService } from '../../core/services/http.service';
-import { UserService } from '../../core/services/user.service';
+import { Component, OnInit, OnDestroy} from '@angular/core';
+import { UserService } from '../../core/services/UserService/user.service';
 
 import { Router, ActivatedRoute } from '@angular/router';
-
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
   styleUrls: ['./reset-password.component.scss']
 })
-export class ResetPasswordComponent implements OnInit {
+export class ResetPasswordComponent implements OnInit, OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
+
   model: any = {
-     "password": ""
+    "password": ""
   };
-  hide=true;
-  
-  constructor(private service:httpService,
-              public route:ActivatedRoute,public userservice:UserService) { }
-    public accessToken=this.route.snapshot.params.forgotToken;
+  hide = true;
+
+  constructor(
+    public route: ActivatedRoute, public userservice: UserService,private router:Router) { }
+  public accessToken = this.route.snapshot.params.forgotToken;
   ngOnInit() {
   }
   public input = new FormData();
-// Add your values in here
-  set(){
-    console.log(this.model.password.length);
-    
-    var body={
+  // Add your values in here
+  set() {
+    localStorage.setItem("id", this.accessToken)
+    let body = {
       "newPassword": this.model.password
     }
-    if(this.model.password.length==0){
-      console.log("please enter the password");
+    if (this.model.password.length == 0) {
       return;
     }
-  
-    this.userservice.setPassword(this.getFormUrlEncoded(body),this.accessToken)
-   .subscribe(response=>{
-      console.log("successfull",response);
-  
-    })
-    console.log("accessToken",this.accessToken)
+    this.userservice.setPassword(this.getFormUrlEncoded(body), this.accessToken)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(response => {
+        localStorage.removeItem("id")
+        this.router.navigate(['login'])
+      })
   }
   getFormUrlEncoded(toConvert) {
     const formBody = [];
@@ -48,5 +47,12 @@ export class ResetPasswordComponent implements OnInit {
       formBody.push(encodedKey + '=' + encodedValue);
     }
     return formBody.join('&');
+  }
+
+  ngOnDestroy() {
+
+    this.destroy$.next(true);
+    // Now let's also unsubscribe from the subject itself:
+    this.destroy$.unsubscribe();
   }
 }

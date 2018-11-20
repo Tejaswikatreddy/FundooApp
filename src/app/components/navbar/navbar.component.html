@@ -51,7 +51,7 @@
   </div>
   </mat-toolbar>
     <mat-sidenav-container class="sidenav-container"  >
-      <mat-sidenav #drawer class="sidenav" ngStyle.xs="width:40%;font-size:30px" ngStyle.sm="width:40%;font-size:30px" ngStyle.md="width:40%;font-size:30px" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      <mat-sidenav #drawer class="sidenav" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
         [mode]="(isHandset$ | async) ? 'over' : 'side'"  [position]="start">
         <mat-nav-list>
           <a mat-list-item (click)=NoteClicked()><img src="../../../assets/notes.svg" class="svg"><span class="sideNotes">Notes</span></a>
@@ -71,7 +71,7 @@
         
         </mat-nav-list>
       </mat-sidenav>
-      <mat-sidenav-content class="content" >
+      <mat-sidenav-content class="content">
             <router-outlet ></router-outlet>
           
             <mat-card class="profileCard"  *ngIf="clicked">

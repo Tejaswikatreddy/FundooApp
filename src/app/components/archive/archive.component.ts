@@ -1,16 +1,18 @@
-import { Component, OnInit, Input,Output,EventEmitter } from '@angular/core';
-import { httpService } from '../../core/services/http.service';
-import { NoteService } from '../../core/services/note.service';
-
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { NoteService } from '../../core/services/NoteService/note.service';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 @Component({
   selector: 'app-archive',
   templateUrl: './archive.component.html',
   styleUrls: ['./archive.component.scss']
 })
-export class ArchiveComponent implements OnInit {
+export class ArchiveComponent implements OnInit, OnDestroy{
+  destroy$: Subject<boolean> = new Subject<boolean>();
+
   @Input() Note;
   @Input() Archive;
-  constructor(private service: httpService, private NoteService: NoteService,) { }
+  constructor( private NoteService: NoteService,) { }
 public isArchived=false;
 public isDeleted=false;
   ngOnInit() {
@@ -27,23 +29,26 @@ public isDeleted=false;
   archive(flag){
     this.eventEmit.emit({})
     if(this.Note!=undefined){
-    var arr = []
+    let arr = []
     arr.push(this.Note.id)
-    console.log(arr);
     if(this.Note.id!=undefined){
-      var RequestBody = {
+      let RequestBody = {
         "isArchived": flag,
         "noteIdList": arr
 
       }
       this.NoteService.archive(RequestBody)
           .subscribe(response => {
-        console.log(response);
         this.eventEmit.emit({})
       },error=>{
-        console.log(error)
       })
     }
   }
 }
+  ngOnDestroy() {
+    console.log("ondestroy called");
+    this.destroy$.next(true);
+    // Now let's also unsubscribe from the subject itself:
+    this.destroy$.unsubscribe();
+  }
   }

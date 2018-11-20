@@ -5,19 +5,24 @@
 */
 
 
-import { Component, OnInit } from '@angular/core';
-import { httpService } from '../../core/services/http.service';
-import { NoteService } from '../../core/services/note.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { NoteService } from '../../core/services/NoteService/note.service';
+import { Note } from "../../core/models/noteModel"
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 //component decorator
 @Component({
   selector: 'app-main-trash',
   templateUrl: './main-trash.component.html',
-  styleUrls: ['./main-trash.component.css']
+  styleUrls: ['./main-trash.component.scss']
 })
-export class MainTrashComponent implements OnInit {
+export class MainTrashComponent implements OnInit, OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
-  constructor(public service: httpService, private NoteService: NoteService) { }
+  list: Note[] = [];
+
+  constructor( private NoteService: NoteService) { }
 public trashArray=[];
   ngOnInit() {
     this.getList()
@@ -25,18 +30,24 @@ public trashArray=[];
   //calling an api to get all the deleted files through the services
   getList(){
     this.NoteService.getTrashNotes()
+      .pipe(takeUntil(this.destroy$))
+
    .subscribe(response => {
-      console.log(response['data'].data)
+     this.list = response['data'].data;
       this.trashArray=[];
       //wheever there is a response for the api call push it into an array
-      for (var i = 0; i < response['data'].data.length; i++) {
-        this.trashArray.push(response['data'].data[i])
+     for (let i = 0; i < this.list .length; i++) {
+       this.trashArray.push(this.list [i])
       }
-      console.log("trash", this.trashArray)
     })
   }
 eventDone(event){
-  console.log("main-trash")
   this.getList();
 }
+  ngOnDestroy() {
+
+    this.destroy$.next(true);
+    // Now let's also unsubscribe from the subject itself:
+    this.destroy$.unsubscribe();
+  }
 }

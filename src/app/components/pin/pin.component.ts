@@ -1,19 +1,21 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { httpService } from '../../core/services/http.service';
-import { NoteService } from '../../core/services/note.service';
-
+import { Component, OnInit, Output, EventEmitter, Input, OnDestroy } from '@angular/core';
+import { NoteService } from '../../core/services/NoteService/note.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-pin',
   templateUrl: './pin.component.html',
   styleUrls: ['./pin.component.scss']
 })
-export class PinComponent implements OnInit {
+export class PinComponent implements OnInit ,OnDestroy{
+  destroy$: Subject<boolean> = new Subject<boolean>();
+
 @Output() eventEmit=new EventEmitter();
 @Input() Note;
 public isDeleted=false;
 public isPinned=false;
 public apiPinned=true;;
-  constructor(private service: httpService,public NoteService:NoteService) { }
+  constructor(public NoteService:NoteService) { }
 
   ngOnInit() {
     if (this.Note != undefined && this.Note.isDeleted == true ) {
@@ -32,22 +34,29 @@ public apiPinned=true;;
      if (this.Note.isPined == true){
        this.apiPinned = false;
      }
-     var arr = []
+     let arr = []
      arr.push(this.Note.id)
-     console.log(arr);
      if (this.Note.id != undefined) {
-       var Request={
+       let Request={
          "isPined": this.apiPinned,
          "noteIdList": arr
        }
        this.NoteService.pin(Request)
+         .pipe(takeUntil(this.destroy$))
+
          .subscribe(response => {
        
            this.eventEmit.emit({})
          }, error => {
-           console.log(error)
          })
      }
    }
- }
+ 
+  }
+  ngOnDestroy() {
+
+    this.destroy$.next(true);
+    // Now let's also unsubscribe from the subject itself:
+    this.destroy$.unsubscribe();
+  }
 }
