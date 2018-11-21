@@ -3,6 +3,8 @@ import { MatSnackBar } from '@angular/material';
 import { UserService } from '../../core/services/UserService/user.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.component.html',
@@ -15,7 +17,7 @@ model:any={
   "email":"",
 }
   constructor(
-    public snackBar: MatSnackBar, private UserService: UserService) { }
+    public snackBar: MatSnackBar, private UserService: UserService,private router:Router) { }
 
   ngOnInit() {
   }
@@ -36,6 +38,7 @@ model:any={
       this.snackBar.open("reset link","sent",{
         duration:2000
       })
+      this.router.navigate(['login'])
     },error=>{
       this.snackBar.open("sorry", "reset failed", {
         duration: 2000

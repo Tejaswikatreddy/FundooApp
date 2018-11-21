@@ -6,7 +6,7 @@ import { environment } from '../../../../environments/environment'
   providedIn: 'root'
 })
 export class UserService {
-    URL = environment.URL;
+  URL = environment.ApiURL;
 
 public url;
 public access_token=localStorage.getItem('id');

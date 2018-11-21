@@ -1,8 +1,7 @@
 .button{
     border-radius: 0;
-        /* box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26); */
         background-color: rgb(79, 102, 206);
-        float:right;
+        // float:right;
 }
 a{
     font-size: 80%;                      
@@ -55,4 +54,7 @@ color:rgb(244, 247, 118)
 }
 .lastField{
     margin-left: 2%;
+}
+.bottom{
+    margin-top:5px
 }

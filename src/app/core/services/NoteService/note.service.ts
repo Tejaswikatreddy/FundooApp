@@ -6,8 +6,7 @@ import { environment} from '../../../../environments/environment'
   providedIn: 'root'
 })
 export class NoteService {
-  // URL = "http://34.213.106.173/api";
- URL=environment.URL;
+  URL = environment.ApiURL;
   public url;
   public access_token = localStorage.getItem('id');
   public httpOptions; 
@@ -104,7 +103,6 @@ export class NoteService {
   }
   
   getLabelNotes(labelName){
-   
     this.url = this.URL +"/notes/getNotesListByLabel/"+labelName;
     return this.service.PostJson(this.url,null)
   }

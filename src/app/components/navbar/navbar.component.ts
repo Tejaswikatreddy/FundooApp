@@ -17,6 +17,7 @@ import { AuthService } from "../../core/services/authServices/auth.service"
 import { NoteService } from "../../core/services/NoteService/note.service"
 import { Label } from "../../core/models/noteModel"
 
+import { environment } from '../../../environments/environment'
 
 import { UserService } from "../../core/services/UserService/user.service"
 import { MatDialog } from '@angular/material';
@@ -32,8 +33,10 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit,OnDestroy {
-  destroy$: Subject<boolean> = new Subject<boolean>();
+  URL = environment.URL;
 
+  destroy$: Subject<boolean> = new Subject<boolean>();
+  public searchDisplay=false
 public clicked=false;
 public list;
 public data:any={}
@@ -42,7 +45,7 @@ public lastname = localStorage.getItem("lastName")
 public frstLetter=this.firstname[0];
 public email = localStorage.getItem("email")
   public image=localStorage.getItem("imageUrl")
-  public imagepath = "http://34.213.106.173/"+this.image
+  public imagepath = this.URL+this.image
  public Fundoo;
   labelList: Label[] = [];
 
@@ -76,7 +79,7 @@ public searchInput;
       this.Fundoo = "Trash";
     }
     else if (this.router.url == "/search") {
-      this.Fundoo = "Search";
+      this.Fundoo = "Fundoo Notes";
     }
     
   }
@@ -181,7 +184,7 @@ isHandset$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.H
   }
  
   searchClicked(){
-    this.Fundoo = "Search";
+    // this.Fundoo = "Search";
     this.router.navigate(['search'])
   }
   passMessage(){
@@ -189,9 +192,9 @@ isHandset$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.H
   }
 
   labelClicked(label){
-     let labelN=label.label;
-    this.Fundoo = labelN;
-    this.router.navigate(["label/" + labelN])
+     let labelName=label.label;
+    this.Fundoo = labelName;
+    this.router.navigate(["label/" + labelName])
   }
   
   public selectedFile;
@@ -202,7 +205,7 @@ isHandset$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.H
     });
     dialogRef.afterClosed().subscribe(result => {
       this.image = localStorage.getItem("imageUrl")
-this.imagepath = "http://34.213.106.173/" + this.image
+this.imagepath = this.URL+ this.image
     });
 
   }

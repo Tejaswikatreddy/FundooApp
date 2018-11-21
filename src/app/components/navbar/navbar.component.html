@@ -1,7 +1,7 @@
 <div fxFlex>
   <div fxLayout="column wrap">
-  <mat-toolbar color="primary" position="fixed" class="toolbar">
-  <div fxFlex.xl="20%" fxFlex.lg="20%" fxFlex.md="20%" fxFlex.sm="30%" fxFlex.xs="40%">
+  <mat-toolbar color="primary" position="fixed" class="toolbar" >
+  <div fxFlex.xl="20%" fxFlex.lg="20%" fxFlex.md="20%" fxFlex.sm="20%" fxFlex.xs="20%">
     <div fxFlex=40%>
       <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" ngStyle.md="float:left">
         <mat-icon aria-label="Side nav toggle icon" (click)=getLabels()>menu</mat-icon>
@@ -17,23 +17,22 @@
   </div>
   
   
-  <div fxFlex.xl="60%" fxFlex.lg="60%" fxFlex.md="60%" fxFlex.sm="20%" fxFlex.xs="20%" ngStyle.xs="flex:1 1 auto"
+  <div fxFlex.xl="60%" fxFlex.lg="60%" fxFlex.md="60%" fxFlex.sm="60%" fxFlex.xs="60%" 
     ngStyle.xl="padding-left:50px" ngStyle.lg="padding-left:50px;padding-right:30px" ngStyle.md="padding-left:50px;padding-right:30px"
     flexLayout="row">
-    <div ngStyle.xs="float:right;" ngStyle.lg="display:inline" ngStyle.xl="display:inline" ngStyle.md="display:inline"
-      ngStyle.sm="float:right">
+    <div  ngStyle.lg="display:inline" ngStyle.xl="display:inline" ngStyle.md="display:inline">
       <button type="button" mat-icon-button class="searchButton">
         <mat-icon>search</mat-icon>
       </button>
     </div>
-    <div ngStyle.xs="visibility:collapse" ngStyle.lg="display:inline" ngStyle.xl="display:inline" ngStyle.md="display:inline"
-      ngStyle.sm="visibility:collapse">
+    <div  ngStyle.lg="display:inline" ngStyle.xl="display:inline" ngStyle.md="display:inline"
+     >
       <input type="text" placeholder="Search" class="notselected" [(ngModel)]="searchInput" (click)=searchClicked()
-        (keyup)=passMessage()>
+        (keyup)=passMessage() >
     </div>
   </div>
   
-  <div fxFlex.xl="20%" fxFlex.lg="20%" fxFlex.md="20%" fxFlex.sm="40%" fxFlex.xs="40%">
+  <div fxFlex.xl="20%" fxFlex.lg="20%" fxFlex.md="20%" fxFlex.sm="20%" fxFlex.xs="20%">
     <div fxFlex="60%">
       <button type="button" mat-icon-button class="refreshButton" (click)=refresh()>
         <mat-icon>refresh</mat-icon>
@@ -80,7 +79,7 @@
                 <div mat-card-avatar class="example-header-image">
           <button mat-mini-fab (click)="clicked=!clicked" class="profileButton" 
           [ngStyle]="{'background-image':'url(' +imagepath+ ')','background-size':'cover'}" (click)=changeDp.click()>
-          
+       
           <input type="file" value="Upload photo" (change)=fileSelected($event) style="display:none" #changeDp>
     </button>
     

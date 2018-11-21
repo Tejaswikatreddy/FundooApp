@@ -1,10 +1,10 @@
 <div fxLayout="column" fxLayoutGap="10%">
   <div fxFlex.lg="10%" fxFlex.xl="0%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
   <div fxLayout="row" fxFlex.lg="100%" fxFlex.xl="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
-    <div fxFlex.lg="30%" fxFlex.xl="15%" fxFlex.md="15%" fxFlex.sm="15%" fxFlex.xs="0%"></div>
+    <div fxFlex.lg="30%" fxFlex.xl="30%" fxFlex.md="20%" fxFlex.sm="15%" fxFlex.xs="5%"></div>
 
 
-    <div fxFlex.lg="40%" fxFlex.xl="70%" fxFlex.md="70%" fxFlex.sm="70%" fxFlex.xs="100%">
+    <div fxFlex.lg="40%" fxFlex.xl="40%" fxFlex.md="60%" fxFlex.sm="70%" fxFlex.xs="90%">
 
 
       <form name="form" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
@@ -56,10 +56,10 @@
         
          
 
-        <div>
-         <a routerLink="/forgot">forgot password?</a>   
-         <div  class="createAccount"><a routerLink="/signup">create an account..</a> </div>
-          <button mat-align="center" mat-button class="button" (click)=login()>login</button>
+        <div fxlayout="row">
+         <a fxFlex.xs="33%" routerLink="/forgot">forgot password?</a>   
+         <div fxFlex.xs="33%"><a routerLink="/signup">create an account..</a> </div>
+          <button  mat-align="center" mat-button class="button" (click)=login()>login</button>
         </div>
       </div>
 
@@ -67,7 +67,7 @@
     </form>
     </div>
 
-    <div fxFlex.lg="30%" fxFlex.xl="15%" fxFlex.md="15%" fxFlex.sm="15%" fxFlex.xs="0%"></div>
+    <div fxFlex.lg="30%" fxFlex.xl="30%" fxFlex.md="20%" fxFlex.sm="15%" fxFlex.xs="5%"></div>
   </div>
 
 

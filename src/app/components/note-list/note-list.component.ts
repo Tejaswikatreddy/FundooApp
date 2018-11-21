@@ -47,7 +47,7 @@ export class NotelistComponent implements OnInit,OnDestroy {
   }
   reminderClicked(note){
     this.remind.reminderClick(note.id);
-    // this.dataService.previous1Date(note.id)
+    
   }
   labelClicked(labelName){
     this.dataService.labeldata(labelName)

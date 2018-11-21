@@ -4,6 +4,7 @@ import { NoteService } from '../../core/services/NoteService/note.service';
 import { Note } from "../../core/models/noteModel"
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { LoggerService } from 'src/app/core/services/logger/logger.service';
 @Component({
   selector: 'app-label-notes',
   templateUrl: './label-notes.component.html',
@@ -18,17 +19,16 @@ export class LabelNotesComponent implements OnInit, OnDestroy {
   public labelNOtes: Note[]=[];
   
   ngOnInit() {
+    this.route.params.subscribe(
       (params: Params) => {
-        this.labelName = params['labelName']
-        this.getLabelNOtes(this.labelName);
+        console.log(params);
         
-      }
-   
+        this.labelName = params['labelName']
+        this.getLabeledNOtes(this.labelName);
+      })
     
   }
-  getLabelNOtes(labelName){
-   
-    let url ="notes/getNotesListByLabel/"+labelName
+  getLabeledNOtes(labelName){
     this.NoteService.getLabelNotes(labelName)
       .pipe(takeUntil(this.destroy$))
   .subscribe(response => {
@@ -39,7 +39,7 @@ export class LabelNotesComponent implements OnInit, OnDestroy {
    
   }
   eventDone(event){
-   this.getLabelNOtes(this.labelName)
+   this.getLabeledNOtes(this.labelName)
   }
   ngOnDestroy() {
    

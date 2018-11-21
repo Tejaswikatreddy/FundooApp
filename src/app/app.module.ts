@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -51,7 +51,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
 import { ReminderListComponent } from './components/reminder-list/reminder-list.component';
 import { MessageService } from './core/services/message-service/message.service';
-import { InterceptService} from './core/services/interceptor/intercept.service'
+import { InterceptService} from './core/services/interceptor/intercept.service';
+import { ErrorsHandler} from './core/services/errors/errors-handler'
 @NgModule({
   declarations: [
       AppComponent,
@@ -119,6 +120,10 @@ import { InterceptService} from './core/services/interceptor/intercept.service'
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptService,
       multi: true
+    },
+    {
+      provide: ErrorHandler,
+      useClass: ErrorsHandler,
     }
   
   ],

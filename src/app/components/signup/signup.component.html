@@ -1,104 +1,106 @@
+<div fxLayout="column" fxLayoutGap="10%">
+  <div fxFlex.lg="10%" fxFlex.xl="20%" fxFlex.md="10%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+  <div fxLayout="row" fxFlex.lg="80%" fxFlex.xl="60%" fxFlex.md="80%" fxFlex.sm="100%" fxFlex.xs="100%">
+    <div fxFlex.lg="30%" fxFlex.xl="40%" fxFlex.md="10%" fxFlex.sm="10%" fxFlex.xs="5%"></div>
 
 
-<div fxLayout="column"  fxLayoutGap="10%">
-  <div fxFlex.lg="10%" fxFlex.xl="10%" fxFlex.md="10%" fxFlex.sm="0%" fxFlex.xs="0%" ></div>
-  <div fxLayout="row" fxFlex.lg="80%" fxFlex.xl="80%" fxFlex.md="80%" fxFlex.sm="100%" fxFlex.xs="100%"  >
-    <div fxFlex.lg="30%" fxFlex.xl="10%" fxFlex.md="10%" fxFlex.sm="0%" fxFlex.xs="0%" ></div>
-
-
-    <div fxFlex.lg="40%" fxFlex.xl="80%" fxFlex.md="80%" fxFlex.sm="100%" fxFlex.xs="100%">
+    <div fxFlex.lg="40%" fxFlex.xl="20%" fxFlex.md="80%" fxFlex.sm="80%" fxFlex.xs="90%">
       <form name="form" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
-      <mat-card>
-        <div>
-          <mat-card-title><span class=f>F</span>
+        <mat-card>
+          <div>
+            <mat-card-title><span class=f>F</span>
               <span class=u>U</span>
               <span class=n>N</span>
               <span class=d>D</span>
               <span class=o>O</span>
-            <span class=f>O</span></mat-card-title>
-      
-          <mat-card-subtitle>Sign Up</mat-card-subtitle>
-          <mat-form-field  >
-            <input matInput placeholder="first name" type="text" name="firstName" [(ngModel)]="model.firstName"  
-            [ngClass]="{ 'is-invalid': f.submitted && firstName.invalid }" #firstName="ngModel" required>
-            <mat-error *ngIf="f.submitted && firstName.invalid ">
-            
-              <mat-error *ngIf="firstName.errors.required">
-               first Name is required.
-              </mat-error>
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field class="lastField">
-            <input matInput  placeholder="last name" name="lastName" [(ngModel)]="model.lastName"  
-            [ngClass]="{ 'is-invalid': f.submitted && lastName.invalid }" #lastName="ngModel" required>
-              <mat-error *ngIf="f.submitted && lastName.invalid">
-              
-                <mat-error *ngIf="lastName.errors.required">
-                 last Name is required.
-                </mat-error>
-              </mat-error>
-          </mat-form-field>
-      
-          <mat-form-field  class="emailField">
-            <input matInput type="email"  placeholder="email id" name="emailid" pattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" 
-            [(ngModel)]="model.email"  [ngClass]="{ 'is-invalid': f.submitted && emailid.invalid }"  #emailid="ngModel" required>
-            <mat-error *ngIf="f.submitted && emailid.invalid" >
-              
-                <mat-error *ngIf="emailid.errors.required">
-                <mat-error>emailid is required.</mat-error>
-                </mat-error>
-                 <mat-error *ngIf="emailid.errors.pattern">
-                 <mat-error>valid emailid is required.</mat-error> 
-            </mat-error>
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field class="confrmPassword">
-            <input matInput name="pass"  placeholder="Enter your password" [type]="hide ? 'password' : 'text'" #password="ngModel" 
-              [(ngModel)]="model.password"  [ngClass]="{ 'is-invalid': f.submitted && password.invalid }" required >
-            <mat-error *ngIf="f.submitted && password.invalid ">
-          
-              <mat-error *ngIf="password.errors.required">
-                Password is required.
-              </mat-error>
-      
-          
-            </mat-error>
-           
-          </mat-form-field>
-          <mat-form-field  class="confrmPassword">
-            <input matInput name="cpassword"   placeholder="Enter your password" 
-            [type]="hide ? 'password' : 'text'" required #Cpassword="ngModel" [(ngModel)]="model.cpassword"
-             [ngClass]="{ 'is-invalid': f.submitted && Cpassword.invalid }">
-             <!-- <mat-error *ngIf="(firstName.dirty || firstName.touched)">
-             <mat-error *ngIf="!checked ">password doesnt match</mat-error></mat-error> -->
-             <mat-error *ngIf="f.submitted && Cpassword.invalid ">
-              <mat-error *ngIf="Cpassword.errors.required">
-                Password is required.
-              </mat-error>
-              
-             
-            </mat-error>
-            <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-          </mat-form-field>
+              <span class=f>O</span></mat-card-title>
 
-          <div flexLayout="row" fxLayoutAlign="center" fxLayoutGap="5%">
-            <div fxFlex.lg="40%"  *ngFor="let Card of cards">
-              <mat-card matbutton (click)=respond(Card) [ngClass]="Card.select ? 'selected' : 'notselected'"
-                class=card >
-                <mat-card-title  class="cardTitle">{{Card.name}}</mat-card-title>
-                <mat-card-content  class="cardDescription">{{Card.description}}</mat-card-content>
-              </mat-card>
+            <mat-card-subtitle>Sign Up</mat-card-subtitle>
+            <mat-form-field ngStyle.xs="width:80%">
+              <input matInput placeholder="first name" type="text" name="firstName" [(ngModel)]="model.firstName"
+               [ngClass]="{ 'is-invalid': f.submitted && firstName.invalid }" #firstName="ngModel" required>
+              <mat-error *ngIf="f.submitted && firstName.invalid " >
+
+                <mat-error *ngIf="firstName.errors.required">
+                  first Name is required.
+                </mat-error>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="lastField" ngStyle.xs="margin-left:0%;width:80%">
+              <input matInput placeholder="last name" name="lastName" [(ngModel)]="model.lastName" [ngClass]="{ 'is-invalid': f.submitted && lastName.invalid }"
+                #lastName="ngModel" required>
+              <mat-error *ngIf="f.submitted && lastName.invalid">
+
+                <mat-error *ngIf="lastName.errors.required">
+                  last Name is required.
+                </mat-error>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="emailField" >
+              <input matInput type="email" placeholder="email id" name="emailid" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                [(ngModel)]="model.email" [ngClass]="{ 'is-invalid': f.submitted && emailid.invalid }" #emailid="ngModel"
+                required>
+              <mat-error *ngIf="f.submitted && emailid.invalid">
+
+                <mat-error *ngIf="emailid.errors.required">
+                  <mat-error>emailid is required.</mat-error>
+                </mat-error>
+                <mat-error *ngIf="emailid.errors.pattern">
+                  <mat-error>valid emailid is required.</mat-error>
+                </mat-error>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field  ngStyle.xs="margin-left:0%;width:80%">
+              <input matInput name="pass" placeholder="Enter your password" [type]="hide ? 'password' : 'text'"
+                #password="ngModel" [(ngModel)]="model.password" [ngClass]="{ 'is-invalid': f.submitted && password.invalid }"
+                required>
+              <mat-error *ngIf="f.submitted && password.invalid ">
+
+                <mat-error *ngIf="password.errors.required">
+                  Password is required.
+                </mat-error>
+
+
+              </mat-error>
+
+            </mat-form-field>
+            <mat-form-field class="confrmPassword" ngStyle.xs="margin-left:0%;width:80%">
+              <input matInput name="cpassword" placeholder="ReEnter your password" [type]="hide ? 'password' : 'text'"
+                required #Cpassword="ngModel" [(ngModel)]="model.cpassword" [ngClass]="{ 'is-invalid': f.submitted && Cpassword.invalid }">
+              <!-- <mat-error *ngIf="(firstName.dirty || firstName.touched)">
+             <mat-error *ngIf="!checked ">password doesnt match</mat-error></mat-error> -->
+              <mat-error *ngIf="f.submitted && Cpassword.invalid ">
+                <mat-error *ngIf="Cpassword.errors.required">
+                  Password is required.
+                </mat-error>
+
+
+              </mat-error>
+              <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </mat-form-field>
+
+            <div flexLayout="row" fxLayoutAlign="center" fxLayoutGap="5%">
+              <div fxFlex.lg="40%" *ngFor="let Card of cards">
+                <mat-card matbutton (click)=respond(Card) [ngClass]="Card.select ? 'selected' : 'notselected'" class=card>
+                  <div fxLayout="column">
+                    <div fxFlex="10%" class="cardTitle">{{Card.name}}</div>
+                    <div fxFlex="80%" class="cardDescription">{{Card.description}}</div>
+                    <div fxFlex="10%"></div>
+                  </div>
+                </mat-card>
+              </div>
+            </div>
+            <div fxFlexLayout="column" fxLayoutGap.xs="15%" fxLayoutGap.xl="25%" fxLayoutGap.lg="20%" class="bottom">
+            <a fxFlex="50%" routerLink="">Signin if already have an account</a>
+            <button  mat-button class="button" (click)=signup()>signup</button>
             </div>
           </div>
-            
-          <a routerLink="" >Signin if already have an account</a>
-          <button mat-button class="button"  (click)=signup()>signup</button>
-        </div>
-      </mat-card>
-       </form>
+        </mat-card>
+      </form>
     </div>
 
-    <div fxFlex.lg="30%" fxFlex.xl="10%" fxFlex.md="10%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+    <div fxFlex.lg="30%" fxFlex.xl="40%" fxFlex.md="10%" fxFlex.sm="10%" fxFlex.xs="0%"></div>
   </div>
-  <div fxFlex.lg="10%" fxFlex.xl="10%" fxFlex.md="10%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+  <div fxFlex.lg="10%" fxFlex.xl="20%" fxFlex.md="10%" fxFlex.sm="0%" fxFlex.xs="5%"></div>
 </div>
