@@ -1,16 +1,11 @@
+@import '../../../scss/mixin.scss';
+
 [contenteditable=true]:empty:not(:focus):before{
     content: attr(placeholder);
     display: block;
     opacity:0.5;
 }
-.material-icons {
-    cursor: pointer;
-    opacity: 0.5;
-}
-.material-icons:hover {
-    cursor: pointer;
-    opacity: 1.5;
-}
+
 .note{
     width: 100%;
   height: auto;
@@ -56,12 +51,8 @@ word-wrap:break-word;
     opacity: 1
 }
 .labelChip{
-  white-space:nowrap;
-  text-overflow:ellipsis;
-  overflow:hidden !important
+      @include ellipsis;
 }
  .chip{
     max-width:150px;
-    
- 
 }

@@ -9,13 +9,20 @@ import * as StackTraceParser from 'error-stack-parser';
 @Injectable()
 export class ErrorsHandler implements ErrorHandler {
     constructor(
-        private injector: Injector,
+        private injector: Injector
     ) { }
 
 
     handleError(error: Error) {
-        // Do whatever you like with the error (send it to the server?)
-        // And log it to the console
-        console.error('It happens: ', error);
+        const router = this.injector.get(Router);
+        if (!navigator.onLine){
+            console.log("offline");
+            router.navigate(['error'])
+            
+        }
+        if (error instanceof ErrorEvent){
+            console.log(error.message)
+        }
+       
     }
 }

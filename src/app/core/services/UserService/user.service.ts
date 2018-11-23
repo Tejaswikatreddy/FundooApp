@@ -52,4 +52,8 @@ public access_token=localStorage.getItem('id');
     this.url = this.URL +"/user/registerPushToken";
     return this.service.PostJson(this.url,RequestBody)
   }
+  searchList(Requestbody){
+    this.url = this.URL + "/user/searchUserList";
+    return this.service.PostJson(this.url,Requestbody);
+  }
 }

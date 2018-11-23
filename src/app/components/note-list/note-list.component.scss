@@ -1,3 +1,5 @@
+@import '../../../scss/mixin.scss';
+
 .icons{
     opacity: 0;
     padding-top: 15px
@@ -18,11 +20,6 @@
  }
 .maindiv{
        flex-wrap: wrap;
-    //    padding-bottom: 15%;
-}
-.material-icons {
-    cursor: pointer;
-    opacity: 0.5;
 }
 
 .note{
@@ -47,8 +44,12 @@
 .Flayout{
     margin:1%;
     height:min-content;border-radius:10px;
-    // margin-top:5px;
     width:100%
+}
+.Flayoutsm{
+    margin:1%;
+    height:min-content;border-radius:10px;
+    width:90%
 }
 .grid{
 // width 
@@ -58,19 +59,22 @@
     text-decoration: line-through
 }
 .labelChip{
-  white-space:nowrap;
-  text-overflow:ellipsis;
-  overflow:hidden !important
+      @include ellipsis;
 }
  .chip{
     max-width:150px;
 }
 .cardsm{
      padding:1%;
-    height:min-content;border-radius:10px;width:350px;
+    height:min-content;border-radius:10px;width:500px;
     
 }
 .XLFlayout{
     
     width:1500px
+}
+.cardxs{
+    width:100%;
+    margin-left:1%;
+  
 }

@@ -1,0 +1,11 @@
+@mixin  color-generator($button-bg-color){
+     background-color:$button-bg-color;
+    margin-right: 5px;
+    margin-bottom: 3px;
+}
+@mixin ellipsis {
+  padding-left: 10px;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  overflow:hidden !important
+}

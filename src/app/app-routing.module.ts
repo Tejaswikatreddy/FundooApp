@@ -14,21 +14,24 @@ import { ReminderListComponent } from './components/reminder-list/reminder-list.
 import { MainArchiveComponent } from './components/main-archive/main-archive.component';
 import { MainTrashComponent } from './components/main-trash/main-trash.component';
 import { LabelNotesComponent } from './components/label-notes/label-notes.component';
+import { ErrorDisplayComponent } from './components/error-display/error-display.component';
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'signup', component: SignupComponent},
-  { path: 'forgot', component: ForgotPasswordComponent},
-  { path: '', component: NavbarComponent, canActivate: [AuthGuard],children:[
-    { path: 'label/:labelName', component: LabelNotesComponent },
-      { path: 'home', component: AllNoteComponent }, 
-      {path:'archive',component:MainArchiveComponent },
+  { path: 'signup', component: SignupComponent },
+  { path: 'forgot', component: ForgotPasswordComponent },
+  {
+    path: '', component: NavbarComponent, canActivate: [AuthGuard], children: [
+      { path: 'label/:labelName', component: LabelNotesComponent },
+      { path: 'home', component: AllNoteComponent },
+      { path: 'archive', component: MainArchiveComponent },
       { path: 'trash', component: MainTrashComponent },
       { path: 'remainder', component: ReminderListComponent },
-      { path: 'search', component:SearchAllComponent },
-    ]},
-  {path:"resetpassword/:forgotToken",component:ResetPasswordComponent},
- 
+      { path: 'search', component: SearchAllComponent },
+    ]
+  },
+  { path: "resetpassword/:forgotToken", component: ResetPasswordComponent },
+  {path:"error",component:ErrorDisplayComponent}
 
 ]
 @NgModule({
@@ -38,6 +41,6 @@ const routes: Routes = [
   exports: [
     RouterModule
   ],
-  
+
 })
 export class AppRoutingModule { }

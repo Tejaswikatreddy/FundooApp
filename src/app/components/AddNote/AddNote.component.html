@@ -1,11 +1,11 @@
 <div fxLayout="column" fxLayoutGap="2%">
   <div fxFlex=0></div>
-  <div fxFlex="100%" fxLayout="row">
-    <div fxFlex="20%" fxFlex.xs="0%"></div>
-    <div fxFlex="80%" fxFlex.xs="100%" fxLayoutAlign="space-around center">
+  <div fxFlex="100%" fxLayout="row" >
+    <div fxFlex="20%" fxFlex.xs="10%" fxFlex.sm="10%"></div>
+    <div  fxFlex.xs="80%" fxFlex.sm="80%" fxLayoutAlign="space-around center" >
       <!------------------------ mat-card in the intial design ------------------------------->
       <div *ngIf="!clicked">
-        <mat-card class="example-card" class="card">
+        <mat-card class="example-card" class="card" ngStyle.xs="width:100%">
           <mat-card-header fxLayout="row" fxLayoutAlign="center center">
             <input type="text" class="note" placeholder="Take a note.." (click)="clicked=true;matClick()" ngStyle.xs="font-size:20px">
 
@@ -25,7 +25,7 @@
       </div>
       <!------------------------------ mat-card in the editingMode ------------------------------>
       <div *ngIf="clicked">
-        <mat-card class="example-card" class=card [style.backgroundColor]="changedColor">
+        <mat-card class="example-card" class=card [style.backgroundColor]="changedColor" ngStyle.xs="width:100%">
           <div fxLayout="row">
             <div contenteditable="true" placeholder="Title" class="note" id="title" ngStyle.xs="font-size:20px"></div>
             <div>
@@ -107,7 +107,7 @@
         </mat-card>
       </div>
     </div>
-    <div fxFlex="20%" fxFlex.xs="0%"></div>
+    <div fxFlex="20%" fxFlex.xs="10%" fxFlex.sm="10%"></div>
   </div>
   <div fxFlex=0></div>
 </div>

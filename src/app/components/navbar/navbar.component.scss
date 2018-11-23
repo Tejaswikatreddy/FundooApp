@@ -1,10 +1,6 @@
+@import '../../../scss/mixin.scss';
 .sidenav-container {
   max-height: 100%;
-  
-   /* flex: 1 0 auto;
-   margin: -7px -9px 0px -8px;
-   min-height: max-content */
-  
   
 }
 
@@ -31,7 +27,7 @@ padding-bottom: 20%
   width:100%;
 }
 .notselected{
-    width: 650px;
+    width: 100%;
   height: 40px;
   background-color:#e4a700;
   border:none;
@@ -94,12 +90,14 @@ input:focus {
     background-color: #fb0;
 }
 .sideNotes{
+  @include ellipsis;
   padding-left: 10px;
-  white-space:nowrap;
-  text-overflow:ellipsis;
-  overflow:hidden !important
+  // white-space:nowrap;
+  // text-overflow:ellipsis;
+  // overflow:hidden !important
 }
 .navbarlabel{
+    // @include ellipsis;
    white-space:nowrap;
   text-overflow:ellipsis;
   overflow:hidden!important
@@ -116,8 +114,7 @@ input:focus {
   width: 100%; 
 }
 .navbar{
-  /* margin-left: 95%;
-  margin-top:56px; */
+ 
   position: absolute;
   top:65px;
   bottom:0;
@@ -142,7 +139,7 @@ input:focus {
   float:right
 }
 .profileButton{
-  margin-right:100px;
+  // margin-right:100px;
   height: 50px;
   width: 50px
 }
@@ -150,7 +147,7 @@ input:focus {
   padding-left:10px
 }
 .editButton{
-  margin-left: 10%
+  // margin-left: 10%
 }
 .content{
   position:fixed;

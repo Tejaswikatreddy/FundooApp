@@ -1,4 +1,35 @@
 /* You can add global styles to this file, and also import other style files */
+// @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+// @import './scss/mixin.scss';
+$color-darkCyan:#008b8b;
+$color-paleviolet:#d87093;
+$color-seaGreen:rgb(11, 235, 235);
+$color-green:rgb(124, 238, 153);
+$color-yellow:rgb(244, 247, 118);
 
 html, body { height: 100%; }
 body { margin: 0; font-family: 'Roboto', sans-serif; }
+.material-icons {
+    cursor: pointer;
+    opacity: 0.5;
+}
+.material-icons:hover {
+    cursor: pointer;
+    opacity: 1;
+}
+.f{
+    color:$color-darkCyan;
+}
+.u{
+    color:#d87093;
+}
+.n{
+     color:$color-seaGreen;
+}
+.d{
+    color:$color-green;
+}
+.o{
+    
+color:$color-yellow;
+}

@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule, MatToolbarModule, MatListModule } from '@angular/material';
-import {FlexLayoutModule} from '@angular/flex-layout';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { SignupComponent } from './components/signup/signup.component';
 import { MatRadioModule } from '@angular/material/radio';
@@ -51,18 +51,22 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
 import { ReminderListComponent } from './components/reminder-list/reminder-list.component';
 import { MessageService } from './core/services/message-service/message.service';
-import { InterceptService} from './core/services/interceptor/intercept.service';
-import { ErrorsHandler} from './core/services/errors/errors-handler'
+import { InterceptService } from './core/services/interceptor/intercept.service';
+import { ErrorsHandler } from './core/services/errors/errors-handler'
+import { ErrorDisplayComponent } from './components/error-display/error-display.component';
+import { CollabComponent } from './components/collab/collab.component';
+import { MatSelectModule } from '@angular/material/select';
+
 @NgModule({
   declarations: [
-      AppComponent,
+    AppComponent,
     LoginComponent,
     SignupComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
     AddNoteComponent,
     NavbarComponent,
-    RemindMeComponent,  
+    RemindMeComponent,
     CollaboratorComponent,
     ChangeColorComponent,
     AddImageComponent,
@@ -81,12 +85,13 @@ import { ErrorsHandler} from './core/services/errors/errors-handler'
     LabelSearchPipe,
     CropImageComponent,
     ReminderListComponent,
-   
+    ErrorDisplayComponent,
+    CollabComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule, 
+    BrowserAnimationsModule,
     MatFormFieldModule,
     MatInputModule,
     FlexLayoutModule,
@@ -109,23 +114,25 @@ import { ErrorsHandler} from './core/services/errors/errors-handler'
     MatChipsModule,
     MatDatepickerModule,
     ImageCropperModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatSelectModule
 
   ],
-  entryComponents: [UpdateNoteComponent, EditLabelComponent, CropImageComponent],
+  entryComponents: [UpdateNoteComponent, EditLabelComponent, CropImageComponent, CollabComponent],
   providers: [
     httpService,
-    MatDatepickerModule, MessageService, InterceptService,
+    MatDatepickerModule, MessageService, {
+      provide: ErrorHandler,
+      useClass: ErrorsHandler,
+    },
+     InterceptService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptService,
       multi: true
-    },
-    {
-      provide: ErrorHandler,
-      useClass: ErrorsHandler,
     }
-  
+   
+
   ],
   bootstrap: [AppComponent],
 

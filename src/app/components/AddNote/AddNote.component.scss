@@ -1,12 +1,5 @@
-/* .example-container {
-  position: absolute;
-  top: 57px;
-  bottom: 0;
-  left: 0;
-  right: 0;
+@import '../../../scss/mixin.scss';
 
-  background: #eee;
-} */
 .card{
     height:auto;
     width:550px
@@ -15,28 +8,17 @@
     width: 100%;
   height: auto;
   border:none;
-  /* border-color: transparent; */
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-size: 15px;
   overflow: break-word;
   outline: none
 
 }
-.material-icons {
-    cursor: pointer;
-    opacity: 0.5;
-}
-.material-icons:hover {
-    cursor: pointer;
-    opacity: 1.5;
-}
+
 
 .take_notes{
-    /* position: relative; */
     width: 80%;
      padding: 2px 2px 2px 2px;
-    /* outline: none; */
-    /* overflow: hidden; */
 }
 .matContent{
     padding: 2px 2px 2px 2px;
@@ -52,9 +34,11 @@
 
 
 .labelChip{
-  white-space:nowrap;
-  text-overflow:ellipsis;
-  overflow:hidden !important
+      @include ellipsis;
+
+//   white-space:nowrap;
+//   text-overflow:ellipsis;
+//   overflow:hidden !important
 }
  .chip{
     max-width:150px;

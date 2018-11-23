@@ -1,12 +1,12 @@
 
-<div fxFlex="15%" fxFlex.xs="2%" fxFlex.md="5%" ></div>
-<div fxFlex="80%" fxFlex.xs="96%"  fxFlex.md="90%" fxLayoutAlign="start start"  fxLayout="row wrap" fxLayoutGap="10px" class="maindiv">
+<div fxFlex="15%" fxFlex.xs="10%" ></div>
+<div fxFlex="80%" fxFlex.xs="80%"  fxLayoutAlign="start start"  fxLayout="row wrap" fxLayoutGap="10px" class="maindiv">
   <!----------------------- repeating the notes with for loop ---------------------------------->
  
   <div  *ngFor="let note of NoteArray | search:searchInput"  ngStyle.xs="width:100%" 
   [ngClass.xl]="{'XLFlayout':view ,'grid':!view}" [ngClass]="{'layout':view ,'grid':!view}">
-    <mat-card [style.backgroundColor]="note.color" ngStyle.xs="width:95%" [ngClass.sm]="{'Flayout':view ,'cardsm':!view}" 
-    [ngClass]="{'Flayout':view ,'card':!view}" style="margin:3%">
+    <mat-card [style.backgroundColor]="note.color"  [ngClass.sm]="{'Flayoutsm':view ,'cardsm':!view}" 
+    [ngClass.xs]="{'Flayout':view ,'cardxs':!view}" [ngClass]="{'Flayout':view ,'card':!view}" >
       <div>
         <div fxLayout="row">
           <div fxFlex=95% class="note" [innerHTML]="note.title" (click)="open(note)" ngStyle.xs="font-size:25px"></div>
@@ -101,4 +101,4 @@
     </mat-card>
   </div>
 </div>
-<div fxFlex="5%" fxFlex.xs="2%" fxFlex.md="5%"></div>
+<div fxFlex="5%" fxFlex.xs="10%"></div>

@@ -1,17 +1,9 @@
-.material-icons {
-    cursor: pointer;
-    opacity: 0.5;
-}
-.material-icons:hover {
-    cursor: pointer;
-    opacity: 1.5;
-}
+@import '../../../scss/mixin.scss';
+
 .menupanel{
     padding:10px;
-    /* padding-bottom: 8px; */
     overflow:hidden;
      width: 153px  !important
-
 }
 .mat-checkbox-inner-container {
     display: inline-block;
@@ -44,9 +36,12 @@ input:focus{
     outline:none
 }
 .labelChip{
-  white-space:nowrap;
-  text-overflow:ellipsis;
-  overflow:hidden !important
+    
+//   white-space:nowrap;
+//   text-overflow:ellipsis;
+//   overflow:hidden !important
+  @include ellipsis;
+
 }
  .chip{
     max-width:150px;
