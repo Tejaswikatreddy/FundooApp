@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input,EventEmitter, Output } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { CollabComponent} from '../collab/collab.component'
 @Component({
@@ -8,6 +8,7 @@ import { CollabComponent} from '../collab/collab.component'
 })
 export class CollaboratorComponent implements OnInit {
 @Input() Note;
+@Output() event=new EventEmitter();
   constructor(public dialog: MatDialog) { }
 public isDeleted=false;
   ngOnInit() {
@@ -16,14 +17,15 @@ public isDeleted=false;
     }
   }
   open(): void {
-
+if(this.Note!==undefined){
     const dialogRef = this.dialog.open(CollabComponent, {
       data:this.Note
    
     });
     dialogRef.afterClosed().subscribe(result => {
-
+      this.event.emit({})
    
     });
   }
+}
 }

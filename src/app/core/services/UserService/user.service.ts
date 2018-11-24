@@ -26,8 +26,6 @@ public access_token=localStorage.getItem('id');
   }
   getCards(){
     this.url = this.URL +"/user/service";
-    console.log(this.url);
-    
     return this.service.get(this.url)
   }
   resetPassword(RequestBody){

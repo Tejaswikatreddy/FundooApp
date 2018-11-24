@@ -9,3 +9,34 @@
   text-overflow:ellipsis;
   overflow:hidden !important
 }
+@mixin inputOutline{
+   outline: none;border:none;width:200px;
+    padding-left: 5%;
+}
+@mixin padding($value-top,$value-bottom,$value-left,$value-right){
+  padding-top: $value-top;
+  padding-bottom: $value-bottom;
+   padding-left: $value-left;
+  padding-right: $value-right
+}
+@mixin circularDiv{
+   height:25px;width:30px;border:2px solid grey; border-radius: 70%;
+    text-align: center;
+    @include padding(2%,0,0,0);
+  
+}
+@mixin note{
+     width: 100%;
+  height: auto;
+  border:none;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 15px;
+  overflow: break-word;
+  outline: none 
+}
+@mixin margin($value,$value2,$value3,$value4){
+ margin-left:$value;
+ margin-right:$value2;
+ margin-top:$value3;
+ margin-bottom:$value4;
+}

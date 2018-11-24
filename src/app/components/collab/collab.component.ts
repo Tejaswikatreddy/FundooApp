@@ -11,28 +11,32 @@ import { NoteService} from '../../core/services/NoteService/note.service'
 })
 export class CollabComponent implements OnInit {
 
-  constructor(private service: UserService, @Inject(MAT_DIALOG_DATA) public data: any,private noteService:NoteService) { }
+  constructor(private service: UserService, @Inject(MAT_DIALOG_DATA) public data: any,
+    public dialogRef: MatDialogRef<CollabComponent>,private noteService:NoteService) { }
   URL = environment.URL;
-  public image;
-  public imagepath;
-  public email;
-  public firstname;
-  public lastname;
+  public image = this.data.user.imageUrl;
+  public imagepath = this.URL + this.image;
+  public email = this.data.user.email ;
+  public firstname = this.data.user.firstName;
+  public lastname = this.data.user.lastname;
   public searchInput;
   public searchResult:user[]=[]
   public collabs=[];
+public initial:String;
   ngOnInit() {
-    this.image = localStorage.getItem("imageUrl");
-    this.imagepath = this.URL + this.image
-    this.email=localStorage.getItem("email")
-    this.firstname=localStorage.getItem("firstName")
-    this.lastname=localStorage.getItem("lastName");
-    if (this.data.collaborators!=undefined){
+       if (this.data.collaborators!=undefined){
       this.collabs = this.data.collaborators;
+
     }
   }
+  splice(firstName){
+    this.initial=firstName[0];
+    this.initial=this.initial.toUpperCase()
+    return true;
+  }
   search(){
-    if(this.searchInput!="")
+    this.done=true;
+    if(this.searchInput!=="")
 {
 
   let RequestBody={
@@ -40,10 +44,7 @@ export class CollabComponent implements OnInit {
     }
     this.service.searchList(RequestBody).subscribe(response=>{
       this.searchResult=response['data'].details
-      console.log(this.searchResult);
     },error=>{
-      console.log(error);
-      
     })
   }
   }
@@ -53,7 +54,6 @@ export class CollabComponent implements OnInit {
       this.selectedUser=user
       this.searchInput=user.email;
       this.done=true;
-    
   }
   addCollab(){
       let RequestBody={
@@ -63,19 +63,27 @@ export class CollabComponent implements OnInit {
         "userId": this.selectedUser.userId
       }
       this.noteService.addCollaborator(RequestBody,this.data.id).subscribe(response=>{
-        console.log(response);
         this.collabs.push(this.selectedUser);
         this.searchInput=" ";
         this.done=false;
       })
+    
   }
   removeCollaborator(collab){
-    console.log(this.data);
-    console.log(collab);
     this.noteService.removeCollabrator(this.data.id,collab.userId).subscribe(response=>{
-      console.log(response)
+      for(let i=0;i<this.collabs.length;i++){
+        if(collab.id===this.collabs[i].id){
+          this.collabs.splice(i,0)
+        }
+      }
     })
     
     
+  }
+  close()
+  {
+    console.log("helll");
+    
+     this.dialogRef.close();
   }
 }

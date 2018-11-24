@@ -1,4 +1,4 @@
-::ng-deep.mat-dialog-container {
+:host::ng-deep.mat-dialog-container {
     box-shadow: 0 11px 15px -7px rgba(0,0,0,.2), 0 24px 38px 3px rgba(0,0,0,.14), 0 9px 46px 8px rgba(0,0,0,.12);
     display: block;
     box-sizing: border-box;
@@ -7,10 +7,16 @@
     outline: 0;
     width: 450px;
     height: 500px;
-    min-height: inherit;
+    
     border-radius: 10px;
-    max-height: inherit;
+   
     padding: 5px
+}
+.mainDiv{
+   width: 250px;
+    max-height: 400px;
+    min-height: 200px;
+     padding: 10px
 }
 .material-icons:hover {
     size:5px
@@ -18,9 +24,7 @@
 .note{
     width: 100%;
   height: auto;
-  /* border:none; */
-  /* border-color: transparent; */
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-size: 15px;
   border-bottom: 2px solid black;
   outline: none
@@ -32,7 +36,7 @@
     opacity:0.5;
 }
 .label{
-     word-wrap: break-word;
+ word-wrap: break-word;
  width:120px;
  outline: none
 }
@@ -44,11 +48,7 @@
 .hovericon:hover .lab {
   display: inherit;
 }
-.mainDiv{
-    padding:20px;
-    height:auto;
-    overflow:hidden
-}
+
 .doneButton{
     float:right
 }

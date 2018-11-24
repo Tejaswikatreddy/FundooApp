@@ -119,8 +119,7 @@ isHandset$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.H
         this.router.navigate(['login']);
       
     },error=>{
-        if(error){
-        }
+       
     })
   
    

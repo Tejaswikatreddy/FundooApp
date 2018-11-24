@@ -21,22 +21,23 @@ import { takeUntil } from 'rxjs/operators';
 export class UpdateNoteComponent implements OnInit,OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
 
-  constructor(public dialogRef: MatDialogRef<UpdateNoteComponent>,
-                   @Inject(MAT_DIALOG_DATA)public data:any,
+  constructor(private dialogRef: MatDialogRef<UpdateNoteComponent>,
+                   @Inject(MAT_DIALOG_DATA)private data:any,
                   private NoteService:NoteService,
                   ) { }
-public title;
-public description;
-public id;
-public bgcolor=this.data.color;
-  public labels = [];
-  public checklist=false;
-  public modifiedCheckList;
-  public newList;
-  public tempArray=[]
-  public newData:any={}
-public arrayObj:any={}
-public reminder=[];
+private initial=""
+private title;
+private description;
+private id;
+private bgcolor=this.data.color;
+  private labels = [];
+  private checklist=false;
+  private modifiedCheckList;
+  private newList;
+  private tempArray=[]
+  private newData:any={}
+private arrayObj:any={}
+private reminder=[];
   ngOnInit() {
    if(this.data.reminder.length>0){
      this.reminder=this.data.reminder;
@@ -135,7 +136,7 @@ public reminder=[];
     this.modifiedCheckList=checkList;
     this.updateNotes();
   }
-  public removedList;
+  private removedList;
   removeList(checklist){
     this.removedList=checklist;
     this.removeCheckList()
@@ -153,9 +154,9 @@ public reminder=[];
     })
   }
  
-  public adding=false;
-  public addCheck=false;
-  public status="open"
+  private adding=false;
+  private addCheck=false;
+  private status="open"
   addList(event){
     if(this.newList!=""){
       this.adding = true;
@@ -222,6 +223,11 @@ public reminder=[];
     this.reminder=[];
 
      })
+  }
+  splice(firstName) {
+    this.initial = firstName[0];
+    this.initial = this.initial.toUpperCase()
+    return true;
   }
   ngOnDestroy() {
 

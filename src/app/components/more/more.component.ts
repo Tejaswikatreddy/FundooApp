@@ -3,6 +3,7 @@ import { NoteService } from '../../core/services/NoteService/note.service';
 import { Label } from "../../core/models/noteModel"
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-more',
@@ -12,7 +13,7 @@ import { takeUntil } from 'rxjs/operators';
 export class MoreComponent implements OnInit,OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
 
-  constructor( private NoteService: NoteService) { }
+  constructor(private NoteService: NoteService, public snackbar: MatSnackBar) { }
   @Input() Note: object;
   @Output() labelArray=[];
   @Input() Delete;
@@ -65,7 +66,16 @@ export class MoreComponent implements OnInit,OnDestroy {
       .pipe(takeUntil(this.destroy$))
 
           .subscribe(response => {
+            let deleted="deleted"
+            if(val===false){
+              deleted="restored"
+            }
+            this.snackbar.open(deleted, "done", {
+              duration: 2000,
+            });
         this.eventEmit.emit({})
+
+           
       })
   }
  

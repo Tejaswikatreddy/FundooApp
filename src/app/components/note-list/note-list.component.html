@@ -1,6 +1,7 @@
 
-<div fxFlex="15%" fxFlex.xs="10%" ></div>
-<div fxFlex="80%" fxFlex.xs="80%"  fxLayoutAlign="start start"  fxLayout="row wrap" fxLayoutGap="10px" class="maindiv">
+<div fxFlex="15%" fxFlex.xs="15%" fxFlex.sm="15%"></div>
+<div fxFlex="80%" fxFlex.xs="70%" fxFlex.sm="70%" fxLayoutAlign="start start"  fxLayout="row wrap" 
+fxLayoutGap="10px" class="maindiv">
   <!----------------------- repeating the notes with for loop ---------------------------------->
  
   <div  *ngFor="let note of NoteArray | search:searchInput"  ngStyle.xs="width:100%" 
@@ -9,63 +10,69 @@
     [ngClass.xs]="{'Flayout':view ,'cardxs':!view}" [ngClass]="{'Flayout':view ,'card':!view}" >
       <div>
         <div fxLayout="row">
-          <div fxFlex=95% class="note" [innerHTML]="note.title" (click)="open(note)" ngStyle.xs="font-size:25px"></div>
+          <div fxFlex=95% class="note" [innerHTML]="note.title" (click)="open(note)" ></div>
           <!------------------------- pin component ------------------------------------------>
           <span fxFlex=5%>
             <app-pin [Note]=note (eventEmit)=eventDone($event)></app-pin>
           </span>
         </div>
         <!------------------------- description --------------------------------------------->
-        <div class="note" [innerHTML]="note.description" (click)="open(note)" ngStyle.xs="font-size:25px"> </div>
+        <div class="note" [innerHTML]="note.description" (click)="open(note)" > </div>
         <!----------------------opened checklist starts ------------------------------------->
         <div class="note" *ngFor="let checklist of note.noteCheckLists" fxLayout="row">
-          <mat-checkbox fxFlex="10%" ngStyle.xs="font-size:25px" *ngIf="checklist.status=='open'&& !checklist.isDeleted"
+          <mat-checkbox fxFlex="10%"  *ngIf="checklist.status=='open'&& !checklist.isDeleted"
             (click)=checkBox(checklist,note)></mat-checkbox>
-          <input ngStyle.xs="font-size:25px" *ngIf="!checklist.isDeleted && checklist.status=='open' " [(ngModel)]=checklist.itemName
+          <input  *ngIf="!checklist.isDeleted && checklist.status=='open' " [(ngModel)]=checklist.itemName
             fxFlex="90%" class="note" (click)="open(note)" [style.backgroundColor]="note.color">
         </div>
         <!---------------------------- opened checklist ends-------------------------------------->
         <!---------------------------closed checklist starts -------------------------------------->
         <div class="note" *ngFor="let checklist of note.noteCheckLists" fxLayout="row">
-          <mat-checkbox ngStyle.xs="font-size:25px" fxFlex="10%" checked=true *ngIf="checklist.status=='close'&& !checklist.isDeleted"
+          <mat-checkbox  fxFlex="10%" checked=true *ngIf="checklist.status=='close'&& !checklist.isDeleted"
             (click)=checkBox(checklist,note)></mat-checkbox>
-          <div ngStyle.xs="font-size:25px" class="note" style="text-decoration:line-through" *ngIf="!checklist.isDeleted && checklist.status=='close'"
+          <div  class="note" style="text-decoration:line-through" *ngIf="!checklist.isDeleted && checklist.status=='close'"
             (click)="open(note)">
             {{checklist.itemName}}</div>
         </div>
         <!-------------------------- closed checklist ends ------------------------------------->
+        
+        <div fxLayout="row wrap"><span *ngFor="let collab of note.collaborators"  >
+            <div  *ngIf="splice(collab.firstName)" class="addicon" (click)=openCollab() >
+              {{initial}}
+            </div>
+          </span></div>
         <mat-chip-list>
           <!------------------------ labels added to the note---------------------------->
           <span *ngFor="let label of note.noteLabels">
-            <mat-chip [removable]=true class="chip" *ngIf="!label.isDeleted" ngStyle.xs="font-size:25px" (click)=labelClicked(label.label)>
+            <mat-chip [removable]=true class="chip" *ngIf="!label.isDeleted"  (click)=labelClicked(label.label)>
               <span class="labelChip">{{label.label}}</span>
               <mat-icon matChipRemove (click)=deleteLabel(note,label)>cancel</mat-icon>
             </mat-chip>
           </span>
           <!------------------------------ reminders added to the note--------------------->
           <div *ngFor="let time of note.reminder">
-            <mat-chip *ngIf="checkreminder(time)==1" (click)=reminderClicked(note) ngStyle.xs="font-size:25px">
+            <mat-chip *ngIf="checkreminder(time)==1" (click)=reminderClicked(note) >
               <mat-icon>access_time</mat-icon>
               <div class="previous">{{time|date:"medium"}}</div>
               <div class="close">
                 <mat-icon matChipRemove (click)=deleteReminder(note)>cancel</mat-icon>
               </div>
             </mat-chip>
-            <mat-chip *ngIf="checkreminder(time)==3" (click)=reminderClicked(note) ngStyle.xs="font-size:25px">
+            <mat-chip *ngIf="checkreminder(time)==3" (click)=reminderClicked(note) >
               <mat-icon>access_time</mat-icon>
               <div>{{todayDate}}</div>
               <div class="close">
                 <mat-icon matChipRemove (click)=deleteReminder(note)>cancel</mat-icon>
               </div>
             </mat-chip>
-            <mat-chip *ngIf="checkreminder(time)==2" (click)=reminderClicked(note) ngStyle.xs="font-size:25px">
+            <mat-chip *ngIf="checkreminder(time)==2" (click)=reminderClicked(note) >
               <mat-icon>access_time</mat-icon>
               <div>{{time|date:"medium"}}</div>
               <div class="close">
                 <mat-icon matChipRemove (click)=deleteReminder(note)>cancel</mat-icon>
               </div>
             </mat-chip>
-            <mat-chip *ngIf="checkreminder(time)==4" (click)=reminderClicked(note) ngStyle.xs="font-size:25px">
+            <mat-chip *ngIf="checkreminder(time)==4" (click)=reminderClicked(note) >
               <mat-icon>access_time</mat-icon>
               <div class="previous">{{todayDate}}</div>
               <div class="close">
@@ -82,7 +89,7 @@
             <app-remind-me [Note]=note (eventEmit1)="reminder($event)" #remindme></app-remind-me>
           </div>
           <div>
-            <app-collaborator [Note]=note></app-collaborator>
+            <app-collaborator [Note]=note (event)=eventDone($event)></app-collaborator>
           </div>
           <div>
             <app-change-color [Note]=note (eventEmitter)="eventDone($event)"></app-change-color>
@@ -101,4 +108,4 @@
     </mat-card>
   </div>
 </div>
-<div fxFlex="5%" fxFlex.xs="10%"></div>
+<div fxFlex="5%" fxFlex.xs="15%" fxFlex.sm="15%"></div>

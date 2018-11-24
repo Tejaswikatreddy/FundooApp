@@ -16,12 +16,10 @@ export class ErrorsHandler implements ErrorHandler {
     handleError(error: Error) {
         const router = this.injector.get(Router);
         if (!navigator.onLine){
-            console.log("offline");
             router.navigate(['error'])
             
         }
         if (error instanceof ErrorEvent){
-            console.log(error.message)
         }
        
     }

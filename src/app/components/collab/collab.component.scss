@@ -1,7 +1,7 @@
-::ng-deep.mat-dialog-container {
+@import '../../../scss/mixin.scss';
+:host::ng-deep.mat-dialog-container {
     box-shadow: 0 11px 15px -7px rgba(0,0,0,.2), 0 24px 38px 3px rgba(0,0,0,.14), 0 9px 46px 8px rgba(0,0,0,.12);
     display: block;
-    /* padding: 24px; */
     border-radius: 2px;
     box-sizing: border-box;
     overflow-y: scroll;
@@ -11,23 +11,24 @@
     max-height: 400px;
     min-height: 200px;
     border-radius: 10px;
-    
-    padding: 10px;
+    padding: 10px
+}
+.div{
+ width: 550px;
+    max-height: 400px;
+    min-height: 200px;
+     padding: 10px
 }
 .input{
-    outline: none;border:none;width:200px;
-    padding-left: 5%;
-    //  padding-top: 5%;
+  @include inputOutline;
+    
 }
 .addicon{
-    height:35px;width:35px;border:2px solid grey; border-radius: 70%;
+    @include circularDiv;
 }
 .paddingTop{
-    padding-top: 3%;
-}
+    @include padding(3%,0,0,0)
+   }
 .paddingLeft{
-    padding-left: 5%
-}
-.fontbold{
-    font-weight: bold
+    @include padding(0,0,5%,0)
 }

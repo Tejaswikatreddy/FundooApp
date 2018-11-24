@@ -8,6 +8,9 @@ import { Component, OnInit, EventEmitter, Output, Input, ElementRef, OnDestroy, 
 import { NoteService } from '../../core/services/NoteService/note.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { environment } from '../../../environments/environment'
+import { user } from '../../core/models/userModel'
+import { UserService } from '../../core/services/UserService/user.service';
 
 @Component({
   selector: 'app-add-note',
@@ -22,12 +25,22 @@ export class AddNoteComponent implements OnInit {
 public title;
 public note;
 public changedColor="#ffffff"
+  URL = environment.URL;
+  public image = localStorage.getItem("imageUrl");;
+  public imagepath = this.URL + this.image;
+  public email = localStorage.getItem("email");
+  public firstname = localStorage.getItem("firstName");
+  public lastname = localStorage.getItem("lastName");
+  public searchInput;
+  public searchResult: user[] = [];
+  public collabs = [];
+  public collabReq=[];
   @Input() reminderComponent;
 
   /*creating an object for eventEmitter*/
   @Output() onNewEntryAdded = new EventEmitter();
  
-  constructor(private NoteService:NoteService) { }
+  constructor(private NoteService:NoteService,private service:UserService) { }
   @ViewChild('editDiv') public editDiv: ElementRef;
 
 public clicked=false;
@@ -37,6 +50,7 @@ public dataArray=[];
 public dataArrayApi=[];
 public isChecked=false;
 public status="open"
+public collab=false;
 public d=new Date()
   ngOnInit() {
   }
@@ -54,6 +68,7 @@ public d=new Date()
   public isArchived=false;
   public body:any={}
   public check=false;
+  public initial=""
   /**
    * @function addNotes() method is called when we click close button on the mat-card
    */
@@ -76,7 +91,9 @@ public d=new Date()
           "color": apiColor,
           "isArchived": this.isArchived,
           "labelIdList": JSON.stringify(this.labelId),
-             "reminder": this.reminder
+          "reminder": this.reminder,
+             "collaberators": JSON.stringify(this.collabReq),
+
 
         }
     
@@ -101,7 +118,8 @@ public d=new Date()
          "color": apiColor,
          "isArchived": this.isArchived,
          "labelIdList": JSON.stringify(this.labelId),
-         "reminder":this.reminder
+         "reminder":this.reminder,
+         "collaberators": JSON.stringify(this.collabReq)
         }
  }
 if (this.title != "") {
@@ -125,12 +143,13 @@ if (this.title != "") {
     })
       
   }
-  if(this.reminderComponent==false)
+  if(this.reminderComponent===false){
     this.reminder = [];
-    if(this.reminderComponent==true){
-    
-      this.reminder[0]=this.d.getTime()
+  }
+   else{
+          this.reminder[0]=this.d.getTime()
     }
+    this.collabReq=[];
     this.labelId = []
       this.labelName = [];
       this.dataArray=[];
@@ -294,18 +313,64 @@ if (this.title != "") {
 
            return 3;
     }
-
     else {
       return 2;
-
     }
   }
   checklistMore(event){
     this.check=event;
   }
+  collabratorClicked(){
+    this.collab=true;
+  }
+  search() {
+    this.done=true;
+    if (this.searchInput !== "") {
+
+      let RequestBody = {
+        "searchWord": this.searchInput
+      }
+      this.service.searchList(RequestBody).subscribe(response => {
+        this.searchResult = response['data'].details
+      }, error => {})
+    }
+  }
+  public done = false;
+  public selectedUser;
+  userSelected(user) {
+    this.selectedUser = user
+    this.searchInput = user.email;
+    this.done = true;
+  }
+  addCollabdone(){
+    this.collabReq.push(this.selectedUser)
+    this.searchInput = " "
+  }
+  addCollab() {
+    this.collab = !this.collab;
+    if(this.searchInput!==" "){
+   this.collabReq .push(this.selectedUser)
+    this.searchInput=" "
+    }
+  }
+  cancel(){
+    this.collabReq=[];
+    this.collab=!this.collab;
+  }
+  removeCollaborator(collab){
+    for(let i=0;i<this.collabReq.length;i++){
+      if(collab.userId===this.collabReq[i].userId){
+        this.collabReq.splice(i,1)
+      }
+    }
+  }
+  splice(firstName) {
+    this.initial = firstName[0];
+    this.initial = this.initial.toUpperCase()
+    return true;
+  }
   ngOnDestroy() {
     this.destroy$.next(true);
-    // Now let's also unsubscribe from the subject itself:
     this.destroy$.unsubscribe();
   }
   }

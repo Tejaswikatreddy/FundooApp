@@ -2,6 +2,8 @@ import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angu
 import { NoteService } from '../../core/services/NoteService/note.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { MatSnackBar } from '@angular/material';
+
 @Component({
   selector: 'app-archive',
   templateUrl: './archive.component.html',
@@ -12,7 +14,7 @@ export class ArchiveComponent implements OnInit, OnDestroy{
 
   @Input() Note;
   @Input() Archive;
-  constructor( private NoteService: NoteService,) { }
+  constructor(private NoteService: NoteService, public snackbar: MatSnackBar,) { }
 public isArchived=false;
 public isDeleted=false;
   ngOnInit() {
@@ -38,15 +40,22 @@ public isDeleted=false;
 
       }
       this.NoteService.archive(RequestBody)
+        .pipe(takeUntil(this.destroy$))
           .subscribe(response => {
+            let archived="unarchived"
         this.eventEmit.emit({})
+        if(flag===true){
+           archived="archived"
+        }
+            this.snackbar.open(archived, "done", {
+              duration: 2000,
+            });
       },error=>{
       })
     }
   }
 }
   ngOnDestroy() {
-    console.log("ondestroy called");
     this.destroy$.next(true);
     // Now let's also unsubscribe from the subject itself:
     this.destroy$.unsubscribe();

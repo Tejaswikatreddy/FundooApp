@@ -1,4 +1,6 @@
 @import '../../../scss/mixin.scss';
+$color-yellow:#fb0 ;
+$color-Dyellow:#e4a700;
 .sidenav-container {
   max-height: 100%;
   
@@ -22,14 +24,14 @@ padding-bottom: 20%
   height:100%;
 }
 .mat-toolbar.mat-primary {
-  background:#fb0 ;  
+  background:$color-yellow;  
   color: black;
   width:100%;
 }
 .notselected{
     width: 100%;
   height: 40px;
-  background-color:#e4a700;
+  background-color:$color-Dyellow;
   border:none;
   font-size: 20px;
   padding-left:5%
@@ -92,12 +94,10 @@ input:focus {
 .sideNotes{
   @include ellipsis;
   padding-left: 10px;
-  // white-space:nowrap;
-  // text-overflow:ellipsis;
-  // overflow:hidden !important
+ 
 }
 .navbarlabel{
-    // @include ellipsis;
+ 
    white-space:nowrap;
   text-overflow:ellipsis;
   overflow:hidden!important
@@ -106,8 +106,8 @@ input:focus {
   background-size: cover;
 }
 .mat-menu-content{
-    padding-top: 0px;
-    padding-bottom: 1px;
+  @include padding(0px,1px,0,0)
+  
 }
 .md-sidenav-layout.my-sidenav-layout .md-sidenav-content 
 { 
@@ -121,6 +121,12 @@ input:focus {
   left:-15px;
   right:0;
 
+}
+.marginleft{
+  @include margin(10%,0,0,0)
+}
+.margin{
+  @Include margin(20%,0,0,0)
 }
 #accnt{
   height:40px;
@@ -146,9 +152,7 @@ input:focus {
 .label{
   padding-left:10px
 }
-.editButton{
-  // margin-left: 10%
-}
+
 .content{
   position:fixed;
   width:-webkit-fill-available;

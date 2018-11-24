@@ -23,16 +23,20 @@
 }
 
 .note{
-  width: 100%;
-  height: auto;
-  border:none;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  outline: none
+    @include note;
+//   width: 100%;
+//   height: auto;
+//   border:none;
+//   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+//   outline: none
 }
 .card{
     margin:1%;
     height:min-content;border-radius:10px;width:210px;
     
+}
+.addicon{
+    @include circularDiv;
 }
 .chip{
     padding-top: 10px;
@@ -51,10 +55,10 @@
     height:min-content;border-radius:10px;
     width:90%
 }
-.grid{
-// width 
+// .grid{
+// // width 
 
-}
+// }
 .previous{
     text-decoration: line-through
 }

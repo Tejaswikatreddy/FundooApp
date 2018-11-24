@@ -6,10 +6,10 @@
         <mat-icon aria-label="Side nav toggle icon" (click)=getLabels()>menu</mat-icon></button>
     </div>
     <div  *ngIf="Fundoo=='Fundoo Notes'" >
-      <div  fxHide.xs="true" fxHide.sm="true" style="margin-left:10%"><span>{{Fundoo}}</span></div>
+      <div  fxHide.xs="true" fxHide.sm="true"class="marginleft"><span>{{Fundoo}}</span></div>
       <div fxHide.xl="true" fxHide.lg="true" fxHide.md="true"  ngStyle.xs="font-size:20px"><span>Notes</span></div>
     </div>
-    <div  *ngIf="Fundoo!='Fundoo Notes'" class="navbarlabel" style="margin-left:10%" >{{Fundoo}}</div>
+    <div  *ngIf="Fundoo!='Fundoo Notes'" class="navbarlabel" class="marginleft" >{{Fundoo}}</div>
 
   </div>
   
@@ -38,7 +38,7 @@
   
       </button></div>
   
-    <div style="margin-left: 20%">
+    <div class="margin">
       <button mat-mini-fab (click)="clicked=!clicked" class="profileButton"  [ngStyle]="{'background-image':'url(' +imagepath+ ')','background-size':'cover'}"></button>
     </div>
   </div>

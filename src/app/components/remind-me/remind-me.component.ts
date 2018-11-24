@@ -99,7 +99,7 @@ private inputArray=[];
       this.setData = form.value;
       this.timeObj.date = this.setData;
       let hrs = d.getHours() + 3;
-      let AmPm = "AM"
+      let AmPm;
       if (hrs > 12) {
         hrs = hrs - 12;
         AmPm = "PM";

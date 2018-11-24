@@ -21,7 +21,6 @@ export class LabelNotesComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.route.params.subscribe(
       (params: Params) => {
-        console.log(params);
         
         this.labelName = params['labelName']
         this.getLabeledNOtes(this.labelName);

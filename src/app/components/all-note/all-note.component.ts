@@ -65,7 +65,6 @@ private Others=false;
             this.isPined=true;
           }
           }
-        console.log(this.pinedNotes);
      
       }
     })

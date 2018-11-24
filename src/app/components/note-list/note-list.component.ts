@@ -14,6 +14,7 @@ import { UpdateNoteComponent } from '../update-note/update-note.component';
 import { RemindMeComponent} from '../remind-me/remind-me.component';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+// import { CollabComponent} from '../'
 /*component decorator*/
 @Component({
   selector: 'app-note-list',
@@ -29,6 +30,7 @@ export class NotelistComponent implements OnInit,OnDestroy {
   @Input() searchInput;
   
   public checkArray=[];
+  public initial=""
  /*creating an object for EventEmitter*/
  @Output() eventEmit=new EventEmitter();
  public isChecked=false;
@@ -176,8 +178,15 @@ export class NotelistComponent implements OnInit,OnDestroy {
 
     .subscribe(response=>{
       this.eventEmit.emit({})
-      
     })
+  }
+  splice(firstName) {
+    this.initial = firstName[0];
+    this.initial = this.initial.toUpperCase()
+    return true;
+  }
+  openCollab(){
+
   }
   ngOnDestroy() {
 

@@ -7,19 +7,20 @@
 }
 
 .note{
-    width: 100%;
-  height: auto;
-  border:none;
-  /* border-color: transparent; */
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  font-size: 15px; 
-  outline: none;
-word-wrap:break-word;
+//     width: 100%;
+//   height: auto;
+//   border:none;
+//   /* border-color: transparent; */
+//   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+//   font-size: 15px; 
+//   outline: none;
+// word-wrap:break-word;
+@include note
 }
 .icons{
     margin:2px
 }
-::ng-deep.mat-dialog-container {
+:host::ng-deep.mat-dialog-container {
     box-shadow: 0 11px 15px -7px rgba(0,0,0,.2), 0 24px 38px 3px rgba(0,0,0,.14), 0 9px 46px 8px rgba(0,0,0,.12);
     display: block;
     /* padding: 24px; */
@@ -33,7 +34,7 @@ word-wrap:break-word;
     min-height: inherit;
     border-radius: 10px;
     max-height: inherit;
-    padding: 0px
+    padding: 0px;
 }
 .my-dialog{
     transform: none;
@@ -55,4 +56,7 @@ word-wrap:break-word;
 }
  .chip{
     max-width:150px;
+}
+.addicon{
+    @include circularDiv;
 }

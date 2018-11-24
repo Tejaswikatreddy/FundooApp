@@ -36,7 +36,11 @@
     <mat-icon fxFlex="10%" class="clearIcon" (click)=removeList(check) *ngIf="!check.isDeleted && check.status=='close'">clear</mat-icon>
   </div>
   <!-- closed checklist ends -->
-
+  <div fxLayout="row wrap"><span *ngFor="let collab of data.collaborators">
+      <div *ngIf="splice(collab.firstName)" class="addicon">
+        {{initial}}
+      </div>
+    </span></div>
   <mat-chip-list>
     <!-- mat-chip for labels -->
     <div *ngFor="let label of labels" class=divicon>

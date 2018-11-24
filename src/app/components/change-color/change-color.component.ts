@@ -51,7 +51,6 @@ public isDeleted=false;
   }
   }
   ngOnDestroy() {
-    console.log("ondestroy called");
     this.destroy$.next(true);
     // Now let's also unsubscribe from the subject itself:
     this.destroy$.unsubscribe();
