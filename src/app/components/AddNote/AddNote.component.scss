@@ -2,7 +2,10 @@
 
 .card{
     height:auto;
-    width:550px
+    width:550px;
+    border-radius:7px;
+    position: relative;
+    padding: 5px;
 }
 .note{
 @include note
@@ -35,7 +38,7 @@
 
 }
  .chip{
-    max-width:150px;
+    max-width:100%;
 }
 .input
 {
@@ -43,4 +46,52 @@
 }
 .addicon{
     @include circularDiv;
+}
+@media only screen and (min-width: 435px) and (max-width: 505px)
+{
+  .card
+{
+ 
+  width:420px;
+}
+}
+@media only screen and (min-width: 506px) and (max-width: 590px)
+{
+      .card
+{
+ 
+  width:410px;
+}
+}
+@media only screen and (min-width: 391px) and (max-width: 434px)
+{
+  .card
+{
+ 
+  width:380px;
+}
+}
+@media only screen and (min-width: 391px) and (max-width: 434px)
+{
+  .card
+{
+  
+  width:380px;
+}
+}
+@media only screen and (min-width: 349px) and (max-width: 390px)
+{
+  .card
+{
+
+  width:330px;
+}
+}
+@media only screen and (min-width: 310px) and (max-width: 348px)
+{
+  .card
+{
+ 
+  width:300px;
+}
 }

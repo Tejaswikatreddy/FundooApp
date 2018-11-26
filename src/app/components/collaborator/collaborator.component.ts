@@ -1,5 +1,7 @@
 import { Component, OnInit, Input,EventEmitter, Output } from '@angular/core';
 import { MatDialog } from '@angular/material';
+import { environment } from '../../../environments/environment'
+
 import { CollabComponent} from '../collab/collab.component'
 @Component({
   selector: 'app-collaborator',
@@ -8,6 +10,7 @@ import { CollabComponent} from '../collab/collab.component'
 })
 export class CollaboratorComponent implements OnInit {
 @Input() Note;
+@Input() flag:boolean;
 @Output() event=new EventEmitter();
   constructor(public dialog: MatDialog) { }
 public isDeleted=false;
@@ -15,9 +18,13 @@ public isDeleted=false;
     if (this.Note != undefined && this.Note.isDeleted==true){
       this.isDeleted=true;
     }
+   
   }
   open(): void {
-if(this.Note!==undefined){
+if(this.flag!==true){
+  width:"650px";
+maxWidth:'auto'
+  
     const dialogRef = this.dialog.open(CollabComponent, {
       data:this.Note
    

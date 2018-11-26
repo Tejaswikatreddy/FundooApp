@@ -1,15 +1,17 @@
 <!-- <div fxFlex> -->
   <!-- <div fxLayout="column wrap"> -->
   <mat-toolbar color="primary" position="fixed" class="toolbar" >
-  <div fxFlex="30" fxFlex.xs="35" fxLayout="row wrap" fxLayoutAlign="start center">
-    <div><button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" >
+  <div fxFlex="30" fxFlex.xs="35" fxLayout="row " fxLayoutAlign="start center">
+    <div ><button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" >
         <mat-icon aria-label="Side nav toggle icon" (click)=getLabels()>menu</mat-icon></button>
     </div>
-    <div  *ngIf="Fundoo=='Fundoo Notes'" >
-      <div  fxHide.xs="true" fxHide.sm="true"class="marginleft"><span>{{Fundoo}}</span></div>
+    <div  *ngIf="Fundoo=='Fundoo Notes'" class="l">
+      <div  fxHide.xs="true" fxHide.sm="true"><span>{{Fundoo}}</span></div>
       <div fxHide.xl="true" fxHide.lg="true" fxHide.md="true"  ngStyle.xs="font-size:20px"><span>Notes</span></div>
     </div>
-    <div  *ngIf="Fundoo!='Fundoo Notes'" class="navbarlabel" class="marginleft" >{{Fundoo}}</div>
+    <div  *ngIf="Fundoo!='Fundoo Notes'" fxFlex=60%  >
+      <div class="navbarlabel">{{Fundoo}}</div>
+   </div>
 
   </div>
   

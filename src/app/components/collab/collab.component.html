@@ -1,33 +1,35 @@
-<div flexLayout="column" class=div >
+<mat-card>
+<div flexLayout="column" >
+  
   <div>Collaborators</div>
   <hr>
   <div fxFlexLayout="row">
-    <button mat-mini-fab [ngStyle]="{'background-image':'url(' +imagepath+ ')','background-size':'cover'}"></button>
-    <div fxFlex fxFlex.xs="30%"  class="paddingLeft">
+    <button fxFlex="15%" mat-mini-fab [ngStyle]="{'background-image':'url(' +imagepath+ ')','background-size':'cover'}"></button>
+    <div fxFlex="85%" class="paddingLeft">
       <div  class="fontbold">{{firstname}} {{lastname}}(Owner)</div>
       <span class="fontlight" >{{email}}</span>
     </div>
   </div>
   <div fxFlexLayout="row" *ngFor="let collab of collabs" class="paddingTop">
-    <div class="addicon" *ngIf="splice(collab.firstName)">
-          {{initial}}
+    <div  fxFlex="10%" *ngIf="splice(collab.firstName)">
+         <button mat-mini-fab disabled style="color:black"> {{initial}}</button>
     </div>
 
-    <div fxFlex class="paddingLeft" fxFlex.xs="50%">
+    <div fxFlex="70%" class="paddingLeft" fxFlex.xs="50%">
       <div>{{collab.firstName}} {{collab.lastName}}</div>
       <div class="fontlight"> {{collab.email}} </div>
     </div>
-    <div (click)=removeCollaborator(collab)>
+    <div fxFlex="20%" (click)=removeCollaborator(collab)>
       <mat-icon>clear</mat-icon>
     </div>
   </div>
   <div fxFlexLayout="row" class="paddingTop">
-    <div class="addicon">
-      <mat-icon> person_add</mat-icon>
+    <div fxFlex="20%">
+    <button mat-mini-fab disabled><mat-icon> person_add</mat-icon></button>
     </div>
-    <input fxFlex placeholder="person or email to share with" class="input" [matMenuTriggerFor]="appMenu" [(ngModel)]="searchInput"
-      (keyup)="search()">
-    <div *ngIf="done" (click)=addCollab()>
+    <input fxFlex placeholder="person or email to share " class="input" [matMenuTriggerFor]="appMenu" [(ngModel)]="searchInput"
+      (keyup)="search()" fxFlex="60%">
+    <div *ngIf="done" (click)=addCollab() fxFlex="20%">
       <mat-icon>done</mat-icon>
     </div>
 
@@ -37,9 +39,9 @@
     </mat-menu>
 
   </div>
-  <div fxFlexLayout="row">
-    <div fxFlex fxFlex.xs="30%" ></div>
-    <button mat-button (click)="close()">cancel</button>
+ 
+ 
     <button mat-button (click)="close();addCollab()">save</button>
-  </div>
+  
 </div>
+</mat-card>

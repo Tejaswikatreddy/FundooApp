@@ -1,8 +1,8 @@
-<div fxLayout="column">
-    <div fxFlex=10% fxLayout="row" fxLayoutAlign="center center">
+<!-- <div fxLayout="column"> -->
+    <!-- <div fxFlex=10% fxLayout="row" fxLayoutAlign="center center"> -->
         <app-add-note (onNewEntryAdded)="addNewEntry($event)"></app-add-note>
-    </div>
-    <div fxLayout="row">
+    <!-- </div> -->
+    <!-- <div fxLayout="row">
         <div fxFlex="15%"></div>
         <div *ngIf="isPined">Pinned</div>
         <div fxFlex="10%"></div>
@@ -14,10 +14,10 @@
         <div fxFlex="15%"></div>
         <div *ngIf="Others">Others</div>
         <div fxFlex="10%"></div>
-    </div>
+    </div> -->
 
     <div class="marginbottom">
         <app-note-list [NoteArray]=notes (eventEmit)="addNewEntry($event)"></app-note-list>
     </div>
   
-</div>
+<!-- </div> -->

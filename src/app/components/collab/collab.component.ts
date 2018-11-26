@@ -73,13 +73,12 @@ public initial:String;
     this.noteService.removeCollabrator(this.data.id,collab.userId).subscribe(response=>{
       for(let i=0;i<this.collabs.length;i++){
         if(collab.id===this.collabs[i].id){
-          this.collabs.splice(i,0)
+          this.collabs.splice(i,1)
         }
       }
-    })
-    
-    
+    })    
   }
+ 
   close()
   {
     console.log("helll");

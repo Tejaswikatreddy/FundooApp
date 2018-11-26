@@ -32,7 +32,7 @@
 }
 .card{
     margin:1%;
-    height:min-content;border-radius:10px;width:210px;
+    height:min-content;border-radius:10px;width:200px;
     
 }
 .addicon{
@@ -55,10 +55,6 @@
     height:min-content;border-radius:10px;
     width:90%
 }
-// .grid{
-// // width 
-
-// }
 .previous{
     text-decoration: line-through
 }
@@ -69,8 +65,8 @@
     max-width:150px;
 }
 .cardsm{
-     padding:1%;
-    height:min-content;border-radius:10px;width:500px;
+    margin:1%;
+    height:min-content;border-radius:10px;width:450px;
     
 }
 .XLFlayout{
@@ -78,7 +74,143 @@
     width:1500px
 }
 .cardxs{
-    width:100%;
-    margin-left:1%;
+    margin-bottom:1%;
   
+  }
+    
+
+  
+ @media only screen and (min-width: 570px) and (max-width: 599px)
+{
+  .cardxs
+{
+  width:500px;
+}
+}
+@media only screen and (min-width: 540px) and (max-width: 569px)
+{
+  .cardxs
+{
+ 
+  width:450px;
+}
+}
+@media only screen and (min-width: 500px) and (max-width: 539px)
+{
+  .cardxs
+{
+ 
+  width:430px;
+}
+}
+@media only screen and (min-width: 445px) and (max-width: 499px)
+{
+  .cardxs
+{
+ 
+  width:380px;
+}
+}
+@media only screen and (min-width: 430px) and (max-width: 444px)
+{
+  .cardxs
+{
+  
+  width:370px;
+}
+}
+@media only screen and (min-width: 390px) and (max-width: 429px)
+{
+  .cardxs
+{
+
+  width:330px;
+}
+}
+@media only screen and (min-width: 320) and (max-width: 391px)
+{
+  .cardxs
+{
+
+  width:320px;
+}
+}
+
+
+@media only screen and (min-width: 600px) and (max-width: 621px)
+{
+  .cardsm
+{
+  width:420px;
+}
+}
+ @media only screen and (min-width: 621px) and (max-width: 640px)
+{
+  .cardsm
+{
+  width:450px;
+}
+}
+ @media only screen and (min-width: 641px) and (max-width: 655px)
+{
+  .cardsm
+{
+  width:470px;
+}
+}
+ @media only screen and (min-width: 656px) and (max-width: 670px)
+{
+  .cardsm
+{
+  width:480px;
+}
+}
+@media only screen and (min-width: 671px) and (max-width: 685px)
+{
+  .cardsm
+{
+  width:490px;
+}
+}
+@media only screen and (min-width: 686px) and (max-width: 700px)
+{
+  .cardsm
+{
+  width:500px;
+}
+}
+@media only screen and (min-width: 701px) and (max-width: 752px)
+{
+  .cardsm
+{
+  width:520px;
+}
+}
+@media only screen and (min-width: 753px) and (max-width: 800px)
+{
+  .cardsm
+{
+  width:530px;
+}
+}
+@media only screen and (min-width: 801px) and (max-width: 850px)
+{
+  .cardsm
+{
+  width:550px;
+}
+}
+@media only screen and (min-width: 851px) and (max-width: 900px)
+{
+  .cardsm
+{
+  width:570px;
+}
+}
+@media only screen and (min-width: 901px) and (max-width: 959px)
+{
+  .cardsm
+{
+  width:550px;
+}
 }

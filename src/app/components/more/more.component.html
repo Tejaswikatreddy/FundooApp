@@ -9,9 +9,9 @@
 <mat-menu #AddLabels="matMenu" class="menu"><div>Label Note</div>
   <div fxLayout="row" (click)="$event.stopPropagation();"> <mat-icon fxFlex="15%">search</mat-icon>
   <input placeholder="enter label" fxFlex="85%" class="searchLabel" [(ngModel)]="searchInput"> </div>
-  <div *ngFor="let label of labelArray | labelSearch:searchInput"> 
+  <div *ngFor="let label of labelArray | labelSearch:searchInput" class="labelChip"> 
   <mat-checkbox class="example-margin" (click)="$event.stopPropagation();labelSelected(label)"
-  [(ngModel)]="label.isChecked" class="labelChip"><span class="chip">{{label.label }}</span></mat-checkbox>
+  [(ngModel)]="label.isChecked" ><span class="chip">{{label.label }}</span></mat-checkbox>
    </div>
 </mat-menu>
 

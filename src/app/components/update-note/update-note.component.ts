@@ -5,26 +5,36 @@
 */
 
 
-import { Component, OnInit,Inject, OnDestroy } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy, ViewChild } from '@angular/core';
 import { NoteService } from '../../core/services/NoteService/note.service';
+import { environment } from '../../../environments/environment'
+import { UserService } from '../../core/services/UserService/user.service';
 
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-
 //component decorator
 @Component({
   selector: 'app-update-note',
   templateUrl: './update-note.component.html',
-  styleUrls: ['./update-note.component.scss']
+  styleUrls: ['./update-note.component.scss'],
 })
 export class UpdateNoteComponent implements OnInit,OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
-
   constructor(private dialogRef: MatDialogRef<UpdateNoteComponent>,
                    @Inject(MAT_DIALOG_DATA)private data:any,
-                  private NoteService:NoteService,
+    private NoteService: NoteService, private service: UserService
                   ) { }
+  URL = environment.URL;
+
+  public image = this.data.user.imageUrl;
+  public imagepath = this.URL + this.image;
+  public email = this.data.user.email;
+  public firstname = this.data.user.firstName;
+  public lastname = this.data.user.lastname;
+  private done=false;
+  public searchInput;
+  public searchResult;
 private initial=""
 private title;
 private description;
@@ -38,7 +48,14 @@ private bgcolor=this.data.color;
   private newData:any={}
 private arrayObj:any={}
 private reminder=[];
+private collab=false;
+public collabs=[];
   ngOnInit() {
+    if (this.data.collaborators != undefined) {
+      this.collabs = this.data.collaborators;
+
+    }
+  
    if(this.data.reminder.length>0){
      this.reminder=this.data.reminder;
    }
@@ -229,8 +246,49 @@ private reminder=[];
     this.initial = this.initial.toUpperCase()
     return true;
   }
-  ngOnDestroy() {
+  collabratorClicked(){
+    this.collab=!this.collab
+  }
+  search(){
+    this.done = true;
+    if (this.searchInput !== "") {
 
+      let RequestBody = {
+        "searchWord": this.searchInput
+      }
+      this.service.searchList(RequestBody).subscribe(response => {
+        this.searchResult = response['data'].details
+      }, error => {
+      })
+    }
+  }
+ 
+  userSelected(user) {
+    this.selectedUser = user
+    this.searchInput = user.email;
+    this.done = true;
+  }
+  public selectedUser;
+  addCollab() {
+    let RequestBody =this.selectedUser;
+    this.NoteService.addCollaborator(RequestBody, this.data.id).subscribe(response => {
+      this.collabs.push(this.selectedUser);
+      this.searchInput = " ";
+      this.done = false;
+    })
+
+  }
+  removeCollaborator(collabObj) {
+        this.NoteService.removeCollabrator(this.data.id, collabObj.userId).subscribe(response => {
+      for (let i = 0; i <=this.collabs.length; i++) {
+        if (collabObj.userId === this.collabs[i].userId) {
+          this.collabs.splice(i, 1)
+        }
+      }
+    })
+  }
+
+  ngOnDestroy() {
     this.destroy$.next(true);
     // Now let's also unsubscribe from the subject itself:
     this.destroy$.unsubscribe();

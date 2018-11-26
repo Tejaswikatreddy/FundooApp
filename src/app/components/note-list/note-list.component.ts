@@ -9,12 +9,13 @@ import { DataService } from '../../core/services/dataServices/data.service';
 
 import { NoteService } from '../../core/services/NoteService/note.service';
 import { AuthService } from "../../core/services/authServices/auth.service"
-import { MatDialog } from '@angular/material';
 import { UpdateNoteComponent } from '../update-note/update-note.component';
 import { RemindMeComponent} from '../remind-me/remind-me.component';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-// import { CollabComponent} from '../'
+import { CollabComponent } from '../collab/collab.component'
+import { MatDialog } from '@angular/material';
+
 /*component decorator*/
 @Component({
   selector: 'app-note-list',
@@ -185,9 +186,19 @@ export class NotelistComponent implements OnInit,OnDestroy {
     this.initial = this.initial.toUpperCase()
     return true;
   }
-  openCollab(){
+  openCollab(note){
+    const dialogRef = this.dialog.open(CollabComponent, {
+      data:note
 
+    });
+    dialogRef.afterClosed().subscribe(result => {
+
+      this.eventEmit.emit({});
+
+    });
   }
+
+  
   ngOnDestroy() {
 
     this.destroy$.next(true);

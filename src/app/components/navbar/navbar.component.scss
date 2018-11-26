@@ -97,10 +97,10 @@ input:focus {
  
 }
 .navbarlabel{
- 
-   white-space:nowrap;
-  text-overflow:ellipsis;
-  overflow:hidden!important
+   @include ellipsis;
+  //  white-space:nowrap;
+  // text-overflow:ellipsis;
+  // overflow:hidden!important
 }
 .example-header-image {
   background-size: cover;

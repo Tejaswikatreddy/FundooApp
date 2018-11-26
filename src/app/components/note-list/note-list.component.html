@@ -1,13 +1,13 @@
 
-<div fxFlex="15%" fxFlex.xs="15%" fxFlex.sm="15%"></div>
-<div fxFlex="80%" fxFlex.xs="70%" fxFlex.sm="70%" fxLayoutAlign="start start"  fxLayout="row wrap" 
+<div fxFlex="20%" fxFlex.lg="20%" fxFlex.md="5%" fxFlex.sm="10%" fxFlex.xs="5%"></div>
+<div fxFlex.lg="75%" fxFlex="75%" fxFlex.md="90%" fxFlex.sm="85%" fxFlex.xs="95%"  fxLayout="row wrap" 
 fxLayoutGap="10px" class="maindiv">
   <!----------------------- repeating the notes with for loop ---------------------------------->
  
   <div  *ngFor="let note of NoteArray | search:searchInput"  ngStyle.xs="width:100%" 
   [ngClass.xl]="{'XLFlayout':view ,'grid':!view}" [ngClass]="{'layout':view ,'grid':!view}">
     <mat-card [style.backgroundColor]="note.color"  [ngClass.sm]="{'Flayoutsm':view ,'cardsm':!view}" 
-    [ngClass.xs]="{'Flayout':view ,'cardxs':!view}" [ngClass]="{'Flayout':view ,'card':!view}" >
+    [ngClass.xs]="{'cardxs':view ,'cardxs':!view}" [ngClass]="{'Flayout':view ,'card':!view}" >
       <div>
         <div fxLayout="row">
           <div fxFlex=95% class="note" [innerHTML]="note.title" (click)="open(note)" ></div>
@@ -37,8 +37,8 @@ fxLayoutGap="10px" class="maindiv">
         <!-------------------------- closed checklist ends ------------------------------------->
         
         <div fxLayout="row wrap"><span *ngFor="let collab of note.collaborators"  >
-            <div  *ngIf="splice(collab.firstName)" class="addicon" (click)=openCollab() >
-              {{initial}}
+            <div  *ngIf="splice(collab.firstName)" (click)=openCollab(note) >
+              <button mat-mini-fab disabled style="color:black">  {{initial}}</button>
             </div>
           </span></div>
         <mat-chip-list>
@@ -108,4 +108,4 @@ fxLayoutGap="10px" class="maindiv">
     </mat-card>
   </div>
 </div>
-<div fxFlex="5%" fxFlex.xs="15%" fxFlex.sm="15%"></div>
+<div fxFlex="5%" fxFlex.lg="5%" fxFlex.md="5%" fxFlex.sm="5%" fxFlex.xs="0%"></div>
