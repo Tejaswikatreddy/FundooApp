@@ -22,4 +22,12 @@ describe('SidebarComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('#clicked() should toggle #isOn', () => {
+    expect(component.collab).toBe(true, 'off at first');
+    component.cancel();
+    expect(component.collab).toBe(false, 'on after click');
+    component.cancel();
+    expect(component.collab).toBe(true, 'off after second click');
+  });
+
 });

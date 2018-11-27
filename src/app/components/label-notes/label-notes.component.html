@@ -1,7 +1,4 @@
-<div fxLayout="column">
-    <div fxFlex=10% fxLayout="row" fxLayoutAlign="center center">
-<app-add-note></app-add-note></div>
-<div fxFlex=90%>
-    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px" ngStyle.xs="width:100%">
-<app-note-list [NoteArray]=labelNOtes (eventEmit)=eventDone($event)></app-note-list></div></div>
-</div>
+
+<app-add-note></app-add-note>
+<div class="marginbottom">
+<app-note-list [NoteArray]=labelNOtes (eventEmit)=eventDone($event)></app-note-list></div>

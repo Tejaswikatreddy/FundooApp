@@ -22,10 +22,11 @@ public isDeleted=false;
   }
   open(): void {
 if(this.flag!==true){
-  width:"650px";
-maxWidth:'auto'
   
     const dialogRef = this.dialog.open(CollabComponent, {
+      width: "400px",
+      maxWidth: 'auto',
+
       data:this.Note
    
     });

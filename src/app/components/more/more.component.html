@@ -3,6 +3,7 @@
   <mat-menu #menu="matMenu" class="menupanel">
     <button mat-menu-item (click)="deleteFunction(true)"  [disabled]=deleteFlag>Delete Note</button>
     <button mat-menu-item [matMenuTriggerFor]="AddLabels" (click)=getLabels()>Add Label</button>
+      <button mat-menu-item  (click)=addQuestion()>Add a Question</button>
     <button mat-menu-item (click)=checklist() *ngIf="!checkFlag">Show CheckList</button>
     <button mat-menu-item (click)=hideCheck() *ngIf="checkFlag">Hide checkBox</button>
   </mat-menu>

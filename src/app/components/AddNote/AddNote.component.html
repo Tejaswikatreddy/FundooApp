@@ -15,8 +15,8 @@
           </div>
         </div>
         <div fxFlexLayout="row" *ngFor="let collab of collabReq" class="paddingTop">
-          <div  *ngIf="splice(collab.firstName)">
-          <button mat-mini-fab disabled style="color:black"> {{initial}}</button>
+          <div *ngIf="splice(collab.firstName)">
+            <button mat-mini-fab disabled style="color:black"> {{initial}}</button>
           </div>
 
           <div fxFlex class="paddingLeft" fxFlex.xs="50%">
@@ -28,8 +28,10 @@
           </div>
         </div>
         <div fxFlexLayout="row" class="paddingTop">
-          <div >
-              <button mat-mini-fab disabled style="color:black"><mat-icon> person_add</mat-icon></button>
+          <div>
+            <button mat-mini-fab disabled style="color:black">
+              <mat-icon> person_add</mat-icon>
+            </button>
           </div>
           <input fxFlex placeholder="person or email to share with" class="input" [matMenuTriggerFor]="appMenu"
             [(ngModel)]="searchInput" (keyup)="search()">
@@ -70,12 +72,13 @@
       <!------------------------------ mat-card in the editingMode ------------------------------>
       <mat-card class="example-card" class=card [style.backgroundColor]="changedColor" *ngIf="clicked && !collab">
         <div fxLayout="row">
-          <div contenteditable="true" placeholder="Title" class="note" id="title"></div>
+          <div contenteditable="true" placeholder="Title" class="note" id="title" [innerHTML]=title #nativeTitle></div>
           <div>
             <app-pin (eventEmit)=pinEvent()></app-pin>
           </div>
         </div>
-        <div contenteditable="true" class="note" placeholder="Take a Note" id="note" *ngIf="!check"></div>
+        <div contenteditable="true" class="note" placeholder="Take a Note" id="note" [innerHTML]=note *ngIf="!check"
+          #nativeDesc></div>
         <!--------------------- displaying the checklist items that are added---------------------->
         <div *ngIf="check">
           <div *ngFor="let data of dataArray" fxLayout="row">
@@ -94,24 +97,10 @@
           </div>
           <hr>
         </div>
-        <!-- <div fxFlexLayout="row wrap" *ngFor="let collab of collabReq">
-          <button mat-mini-fab disabled style="color:black" *ngIf="splice(collab.firstName)">
-            {{initial}}
-          </button>
-        </div> -->
-          <div fxLayout="row wrap"><span *ngFor="let collab of collabReq">
-              <div *ngIf="splice(collab.firstName)" (click)=openCollab(note)>
-                <button mat-mini-fab disabled style="color:black"> {{initial}}</button>
-              </div>
-            </span></div>
+
+
         <mat-chip-list>
-          <!------------------------ adding labels to the note --------------------------------->
-          <div *ngFor="let label of labelName">
-            <mat-chip [removable]=true class="chip" *ngIf="!label.isDeleted" (click)=labelClicked(label.label)>
-              <span class="labelChip">{{label.label}}</span>
-              <mat-icon matChipRemove (click)=deleteLabel(label)>cancel</mat-icon>
-            </mat-chip>
-          </div>
+
           <!------------------------- adding reminders to the note ------------------------------->
           <div *ngFor="let time of reminder">
 
@@ -130,6 +119,19 @@
               </div>
             </mat-chip>
           </div>
+          <!------------------------ adding labels to the note --------------------------------->
+          <div *ngFor="let label of labelName">
+            <mat-chip [removable]=true class="chip" *ngIf="!label.isDeleted" (click)=labelClicked(label.label)>
+              <span class="labelChip">{{label.label}}</span>
+              <mat-icon matChipRemove (click)=deleteLabel(label)>cancel</mat-icon>
+            </mat-chip>
+          </div>
+          <!--------------------------- collabrators added-------------------- -->
+          <div fxLayout="row wrap"><span *ngFor="let collab of collabReq" class="collabspan">
+              <div *ngIf="splice(collab.firstName)" (click)="collabratorClicked()">
+                <button mat-mini-fab disabled style="color:black" > {{initial}}</button>
+              </div>
+            </span></div>
         </mat-chip-list>
 
         <!------------------------- selectors of all the icon components------------------------->

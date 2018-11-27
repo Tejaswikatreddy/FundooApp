@@ -49,18 +49,23 @@
       <mat-sidenav #drawer class="sidenav" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
         [mode]="(isHandset$ | async) ? 'over' : 'side'"  [position]="start">
         <mat-nav-list>
-          <a mat-list-item (click)=NoteClicked()><img src="../../../assets/notes.svg" class="svg"><span class="sideNotes">Notes</span></a>
-          <a mat-list-item (click)=ReminderClicked()><img src="../../../assets/remainder.svg" class="svg"><span class="sideNotes">Remainders</span></a>
+          <a mat-list-item (click)=NoteClicked() [ngClass]="notes === true ? 'highlight' : 'none'">
+            <img src="../../../assets/notes.svg" class="svg"><span class="sideNotes">Notes</span></a>
+          <a mat-list-item (click)=ReminderClicked() [ngClass]="reminders === true ? 'highlight' : 'none'">
+            <img src="../../../assets/remainder.svg" class="svg"><span class="sideNotes">Remainders</span></a>
           <hr>
           <p class="label">Labels</p>
-          <a mat-list-item *ngFor="let label of labelArray" (click)="labelClicked(label)">
+          <a mat-list-item *ngFor="let label of labelArray" (click)="labelClicked(label)" 
+          [ngClass]="labelHigh === label.label ? 'highlight' : 'none'">
             <img src="../../../assets/label.svg" class="svg">
             <span class="sideNotes" [innerHTML]="label.label"></span></a>
           <a mat-list-item (click)="openDialog()"><img src="../../../assets/create.svg" class="svg">
             <span class="sideNotes">Edit Labels</span></a>
-          <a mat-list-item (click)=ArchiveClicked()><img src="../../../assets/archive.svg" class="svg" >
+          <a mat-list-item (click)=ArchiveClicked() [ngClass]="archive === true ? 'highlight' : 'none'">
+            <img src="../../../assets/archive.svg" class="svg" >
             <span class="sideNotes">Archive</span></a>
-          <a mat-list-item (click)=TrashClicked()><img src="../../../assets/trash.svg" class="svg">
+          <a mat-list-item (click)=TrashClicked() [ngClass]="trash === true ? 'highlight' : 'none'">
+            <img src="../../../assets/trash.svg" class="svg">
             <span class="sideNotes">Trash</span></a>
           <hr>
         

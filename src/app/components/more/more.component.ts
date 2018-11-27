@@ -4,7 +4,8 @@ import { Label } from "../../core/models/noteModel"
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
-
+import { Router, Params, ActivatedRoute, ParamMap } from '@angular/router';
+import { DataService} from '../../core/services/dataServices/data.service'
 @Component({
   selector: 'app-more',
   templateUrl: './more.component.html',
@@ -13,7 +14,9 @@ import { MatSnackBar } from '@angular/material';
 export class MoreComponent implements OnInit,OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
 
-  constructor(private NoteService: NoteService, public snackbar: MatSnackBar) { }
+  constructor(private NoteService: NoteService, 
+              public snackbar: MatSnackBar,
+              private router:Router,private service:DataService) { }
   @Input() Note: object;
   @Output() labelArray=[];
   @Input() Delete;
@@ -139,6 +142,11 @@ public toEvent=[];
         this.eventEmit.emit({})
       }
     )
+  }
+  addQuestion(){
+    this.service.noteObj(this.Note)
+    this.router.navigate(['question']);
+   
   }
   ngOnDestroy() {
 

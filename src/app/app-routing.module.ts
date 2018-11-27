@@ -15,6 +15,7 @@ import { MainArchiveComponent } from './components/main-archive/main-archive.com
 import { MainTrashComponent } from './components/main-trash/main-trash.component';
 import { LabelNotesComponent } from './components/label-notes/label-notes.component';
 import { ErrorDisplayComponent } from './components/error-display/error-display.component';
+import { QandAComponent } from './components/qand-a/qand-a.component';
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -28,11 +29,12 @@ const routes: Routes = [
       { path: 'trash', component: MainTrashComponent },
       { path: 'remainder', component: ReminderListComponent },
       { path: 'search', component: SearchAllComponent },
+      { path: "question", component: QandAComponent }
+
     ]
   },
   { path: "resetpassword/:forgotToken", component: ResetPasswordComponent },
-  {path:"error",component:ErrorDisplayComponent}
-
+  {path:"error",component:ErrorDisplayComponent},
 ]
 @NgModule({
   imports: [

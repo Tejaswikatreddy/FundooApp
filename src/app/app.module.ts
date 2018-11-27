@@ -56,6 +56,7 @@ import { ErrorsHandler } from './core/services/errors/errors-handler'
 import { ErrorDisplayComponent } from './components/error-display/error-display.component';
 import { CollabComponent } from './components/collab/collab.component';
 import { MatSelectModule } from '@angular/material/select';
+import { QandAComponent } from './components/qand-a/qand-a.component';
 
 @NgModule({
   declarations: [
@@ -86,7 +87,8 @@ import { MatSelectModule } from '@angular/material/select';
     CropImageComponent,
     ReminderListComponent,
     ErrorDisplayComponent,
-    CollabComponent
+    CollabComponent,
+    QandAComponent
   ],
   imports: [
     BrowserModule,
@@ -121,7 +123,8 @@ import { MatSelectModule } from '@angular/material/select';
   entryComponents: [UpdateNoteComponent, EditLabelComponent, CropImageComponent, CollabComponent],
   providers: [
     httpService,
-    MatDatepickerModule, MessageService, {
+    MatDatepickerModule, MessageService,
+     ErrorsHandler, {
       provide: ErrorHandler,
       useClass: ErrorsHandler,
     },

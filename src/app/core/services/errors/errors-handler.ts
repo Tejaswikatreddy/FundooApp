@@ -1,26 +1,48 @@
-import { ErrorHandler, Injectable, Injector } from '@angular/core';
-import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { ErrorHandler, Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
-
-import * as StackTraceParser from 'error-stack-parser';
-
+import { MatSnackBar } from '@angular/material';
 
 @Injectable()
 export class ErrorsHandler implements ErrorHandler {
-    constructor(
-        private injector: Injector
-    ) { }
-
-
-    handleError(error: Error) {
-        const router = this.injector.get(Router);
-        if (!navigator.onLine){
-            router.navigate(['error'])
-            
+    constructor(public snackbar: MatSnackBar) { }
+    handleError(error: Error | HttpErrorResponse) {
+        if (error instanceof HttpErrorResponse) {
+            // Server or connection error happened
+            if (!navigator.onLine) {
+                // Handle offline error
+                try {
+                    throw new Error("offline error")
+                }
+                catch (e) {
+                    this.snackbar.open(e, "cannot load the page", {
+                        duration: 2000
+                    })
+                }
+            } else {
+                
+                // Handle Http Error (error.status === 403, 404...)
+                try {
+                    throw new Error()
+                }
+                catch (e) {
+                    this.snackbar.open(e, "api error", {
+                        duration: 2000
+                    })
+                }
+            }
+        } else {
+            // Handle Client Error (Angular Error, ReferenceError...)  
+            try {
+                throw new Error()
+            }
+            catch (e) {
+                this.snackbar.open(e, "unknown error", {
+                    duration: 2000
+                })
+            }
         }
-        if (error instanceof ErrorEvent){
-        }
-       
+        // Log the error anyway
+        // console.log("the error happened",typeof new Error());
+
     }
 }
