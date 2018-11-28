@@ -86,6 +86,8 @@ public collabs=[];
  
   updateNotes(){
     if(this.checklist==false){
+      console.log("checklist false");
+      
     this.title = document.getElementById("Updatedtitle").innerHTML;
     this.description = document.getElementById("Updatednote").innerHTML;
     this.id=this.data.id;
@@ -95,6 +97,8 @@ public collabs=[];
         "description": this.description
 
       }
+      console.log(RequestBody);
+      
       this.NoteService.UpdateNote(this.getFormUrlEncoded(RequestBody))
         .pipe(takeUntil(this.destroy$))
 

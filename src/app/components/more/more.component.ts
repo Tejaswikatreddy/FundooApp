@@ -144,9 +144,8 @@ public toEvent=[];
     )
   }
   addQuestion(){
-    this.service.noteObj(this.Note)
-    this.router.navigate(['question']);
-   
+    // this.service.noteObj(this.Note)
+    this.router.navigate(['notes/' + this.Note['id'] +'/question']);
   }
   ngOnDestroy() {
 

@@ -6,6 +6,8 @@ $color-paleviolet:#d87093;
 $color-seaGreen:rgb(11, 235, 235);
 $color-green:rgb(124, 238, 153);
 $color-yellow:rgb(244, 247, 118);
+@import '~ngx-bar-rating/themes/br-default-theme' ;
+
 
 html, body { height: 100%; }
 body { margin: 0; font-family: 'Roboto', sans-serif; }

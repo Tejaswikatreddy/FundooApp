@@ -106,6 +106,12 @@
          
         </span>
       </div>
+      <div *ngIf="checkquestions(note)">
+        <hr>
+        <div>Question Asked</div>
+        <div [innerHTML]=question></div>
+
+      </div>
     </mat-card>
   </div>
 </div>

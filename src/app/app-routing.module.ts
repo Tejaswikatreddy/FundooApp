@@ -29,7 +29,7 @@ const routes: Routes = [
       { path: 'trash', component: MainTrashComponent },
       { path: 'remainder', component: ReminderListComponent },
       { path: 'search', component: SearchAllComponent },
-      { path: "question", component: QandAComponent }
+      { path: "notes/:noteId/question", component: QandAComponent }
 
     ]
   },

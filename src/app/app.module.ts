@@ -57,6 +57,7 @@ import { ErrorDisplayComponent } from './components/error-display/error-display.
 import { CollabComponent } from './components/collab/collab.component';
 import { MatSelectModule } from '@angular/material/select';
 import { QandAComponent } from './components/qand-a/qand-a.component';
+import { BarRatingModule } from "ngx-bar-rating";
 
 @NgModule({
   declarations: [
@@ -117,7 +118,8 @@ import { QandAComponent } from './components/qand-a/qand-a.component';
     MatDatepickerModule,
     ImageCropperModule,
     MatNativeDateModule,
-    MatSelectModule
+    MatSelectModule,
+    BarRatingModule
 
   ],
   entryComponents: [UpdateNoteComponent, EditLabelComponent, CropImageComponent, CollabComponent],

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import {  HttpHeaders } from '@angular/common/http';
 import { httpService } from '../httpService/http.service';
 import { environment} from '../../../../environments/environment'
 @Injectable({
@@ -153,5 +152,9 @@ addCollaborator(RequestBody,id){
 removeCollabrator(id,userId){
   this.url = this.URL + "/notes/" + id + "/removeCollaboratorsNotes/"+userId;
   return this.service.delete(this.url)
+}
+getNOteDetails(noteId){
+  this.url = this.URL + "/notes/getNotesDetail/" + noteId 
+  return this.service.getJson(this.url)
 }
 }

@@ -1,0 +1,29 @@
+@import '../../../scss/mixin.scss';
+.note{
+    @include note;
+}
+
+[contenteditable=true]:empty:not(:focus):before{
+    content: attr(placeholder);
+    display: block;
+    opacity:0.5;
+}
+.username{
+    font-size:10px;
+    font-weight: lighter
+}
+.Qbutton{
+    float: right;
+}
+.icon_button{
+    opacity: 1
+}
+.reply{
+    border:2px solid grey
+}
+.fa-star-o{
+    color:black
+}
+.fa-star{
+    color:yellow
+}

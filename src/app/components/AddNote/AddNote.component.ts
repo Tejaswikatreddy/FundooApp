@@ -319,12 +319,21 @@ export class AddNoteComponent implements OnInit {
     this.check = event;
   }
   collabratorClicked() {
-   
+    console.log("collabrator clicked");
+    if(this.check==false){
     if (this.nativeDesc.nativeElement.innerHTML != undefined || this.nativeTitle.nativeElement.innerHTML != undefined){
     this.note = this.nativeDesc.nativeElement.innerHTML;
     this.title = this.nativeTitle.nativeElement.innerHTML;
     }
+  }
+  else{
+      if (this.nativeTitle.nativeElement.innerHTML != undefined) {
+        this.title = this.nativeTitle.nativeElement.innerHTML;
+      }
+  }
     this.collab = true;
+    console.log(this.collab);
+    
   }
   search() {
     this.done = true;

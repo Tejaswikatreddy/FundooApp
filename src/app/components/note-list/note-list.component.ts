@@ -29,7 +29,7 @@ export class NotelistComponent implements OnInit,OnDestroy {
   @ViewChild('remindme') remind: RemindMeComponent;
  @Input() NoteArray;
   @Input() searchInput;
-  
+  public question;
   public checkArray=[];
   public initial=""
  /*creating an object for EventEmitter*/
@@ -192,12 +192,19 @@ export class NotelistComponent implements OnInit,OnDestroy {
 
     });
     dialogRef.afterClosed().subscribe(result => {
-
       this.eventEmit.emit({});
 
     });
   }
-
+  checkquestions(note){
+  if(note.questionAndAnswerNotes==undefined){
+    return false
+  }
+    if (note.questionAndAnswerNotes.length!==0){
+      this.question = note.questionAndAnswerNotes[0].message
+      return true;
+    }
+  }
   
   ngOnDestroy() {
 
