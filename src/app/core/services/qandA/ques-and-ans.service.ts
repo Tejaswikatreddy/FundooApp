@@ -20,4 +20,8 @@ export class QuesAndAnsService {
     this.url = this.URL +"/questionAndAnswerNotes/like/"+id;
     return this.service.PostJson(this.url,RequestBody)
   }
+  addRating(RequestBody,id){
+    this.url = this.URL +"/questionAndAnswerNotes/rate/"+id
+    return this.service.PostJson(this.url,RequestBody)
+  }
 }

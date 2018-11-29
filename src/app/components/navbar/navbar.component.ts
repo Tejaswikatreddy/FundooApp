@@ -64,6 +64,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.route.firstChild.paramMap.subscribe(
       (params: ParamMap) => {
         this.Fundoo = params['params'].labelName;
+        if (params['params'].labelName!==undefined){
+          this.labels=true;
+        }
         this.labelHigh = params['params'].labelName;
       })
     this.dataService.viewLabel.subscribe(response => {
@@ -71,6 +74,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
         this.router.navigate(["label/" + response])
       }
     })
+    if(this.labels===false){
     if (this.router.url == "/home") {
       this.Fundoo = "Fundoo Notes"
       this.notes=true;
@@ -95,7 +99,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
       this.Fundoo = "Fundoo Notes";
       this.labelHigh = ""
     }
-
+    else{
+       this.Fundoo="Fundoo Notes"
+    }
+  }
   }
   isHandset$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.Handset, Breakpoints.Tablet])
     .pipe(

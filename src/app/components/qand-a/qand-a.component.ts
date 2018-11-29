@@ -37,23 +37,12 @@ export class QandAComponent implements OnInit, OnDestroy {
   public printUsername;
   public printId;
   public replies=[]
+  public replies_secnd=[]
   public likeCount;
   public rate;
+  public replyObj;
   starList: boolean[] = [true, true, true, true, true];       
-  rating: number;
-  setStar(data: any) {
-    this.rating = data + 1;
-    for (var i = 0; i <= 4; i++) {
-      if (i <= data) {
-        this.starList[i] = false;
-      }
-      else {
-        this.starList[i] = true;
-      }
-    }
-    console.log(this.rating);
-    
-  }  
+  
   ngOnInit() {
     this.route.params.subscribe(
       (params: Params) => {
@@ -62,50 +51,100 @@ export class QandAComponent implements OnInit, OnDestroy {
         console.log(this.noteId);
 
       })
+      this.getNoteDetails();    
+  }
+  getNoteDetails(){
     this.noteService.getNOteDetails(this.noteId)
       .pipe(takeUntil(this.destroy$))
       .subscribe(response => {
-        // console.log(response['data'].data[0].title);
         this.noteDetails = response['data'].data
         console.log(this.noteDetails);
         this.title = this.noteDetails[0].title;
         if (this.noteDetails[0].description != undefined) {
           this.description = this.noteDetails[0].description;
         }
-        if (this.noteDetails[0].noteCheckLists.length != 0) {
+        if (this.noteDetails[0].noteCheckLists != undefined) {
           this.checklist = this.noteDetails[0].noteCheckLists
         }
-        this.question = this.noteDetails[0].questionAndAnswerNotes
-        if (this.question.length == 0) {
-          this.questionStatus = true;
-        }
-        this.image = this.question[0].user.imageUrl;
-        this.imagepath = this.URL + this.image;
-        this.printQuestion = this.question[0].message
-        this.printUsername = this.question[0].user.firstName;
-        this.printId = this.question[0].id;
-        for (let i = 1; i < this.question.length; i++) {
-           if (this.printId === this.question[i].parentId) {
-              this.replies.push(this.question[i])
-
+        if (this.noteDetails[0].questionAndAnswerNotes !== undefined) {
+          for (let i = 0; i < this.noteDetails[0].questionAndAnswerNotes.length;i++){
+            this.question.push(this.noteDetails[0].questionAndAnswerNotes[i])
           }
         }
-        this.likeCount = this.question[0].like.length;
-        console.log(this.likeCount);
-        
-        
-      })
-   
+        if (this.question.length !== 0) {
+          this.questionStatus = true;
+        }
+        if (this.question.length !== 0) {
+          this.image = this.question[0].user.imageUrl;
+          this.imagepath = this.URL + this.image;
+          this.printQuestion = this.question[0].message
+          this.printUsername = this.question[0].user.firstName;
+          this.printId = this.question[0].id;
+          this.likeCount = this.question[0].like.length;
+           }
+        for (let i = 1; i < this.question.length; i++) {
+          if (this.question[0].id === this.question[i].parentId) {
+            this.replies.push(this.question[i])
+          }
+        }
+    })
+
   }
-  addQuestion(e) {
+  public imag
+  public imagpath
+  public rateDisp;
+  imageFormation(ques){
+    this.imag = ques.user.imageUrl;
+    this.imagpath = this.URL + this.imag;
+    let cal = ques.rate.length;
+    let count = 0;
+    for (let i = 0; i < cal; i++) {
+      count = count + ques.rate[i].rate
+    }
+    this.rateDisp=count / cal
+    return true;
+  }
+  public lykC;
+  likeDisplay(ques){
+    this.lykC =ques.like.length;
+    return true;
+  }
+  lengthCheck(){
+    if(this.question.length>1){
+      return true;
+    }
+    return false;
+  }
+  public rX=[]
+  hasReply(ques)
+{
+    this.rX=[]
+    for (let i = 1; i < this.question.length; i++) {
+      if (ques.id === this.question[i].parentId) {
+        this.rX.push(this.question[i])
+        }
+    }
+   return true;
+}  
+public rZ;
+hasReplysecnd(ques){
+this.rZ=[];
+  for (let i = 1; i < this.question.length; i++) {
+    if (ques.id === this.question[i].parentId) {
+      this.rZ.push(this.question[i])
+
+    }
+  }
+  return true;
+}
+addQuestion(e) {
       if (e.keyCode === 13) {
       this.questionValue = this.questionAksed.nativeElement.innerHTML;
       this.addQuestionToNote();
       this.questionAksed.nativeElement.innerHTML = '';
     }
-  }
+}
   addQuestionToNote() {
-
     let RequestBody = {
       "message": this.questionValue,
       "notesId": this.noteId
@@ -114,12 +153,16 @@ export class QandAComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe(response => {
         this.questionStatus = false;
+        this.getNoteDetails();
       })
   }
   closeQandA() {
     this.router.navigate(['home'])
   }
-  reply() {
+  
+  reply(replyOBJ) {
+    this.replyObj=replyOBJ;
+    console.log(this.replyObj);
     this.isReply = true;
   }
   sendReply() {
@@ -127,31 +170,40 @@ export class QandAComponent implements OnInit, OnDestroy {
     let RequestBody={
       "message": this.replyDone.nativeElement.innerHTML
     }
-    this.qService.addReply(RequestBody,this.question[0].id)
+    this.qService.addReply(RequestBody,this.replyObj.id)
       .pipe(takeUntil(this.destroy$))
       .subscribe(response=>{
-        console.log(response);
-        
       })
   }
-  like(){
+  like(ques){
     let requestbody={
       "like": true
     }
-    this.qService.addLike(requestbody, this.question[0].id)
+    this.qService.addLike(requestbody, ques.id)
       .pipe(takeUntil(this.destroy$))
       .subscribe(response => {
-        console.log(response);
-
       })
   }
-  rating1(){
-    console.log(this.rate);
-    
+  rating1(rate,ques){
+    console.log(rate);
+    let request={
+      "rate":rate
+    }
+    this.qService.addRating(request, ques.id)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(response=>{})
   }
+  // ratingDisp(ques){
+  //    let cal=ques.rate.length;
+  //    let count=0;
+  //    for(let i=0;i<cal;i++){
+  //      count = count + ques.rate[i].rate
+  //    }
+  //    return count/cal
+  // }
   ngOnDestroy() {
     this.destroy$.next(true);
-    // Now let's also unsubscribe from the subject itself:
     this.destroy$.unsubscribe();
   }
+
 }
