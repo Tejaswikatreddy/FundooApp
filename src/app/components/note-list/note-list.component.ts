@@ -15,6 +15,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { CollabComponent } from '../collab/collab.component'
 import { MatDialog } from '@angular/material';
+import { Router, Params, ActivatedRoute, ParamMap } from '@angular/router';
 
 /*component decorator*/
 @Component({
@@ -39,7 +40,7 @@ export class NotelistComponent implements OnInit,OnDestroy {
  public date=new Date();
  public currenttime;
  
-  constructor(private auth: AuthService,
+  constructor(private auth: AuthService,private router:Router,
     public dialog: MatDialog, private dataService: DataService,private NoteService:NoteService) { }
   ngOnInit() {  
     this.dataService.viewList.subscribe(message => {
@@ -205,7 +206,9 @@ export class NotelistComponent implements OnInit,OnDestroy {
       return true;
     }
   }
-  
+  goToQuestion(note){
+    this.router.navigate(['notes/' + note['id'] + '/question']);
+  }
   ngOnDestroy() {
 
     this.destroy$.next(true);

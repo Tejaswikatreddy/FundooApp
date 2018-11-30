@@ -14,37 +14,33 @@ import { environment } from '../../../environments/environment'
   styleUrls: ['./qand-a.component.scss']
 })
 export class QandAComponent implements OnInit, OnDestroy {
-  @ViewChild('question') public questionAksed: ElementRef;
-  @ViewChild('reply') public replyDone: ElementRef;
+  @ViewChild('question') private questionAksed: ElementRef;
+  @ViewChild('reply') private replyDone: ElementRef;
   destroy$: Subject<boolean> = new Subject<boolean>();
-  constructor(public route: ActivatedRoute,
+  constructor(private route: ActivatedRoute,
     private noteService: NoteService,
     private qService: QuesAndAnsService,
     private router: Router) { }
-  public noteId;
-  public title;
-  public description;
-  public checklist;
-  public questionStatus = false;
-  public question = [];
-  public questionValue;
-  public isReply = false;
+  private noteId;
+  private title;
+  private description;
+  private checklist;
+  private questionStatus = false;
+  private question = [];
+  private questionValue;
+  private isReply = false;
   URL = environment.URL;
   noteDetails: Note[] = [];
-  public printId;
-  public replies=[]
-  public rate;
-  public replyObj;
+  private replies=[]
+  private rate;
+  private replyObj;
  
-  starList: boolean[] = [true, true, true, true, true];       
+  
   
   ngOnInit() {
     this.route.params.subscribe(
       (params: Params) => {
-
         this.noteId = params['noteId']
-        console.log(this.noteId);
-
       })
       this.getNoteDetails();    
   }
@@ -69,9 +65,7 @@ export class QandAComponent implements OnInit, OnDestroy {
         if (this.question.length !== 0) {
           this.questionStatus = true;
         }
-        if (this.question.length !== 0) {
-          this.printId = this.question[0].id;    
-        }
+        
         for (let i = 1; i < this.question.length; i++) {
           if (this.question[0].id === this.question[i].parentId) {
             this.replies.push(this.question[i]);
@@ -80,21 +74,30 @@ export class QandAComponent implements OnInit, OnDestroy {
     })
 
   }
-  public imag
-  public imagpath
-  public rateDisp;
+  private imag
+  private imagpath
+  private rateDisp;
+  private userRating
   imageFormation(ques){
+  
     this.imag = ques.user.imageUrl;
     this.imagpath = this.URL + this.imag;
-    let cal = ques.rate.length;
-    let count = 0;
-    for (let i = 0; i < cal; i++) {
-      count = count + ques.rate[i].rate
-    }
-    this.rateDisp=count / cal
     return true;
   }
-  public lykC;
+  private liked = false;
+  isliked(ques) {
+    this.liked = false;
+    for (let i = 0; i < ques['like'].length; i++) {
+      if (ques.like[i].userId == localStorage.getItem('userId') && ques.like[i].like == true) {
+        this.liked = true;
+        return true;
+      }
+    }
+    return true;
+
+  }
+
+  private lykC;
   likeDisplay(ques){
     this.lykC=0;
     for (let i = 0; i < ques.like.length;i++){
@@ -110,7 +113,7 @@ export class QandAComponent implements OnInit, OnDestroy {
     }
     return false;
   }
-  public rX=[]
+  private rX=[]
   hasReply(ques)
 {
     this.rX=[]
@@ -121,7 +124,7 @@ export class QandAComponent implements OnInit, OnDestroy {
     }
    return true;
 }  
-public rZ;
+private rZ;
 hasReplysecnd(ques){
 this.rZ=[];
   for (let i = 1; i < this.question.length; i++) {
@@ -132,18 +135,6 @@ this.rZ=[];
   }
   return true;
 }
-public liked=false;
-  isliked(ques){
-    this.liked=false;
-    for(let i=0;i<ques['like'].length;i++){
-      if(ques.like[i].userId==localStorage.getItem('userId') && ques.like[i].like==true){
-        this.liked=true;
-        return true;
-      }
-    }
-    return true;
-   
-  }
 addQuestion(e) {
       if (e.keyCode === 13) {
       this.questionValue = this.questionAksed.nativeElement.innerHTML;
@@ -179,8 +170,7 @@ addQuestion(e) {
     }
     this.qService.addReply(RequestBody,this.replyObj.id)
       .pipe(takeUntil(this.destroy$))
-      .subscribe(response=>{
-      })
+      .subscribe(response=>{})
   }
   like(ques,flag){
     let requestbody={
@@ -201,14 +191,25 @@ addQuestion(e) {
       .pipe(takeUntil(this.destroy$))
       .subscribe(response=>{})
   }
-  // ratingDisp(ques){
-  //    let cal=ques.rate.length;
-  //    let count=0;
-  //    for(let i=0;i<cal;i++){
-  //      count = count + ques.rate[i].rate
-  //    }
-  //    return count/cal
-  // }
+  ratingDisp(ques) {
+    this.rateDisp=0;
+    this.userRating =0;
+    let cal = ques.rate.length;
+    let count = 0;
+    if (cal !== 0) {
+      for (let i = 0; i < cal; i++) {
+        count = count + ques.rate[i].rate
+        if (ques.rate[i].userId === localStorage.getItem('userId')) {
+          this.userRating = ques.rate[i].rate;
+        }
+      }
+
+      this.rateDisp = count / cal
+      console.log(this.rateDisp);
+
+    }
+    return true;
+  }
   ngOnDestroy() {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();

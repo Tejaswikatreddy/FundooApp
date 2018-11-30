@@ -106,7 +106,7 @@
          
         </span>
       </div>
-      <div *ngIf="checkquestions(note)">
+      <div *ngIf="checkquestions(note)" (click)=goToQuestion(note)>
         <hr>
         <div>Question Asked</div>
         <div [innerHTML]=question class="note"></div>
