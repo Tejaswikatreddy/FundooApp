@@ -12,6 +12,9 @@
     font-size:10px;
     font-weight: lighter
 }
+.material-icons {
+    opacity: 1;
+}
 .Qbutton{
     float: right;
 }
@@ -19,7 +22,8 @@
     opacity: 1
 }
 .reply{
-    border:2px solid grey
+    border-bottom:2px solid grey;
+    outline:none;
 }
 .fa-star-o{
     color:black
@@ -31,4 +35,14 @@
  word-wrap: break-word;
  width:120px
  }
- 
+ .firstReply{
+     margin-left:5%;
+     font-size:15px
+ }
+ .secondReply{
+     margin-left:10%; font-size:15px
+ }
+ .thirdReply{
+     margin-left:15%;
+     font-size:15px
+ }

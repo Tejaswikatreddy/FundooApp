@@ -30,17 +30,12 @@ export class QandAComponent implements OnInit, OnDestroy {
   public questionValue;
   public isReply = false;
   URL = environment.URL;
-  public image 
-  public imagepath 
   noteDetails: Note[] = [];
-  public printQuestion;
-  public printUsername;
   public printId;
   public replies=[]
-  public replies_secnd=[]
-  public likeCount;
   public rate;
   public replyObj;
+ 
   starList: boolean[] = [true, true, true, true, true];       
   
   ngOnInit() {
@@ -75,16 +70,11 @@ export class QandAComponent implements OnInit, OnDestroy {
           this.questionStatus = true;
         }
         if (this.question.length !== 0) {
-          this.image = this.question[0].user.imageUrl;
-          this.imagepath = this.URL + this.image;
-          this.printQuestion = this.question[0].message
-          this.printUsername = this.question[0].user.firstName;
-          this.printId = this.question[0].id;
-          this.likeCount = this.question[0].like.length;
-           }
+          this.printId = this.question[0].id;    
+        }
         for (let i = 1; i < this.question.length; i++) {
           if (this.question[0].id === this.question[i].parentId) {
-            this.replies.push(this.question[i])
+            this.replies.push(this.question[i]);
           }
         }
     })
@@ -106,7 +96,12 @@ export class QandAComponent implements OnInit, OnDestroy {
   }
   public lykC;
   likeDisplay(ques){
-    this.lykC =ques.like.length;
+    this.lykC=0;
+    for (let i = 0; i < ques.like.length;i++){
+      if(ques.like[i].like==true){
+        this.lykC=this.lykC+1;
+      }
+    }
     return true;
   }
   lengthCheck(){
@@ -137,6 +132,18 @@ this.rZ=[];
   }
   return true;
 }
+public liked=false;
+  isliked(ques){
+    this.liked=false;
+    for(let i=0;i<ques['like'].length;i++){
+      if(ques.like[i].userId==localStorage.getItem('userId') && ques.like[i].like==true){
+        this.liked=true;
+        return true;
+      }
+    }
+    return true;
+   
+  }
 addQuestion(e) {
       if (e.keyCode === 13) {
       this.questionValue = this.questionAksed.nativeElement.innerHTML;
@@ -175,13 +182,14 @@ addQuestion(e) {
       .subscribe(response=>{
       })
   }
-  like(ques){
+  like(ques,flag){
     let requestbody={
-      "like": true
+      "like": flag
     }
     this.qService.addLike(requestbody, ques.id)
       .pipe(takeUntil(this.destroy$))
       .subscribe(response => {
+        this.liked=flag;
       })
   }
   rating1(rate,ques){

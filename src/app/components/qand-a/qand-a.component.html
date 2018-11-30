@@ -1,9 +1,7 @@
 <div fxLayout="row" fxLayoutAlign="center">
 
-  <div fxFlex.xl="1500px" fxFlex.lg="900px" fxFlex.md="500px" fxFlex.sm="600px" fxFlex.xs="320px" fxLayout="column"
-    fxLayoutGap="10px">
-    <div></div>
-
+  <div fxFlex.xl="1500px" fxFlex.lg="900px" fxFlex.md="500px" fxFlex.sm="600px" fxFlex.xs="320px" >
+   
     <div>
       <button mat-button (click)=closeQandA() class="Qbutton">close</button>
       <div fxLayout="column" fxLayoutGap="10px">
@@ -19,31 +17,34 @@
       <hr>
     </div>
 
-
-
     <div *ngIf="!questionStatus">
       <div>Ask a Question</div>
       <div contenteditable="true" placeholder="enter question" class="note" (keydown)=addQuestion($event) #question></div>
     </div>
-    <div *ngIf="questionStatus">
-      <div fxLayout="row" fxLayoutAlign="start center">
-        <div fxFlex.xl="5%" fxFlex.lg="5%" fxFlex.md="10%" fxFlex.sm="10%" fxFlex.xs="15%">
-          <button mat-mini-fab disabled [ngStyle]="{'background-image':'url(' +imagepath+ ')','background-size':'cover'}"></button>
+    <div *ngIf="questionStatus" style="overflow-y:auto;padding-bottom:10%" >
+      <div fxLayout="row" fxLayoutAlign="start ">
+        <div fxFlex.xl="5%" fxFlex="5" fxFlex.md="10%" fxFlex.sm="10%" fxFlex.xs="15%" *ngIf="imageFormation(question[0])">
+          <button mat-mini-fab disabled [ngStyle]="{'background-image':'url(' +imagpath+ ')','background-size':'cover'}"></button>
         </div>
-        <div fxFlex.xl="95%" fxFlex.lg="95%" fxFlex.md="90%" fxFlex.sm="90%" fxFlex.xs="85%" fxLayout="row">
-          <div fxLayout="column">
-            <span class="username">{{printUsername}}</span>
-            <div>{{printQuestion}}</div>
-          </div>
+        <div fxFlex=70 fxLayout="column" >
+          <span class="username">{{question[0].user.firstName}}</span>
+          <div [innerHTML]=question[0].message></div>
+        </div>
+        <div fxFlex="10" fxLayout="row">
           <div> <button mat-icon-button class="icon_button" (click)=reply(question[0])>
               <mat-icon>reply</mat-icon>
             </button></div>
-          <div> <button mat-icon-button class="icon_button" (click)=like(question[0])>
-              <mat-icon>thumb_up</mat-icon>
+          <div *ngIf="isliked(question[0])"> <button mat-icon-button class="icon_button">
+              <img src="../../../assets/like.svg" class="svg" *ngIf="!liked" (click)=like(question[0],true)>
+              <img src="../../../assets/liked.svg" class="svg" *ngIf="liked" (click)=like(question[0],false)>
             </button></div>
-          <div><span class="username">{{likeCount}}</span></div>
-          <div>
-            <bar-rating (rateChange)="rating1($event,question[0])" [(rate)]=rate [max]="5"></bar-rating>
+
+          <div *ngIf="likeDisplay(question[0])"><span class="username">{{lykC}}</span></div>
+          <div *ngIf="question[0].rate.length==0">
+            <bar-rating (rateChange)="rating1($event,question[0])" [max]="5"></bar-rating>
+          </div>
+          <div *ngIf="question[0].rate.length!==0">
+            <bar-rating (rateChange)="rating1($event,question[0])" [(rate)]="rateDisp" [max]="5"></bar-rating>
           </div>
         </div>
       </div>
@@ -53,21 +54,22 @@
           <mat-icon>send</mat-icon>
         </button>
       </div>
-      <div class="question_div" *ngFor="let r of replies">
-        <div fxLayout="row" style="margin-left:5%">
+      <div *ngFor="let r of replies">
+        <div fxLayout="row" class="firstReply">
           <div fxFlex.xl="5%" fxFlex.lg="5%" fxFlex.md="10%" fxFlex.sm="10%" fxFlex.xs="15%" *ngIf="imageFormation(r)">
             <button mat-mini-fab disabled [ngStyle]="{'background-image':'url(' +imagpath+ ')','background-size':'cover'}"></button>
           </div>
-          <div fxFlex.xl="95%" fxFlex.lg="95%" fxFlex.md="90%" fxFlex.sm="90%" fxFlex.xs="85%" fxLayout="row">
-            <div fxLayout="column">
-              <span class="username">{{r.user.firstName}}</span>
-              <div [innerHTML]=r.message></div>
-            </div>
+          <div fxLayout="column">
+            <span class="username">{{r.user.firstName}}</span>
+            <div [innerHTML]=r.message></div>
+          </div>
+          <div fxFlex.lg="10%" fxLayout="row">
             <div> <button mat-icon-button class="icon_button" (click)=reply(r)>
                 <mat-icon>reply</mat-icon>
               </button></div>
-            <div> <button mat-icon-button class="icon_button" (click)=like(r)>
-                <mat-icon>thumb_up</mat-icon>
+            <div *ngIf="isliked(r)"> <button mat-icon-button class="icon_button">
+                <img src="../../../assets/like.svg" class="svg" *ngIf="!liked" (click)=like(r,true)>
+                <img src="../../../assets/liked.svg" class="svg" *ngIf="liked" (click)=like(r,false)>
               </button></div>
             <div *ngIf="likeDisplay(r)"><span class="username">{{lykC}}</span></div>
             <div *ngIf="r.rate.length==0">
@@ -78,7 +80,7 @@
             </div>
           </div>
         </div>
-        <div *ngIf="isReply && replyObj.id==r.id" fxLayout="row" style="margin-left:5%">
+        <div *ngIf="isReply && replyObj.id==r.id" fxLayout="row" class="firstReply">
           <div contenteditable="true" placeholder="enter reply" class="reply" fxFlex="95%" #reply></div>
           <button mat-icon-button (click)=sendReply()>
             <mat-icon>send</mat-icon>
@@ -87,20 +89,21 @@
         <div *ngIf="hasReply(r)">
 
           <div class="question_div" *ngFor="let red of rX">
-            <div fxLayout="row" style="margin-left:10%">
+            <div fxLayout="row" class="secondReply">
               <div fxFlex.xl="5%" fxFlex.lg="5%" fxFlex.md="10%" fxFlex.sm="10%" fxFlex.xs="15%" *ngIf="imageFormation(red)">
                 <button mat-mini-fab disabled [ngStyle]="{'background-image':'url(' +imagpath+ ')','background-size':'cover'}"></button>
               </div>
-              <div fxFlex.xl="95%" fxFlex.lg="95%" fxFlex.md="90%" fxFlex.sm="90%" fxFlex.xs="85%" fxLayout="row">
-                <div fxLayout="column">
-                  <span class="username">{{red.user.firstName}}</span>
-                  <div style="color:red" [innerHTML]=red.message></div>
-                </div>
+              <div fxLayout="column">
+                <span class="username">{{red.user.firstName}}</span>
+                <div style="color:red" [innerHTML]=red.message></div>
+              </div>
+              <div fxFlex.lg="10%" fxLayout="row">
                 <div> <button mat-icon-button class="icon_button" (click)=reply(red)>
                     <mat-icon>reply</mat-icon>
                   </button></div>
-                <div> <button mat-icon-button class="icon_button" (click)=like(red)>
-                    <mat-icon>thumb_up</mat-icon>
+                <div *ngIf="isliked(red)"> <button mat-icon-button class="icon_button">
+                    <img src="../../../assets/like.svg" class="svg" *ngIf="!liked" (click)=like(red,true)>
+                    <img src="../../../assets/liked.svg" class="svg" *ngIf="liked" (click)=like(red,false)>
                   </button></div>
                 <div *ngIf="likeDisplay(red)"><span class="username">{{lykC}}</span></div>
 
@@ -112,7 +115,7 @@
                 </div>
               </div>
             </div>
-            <div *ngIf="isReply && replyObj.id==red.id" fxLayout="row" style="margin-left:10%">
+            <div *ngIf="isReply && replyObj.id==red.id" fxLayout="row" class="secondReply">
               <div contenteditable="true" placeholder="enter reply" class="reply" fxFlex="95%" #reply></div>
               <button mat-icon-button (click)=sendReply()>
                 <mat-icon>send</mat-icon>
@@ -122,17 +125,18 @@
             <div *ngIf="hasReplysecnd(red)">
 
               <div class="question_div" *ngFor="let green of rZ">
-                <div fxLayout="row" style="margin-left:15%">
+                <div fxLayout="row" class="thirdReply">
                   <div fxFlex.xl="5%" fxFlex.lg="5%" fxFlex.md="10%" fxFlex.sm="10%" fxFlex.xs="15%" *ngIf="imageFormation(green)">
                     <button mat-mini-fab disabled [ngStyle]="{'background-image':'url(' +imagpath+ ')','background-size':'cover'}"></button>
                   </div>
-                  <div fxFlex.xl="95%" fxFlex.lg="95%" fxFlex.md="90%" fxFlex.sm="90%" fxFlex.xs="85%" fxLayout="row">
-                    <div fxLayout="column">
-                      <span class="username">{{green.user.firstName}}</span>
-                      <div style="color:green" [innerHTML]=green.message></div>
-                    </div>
-                    <div> <button mat-icon-button class="icon_button" (click)=like(green)>
-                        <mat-icon>thumb_up</mat-icon>
+                  <div fxLayout="column">
+                    <span class="username">{{green.user.firstName}}</span>
+                    <div style="color:green" [innerHTML]=green.message></div>
+                  </div>
+                  <div fxFlex.lg="10%" fxLayout="row">
+                    <div *ngIf="isliked(green)"> <button mat-icon-button class="icon_button">
+                        <img src="../../../assets/like.svg" class="svg" *ngIf="!liked" (click)=like(green,true)>
+                        <img src="../../../assets/liked.svg" class="svg" *ngIf="liked" (click)=like(green,false)>
                       </button></div>
                     <div><span class="username">{{green.like.length}}</span></div>
                     <div *ngIf="green.rate.length==0">
@@ -143,7 +147,7 @@
                     </div>
                   </div>
                 </div>
-                <div *ngIf="isReply && replyObj.id==green.id" fxLayout="row" style="margin-left:15%">
+                <div *ngIf="isReply && replyObj.id==green.id" fxLayout="row" class="thirdReply">
                   <div contenteditable="true" placeholder="enter reply" class="reply" fxFlex="95%" #reply></div>
                   <button mat-icon-button (click)=sendReply()>
                     <mat-icon>send</mat-icon>
@@ -153,17 +157,7 @@
             </div>
           </div>
         </div>
-
-
-
       </div>
     </div>
-    <!-- <div *ngIf="isReply" fxLayout="row">
-      <div contenteditable="true" placeholder="enter reply" class="reply" fxFlex="95%" #reply></div>
-      <button mat-icon-button (click)=sendReply()>
-        <mat-icon>send</mat-icon>
-      </button>
-    </div> -->
-
   </div>
 </div>
