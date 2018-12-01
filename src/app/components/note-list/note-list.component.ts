@@ -207,6 +207,7 @@ export class NotelistComponent implements OnInit,OnDestroy {
     }
   }
   goToQuestion(note){
+    this.dataService.viewDisp(false);
     this.router.navigate(['notes/' + note['id'] + '/question']);
   }
   ngOnDestroy() {

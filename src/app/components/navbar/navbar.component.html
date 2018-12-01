@@ -34,7 +34,7 @@
         <mat-icon>refresh</mat-icon>
       </button></div> -->
     <div  ngStyle.xs="visibility:collapse">
-      <button type="button" mat-icon-button (click)=viewClicked()>
+      <button type="button" mat-icon-button (click)=viewClicked() *ngIf="viewFlag"> 
         <mat-icon *ngIf="list">view_module</mat-icon>
         <mat-icon *ngIf="!list">view_stream</mat-icon>
   

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ElementRef, ViewChild, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { NoteService } from '../../core/services/NoteService/note.service';
+import { DataService } from '../../core/services/dataServices/data.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Note } from "../../core/models/noteModel"
@@ -20,7 +21,8 @@ export class QandAComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute,
     private noteService: NoteService,
     private qService: QuesAndAnsService,
-    private router: Router) { }
+    private router: Router,
+    private dataService:DataService) { }
   private noteId;
   private title;
   private description;
@@ -34,7 +36,7 @@ export class QandAComponent implements OnInit, OnDestroy {
   private replies=[]
   private rate;
   private replyObj;
- 
+//  private firstReply=false;
   
   
   ngOnInit() {
@@ -48,6 +50,9 @@ export class QandAComponent implements OnInit, OnDestroy {
     this.noteService.getNOteDetails(this.noteId)
       .pipe(takeUntil(this.destroy$))
       .subscribe(response => {
+        this.noteDetails=[];
+        this.question=[];
+        this.replies=[];
         this.noteDetails = response['data'].data
         console.log(this.noteDetails);
         this.title = this.noteDetails[0].title;
@@ -97,7 +102,7 @@ export class QandAComponent implements OnInit, OnDestroy {
 
   }
 
-  private lykC;
+  public lykC;
   likeDisplay(ques){
     this.lykC=0;
     for (let i = 0; i < ques.like.length;i++){
@@ -107,32 +112,33 @@ export class QandAComponent implements OnInit, OnDestroy {
     }
     return true;
   }
-  lengthCheck(){
-    if(this.question.length>1){
-      return true;
-    }
-    return false;
-  }
-  private rX=[]
+  
+  private reply_one=[]
+  private reply_count;
   hasReply(ques)
 {
-    this.rX=[]
+    this.reply_one=[]
+    this.reply_count=0;
     for (let i = 1; i < this.question.length; i++) {
       if (ques.id === this.question[i].parentId) {
-        this.rX.push(this.question[i])
+        this.reply_one.push(this.question[i])
         }
     }
+    this.reply_count=this.reply_one.length;
    return true;
 }  
-private rZ;
+private reply_two;
 hasReplysecnd(ques){
-this.rZ=[];
+  this.reply_two=[];
+  this.reply_count = 0;
+
   for (let i = 1; i < this.question.length; i++) {
     if (ques.id === this.question[i].parentId) {
-      this.rZ.push(this.question[i])
+      this.reply_two.push(this.question[i])
 
     }
   }
+  this.reply_count = this.reply_two.length;
   return true;
 }
 addQuestion(e) {
@@ -155,22 +161,26 @@ addQuestion(e) {
       })
   }
   closeQandA() {
+    this.dataService.viewDisp(true);
     this.router.navigate(['home'])
   }
   
   reply(replyOBJ) {
     this.replyObj=replyOBJ;
     console.log(this.replyObj);
-    this.isReply = true;
+    this.isReply = !this.isReply;
   }
+  public RequestBody;
   sendReply() {
     console.log(this.replyDone.nativeElement.innerHTML);
-    let RequestBody={
+     this.RequestBody={
       "message": this.replyDone.nativeElement.innerHTML
     }
-    this.qService.addReply(RequestBody,this.replyObj.id)
+    this.qService.addReply(this.RequestBody,this.replyObj.id)
       .pipe(takeUntil(this.destroy$))
-      .subscribe(response=>{})
+      .subscribe(response=>{
+        this.getNoteDetails();
+      })
   }
   like(ques,flag){
     let requestbody={
@@ -179,7 +189,7 @@ addQuestion(e) {
     this.qService.addLike(requestbody, ques.id)
       .pipe(takeUntil(this.destroy$))
       .subscribe(response => {
-        this.liked=flag;
+        this.getNoteDetails();
       })
   }
   rating1(rate,ques){
@@ -189,7 +199,9 @@ addQuestion(e) {
     }
     this.qService.addRating(request, ques.id)
       .pipe(takeUntil(this.destroy$))
-      .subscribe(response=>{})
+      .subscribe(response=>{
+        this.getNoteDetails();
+      })
   }
   ratingDisp(ques) {
     this.rateDisp=0;
@@ -203,10 +215,7 @@ addQuestion(e) {
           this.userRating = ques.rate[i].rate;
         }
       }
-
       this.rateDisp = count / cal
-      console.log(this.rateDisp);
-
     }
     return true;
   }
@@ -214,5 +223,4 @@ addQuestion(e) {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
   }
-
 }

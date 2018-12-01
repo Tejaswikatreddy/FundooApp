@@ -19,7 +19,127 @@ describe('QandAComponent', () => {
     fixture.detectChanges();
   });
 
+
   it('should create', () => {
-    expect(component).toBeTruthy();
+    let likeArray=[{
+      like:Boolean,
+      userId:localStorage.getItem('id')
+    }]
+    let ques={
+      like: likeArray
+    }
+    expect(component.isliked(ques)).toBeTruthy();
   });
+
+
+  it('should create', () => {
+    let likeArray = [{
+      like: String,
+      userId: "jyhjyuh546576678768fgf"
+    }]
+    let ques = {
+      like: likeArray
+    }
+    expect(component.isliked(ques)).toBeFalsy();
+  });
+
+
+  it('should create', () => {
+    let likeArray = [{
+      like: Boolean,
+      userId: localStorage.getItem('id')
+    }]
+    let ques = {
+      like: likeArray
+    }
+    expect(component.likeDisplay(ques)).toBeTruthy();
+  });
+
+
+
+  it('should create', () => {
+    let likeArray = [{
+      like: String,
+      userId: "jyhjyuh546576678768fgf"
+    }]
+    let ques = {
+      like: likeArray
+    }
+    expect(component.likeDisplay(ques)).toBeFalsy();
+  });
+
+
+
+  it('#likeDisplay() should count', () => {
+    let likeArray = [{
+      like: Boolean,
+      userId: localStorage.getItem('id')
+    }]
+    let ques = {
+      like: likeArray
+    }
+    expect(component.lykC).toBe(0, 'zero at first');
+    component.likeDisplay(ques);
+    expect(component.lykC).toBeGreaterThanOrEqual(0, 'on after click');
+  
+  });
+
+
+
+  it('should create', () => {
+    component.RequestBody = {
+      "message": "anyString",
+    }
+    expect(component.RequestBody.message.length).toBeGreaterThan(0);
+    expect(component.sendReply()).toBeTruthy();
+    component.RequestBody = {
+      "message": "",
+    }
+    expect(component.RequestBody.message.length).toBeLessThanOrEqual(0);
+    expect(component.sendReply()).toBeFalsy();
+  });
+
+
+
+
+  it('should create', () => {
+    let likeArray = [{
+      like: Boolean,
+      userId: localStorage.getItem('id')
+    }]
+    let ques = {
+      like: likeArray
+    }
+    component.RequestBody = {
+      "like": Boolean,
+    }
+    expect(component.RequestBody.like).toBeTruthy();
+    expect(component.like(ques, component.RequestBody.like)).toBeTruthy();
+    component.RequestBody = {
+      "like": String,
+    }
+    expect(component.RequestBody.message.length).toBeFalsy();
+    expect(component.like(ques, component.RequestBody.like)).toBeTruthy();
+  });
+
+  it('should create', () => {
+    let rateArray = [{
+      rate: Boolean,
+      userId: localStorage.getItem('id')
+    }]
+    let ques = {
+      rate: rateArray
+    }
+    component.RequestBody = {
+      "rate": Boolean,
+    }
+    expect(component.RequestBody.like).toBeTruthy();
+    expect(component.rating1(ques, component.RequestBody.like)).toBeTruthy();
+    component.RequestBody = {
+      "rate": String,
+    }
+    expect(component.RequestBody.message.length).toBeFalsy();
+    expect(component.rating1(ques, component.RequestBody.like)).toBeTruthy();
+  });
+
 });

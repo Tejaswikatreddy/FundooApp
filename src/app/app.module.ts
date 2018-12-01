@@ -58,6 +58,7 @@ import { CollabComponent } from './components/collab/collab.component';
 import { MatSelectModule } from '@angular/material/select';
 import { QandAComponent } from './components/qand-a/qand-a.component';
 import { BarRatingModule } from "ngx-bar-rating";
+import { CartComponent } from './components/cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -89,7 +90,8 @@ import { BarRatingModule } from "ngx-bar-rating";
     ReminderListComponent,
     ErrorDisplayComponent,
     CollabComponent,
-    QandAComponent
+    QandAComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,

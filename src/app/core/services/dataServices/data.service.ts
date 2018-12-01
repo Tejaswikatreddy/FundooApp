@@ -12,8 +12,8 @@ export class DataService {
   private viewSource = new BehaviorSubject('default message')
   viewList = this.viewSource.asObservable();
 
-  private note = new BehaviorSubject('default message')
-  NoteObject = this.note.asObservable();
+  private forViewQ = new BehaviorSubject(true)
+  viewFlag = this.forViewQ.asObservable();
    
   private labelName = new BehaviorSubject('default message');
   viewLabel = this.labelName.asObservable()
@@ -31,9 +31,9 @@ export class DataService {
   labeldata(message:string){
     this.labelName.next(message)
   }
-  noteObj(message:any){
+  viewDisp(message:any){
     console.log(message);
-    this.note.next(message)
+    this.forViewQ.next(message)
     
   }
 }

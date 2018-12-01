@@ -52,7 +52,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   public reminders = false;
   public trash = false;
   public archive = false;
-
+ public viewFlag=true;
   //creating an object for EventEmitter
   @Output() eventEmit = new EventEmitter();
 
@@ -73,6 +73,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
       if (response != "default message") {
         this.router.navigate(["label/" + response])
       }
+    })
+    this.dataService.viewFlag.subscribe(response=>{
+      if(response==false)
+      this.viewFlag=false
+      else
+      this.viewFlag=true;
     })
     if(this.labels===false){
     if (this.router.url == "/home") {
@@ -100,7 +106,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
       this.labelHigh = ""
     }
     else{
-       this.Fundoo="Fundoo Notes"
+       this.Fundoo="Fundoo Notes";
+       this.viewFlag=false;
     }
   }
   }
@@ -149,6 +156,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
    * @function Archiveclicked() invoked when the Archive is clicked in the navbar
    */
   ArchiveClicked() {
+    this.viewFlag = true;
     this.searchInput = "";
     this.archive=true;
     this.trash = false;
@@ -162,6 +170,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
    * @function TrashClicked() invoked when Trash is clicked in the sidenav
    */
   TrashClicked() {
+    this.viewFlag=true;
     this.searchInput = "";
     this.trash=true;
     this.archive = false;
@@ -176,6 +185,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
    * @function NoteClicked() whenever the notes is clicked in the sidenav
    */
   NoteClicked() {
+    this.viewFlag = true;
     this.searchInput = "";
     this.notes=true;
     this.trash=false;
@@ -214,6 +224,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   }
   ReminderClicked() {
+    this.viewFlag = true;
     this.Fundoo = "Reminder";
     this.reminders=true;
     this.notes=false;
@@ -232,6 +243,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   labelClicked(label) {
+    this.viewFlag = true;
     this.reminders = false;
     this.notes = false;
     this.trash = false;
