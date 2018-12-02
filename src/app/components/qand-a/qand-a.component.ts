@@ -29,7 +29,6 @@ export class QandAComponent implements OnInit, OnDestroy {
   private checklist;
   private questionStatus = false;
   private question = [];
-  private questionValue;
   private isReply = false;
   URL = environment.URL;
   noteDetails: Note[] = [];
@@ -141,24 +140,21 @@ hasReplysecnd(ques){
   this.reply_count = this.reply_two.length;
   return true;
 }
-addQuestion(e) {
-      if (e.keyCode === 13) {
-      this.questionValue = this.questionAksed.nativeElement.innerHTML;
-      this.addQuestionToNote();
-      this.questionAksed.nativeElement.innerHTML = '';
-    }
-}
-  addQuestionToNote() {
-    let RequestBody = {
-      "message": this.questionValue,
+
+  addQuestion(e) {
+    if (e.keyCode === 13) {
+        let RequestBody = {
+      "message": this.questionAksed.nativeElement.innerHTML,
       "notesId": this.noteId
     }
     this.qService.addAquestion(RequestBody)
       .pipe(takeUntil(this.destroy$))
       .subscribe(response => {
+        this.questionAksed.nativeElement.innerHTML = '';
         this.questionStatus = false;
         this.getNoteDetails();
       })
+    }
   }
   closeQandA() {
     this.dataService.viewDisp(true);
@@ -167,7 +163,6 @@ addQuestion(e) {
   
   reply(replyOBJ) {
     this.replyObj=replyOBJ;
-    console.log(this.replyObj);
     this.isReply = !this.isReply;
   }
   public RequestBody;

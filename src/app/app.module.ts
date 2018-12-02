@@ -59,6 +59,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { QandAComponent } from './components/qand-a/qand-a.component';
 import { BarRatingModule } from "ngx-bar-rating";
 import { CartComponent } from './components/cart/cart.component';
+import { PackDetailsComponent } from './components/pack-details/pack-details.component';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -91,7 +93,8 @@ import { CartComponent } from './components/cart/cart.component';
     ErrorDisplayComponent,
     CollabComponent,
     QandAComponent,
-    CartComponent
+    CartComponent,
+    PackDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -121,10 +124,11 @@ import { CartComponent } from './components/cart/cart.component';
     ImageCropperModule,
     MatNativeDateModule,
     MatSelectModule,
-    BarRatingModule
+    BarRatingModule,
+    MatTabsModule
 
   ],
-  entryComponents: [UpdateNoteComponent, EditLabelComponent, CropImageComponent, CollabComponent],
+  entryComponents: [UpdateNoteComponent, EditLabelComponent, CropImageComponent, CollabComponent, PackDetailsComponent],
   providers: [
     httpService,
     MatDatepickerModule, MessageService,

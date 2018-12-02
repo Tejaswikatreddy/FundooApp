@@ -1,3 +1,33 @@
-<p>
-  cart works!
-</p>
+<div fxLayout="column"  fxLayoutGap="5%" fxLayoutGap.xs="10%" >
+  <div fxFlex=10% fxLayoutAlign="start center" style="background-color: #fb0;border:2px solid blue">
+    <div style="margin:2%">fundooNotes</div>
+  </div>
+  <div fxLayoutAlign="center center" >
+    Which fundooNotes service package do you want??</div>
+  <div fxLayout="row" fxLayoutAlign="center center" >
+    <div fxflex.lg="80" fxflex.md="80" fxflex.sm="90" fxflex.xs="90" >
+      <div fxLayout="row" fxLayoutGap="40px">
+        <div *ngFor="let card of array">
+          <mat-card  [ngClass]="card.select ? 'selectedbelow' : 'belowcard'" 
+          ngStyle.xs="font-size:15px;background-color: rgb(158, 158, 158);width:100px;height:145px">
+            <mat-card  [ngClass]="card.select ? 'aboveCardSelected' : 'aboveCard'" 
+            ngStyle.xs="width:90px;height:120px;margin-left: -20px;margin-top: -32px;" (click)="clicked(card);open()">
+              <div style="font-size:larger">
+                $6.99per month
+              </div>
+              <span style="font-size:smaller">Advance</span>
+              <ul>
+                <li>Coffee</li>
+                <li>Tea</li>
+                <li>Milk</li>
+              </ul>
+            </mat-card>
+            <div ngStyle.lg="margin:2%" ngStyle.xs="padding:1%">ADD TO CART</div>
+          </mat-card>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

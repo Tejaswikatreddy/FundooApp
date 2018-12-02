@@ -23,7 +23,7 @@ describe('QandAComponent', () => {
   it('should create', () => {
     let likeArray=[{
       like:Boolean,
-      userId:localStorage.getItem('id')
+      userId:"hgfyuhjfgvhyj78688"
     }]
     let ques={
       like: likeArray
@@ -141,5 +141,74 @@ describe('QandAComponent', () => {
     expect(component.RequestBody.message.length).toBeFalsy();
     expect(component.rating1(ques, component.RequestBody.like)).toBeTruthy();
   });
+
+  it('should create', () => {
+    let e={
+      keyCode:Number,
+    }
+let RequestBody={
+  "message": "vhgfdgh dhjfhdjdjhn dajhgfjhad fhkjgdhjf",
+  "notesId": String
+}
+    expect(component.addQuestion(e)).toBeTruthy();
+    e = {
+      keyCode: Number,
+    }
+  RequestBody = {
+    "message": "",
+    "notesId": String
+  }
+    expect(component.addQuestion(e)).toBeFalsy();
+
+  });
+
+  it('should create', () => {
+    let userDetails = [{
+      imageUrl: "hjhjhj/jhyuhjh",
+    
+    }]
+    let ques = {
+      user: userDetails
+    }
+    expect(component.imageFormation(ques)).toBeTruthy();
+    userDetails = [{
+      imageUrl: "",
+
+    }]
+    ques = {
+      user: userDetails
+    }
+    expect(component.imageFormation(ques)).toBeFalsy();
+  });
+
+
+  it('should create', () => {
+   
+    let ques = {
+      id: "6767676767jhjy989we78"
+    }
+    expect(component.hasReply(ques)).toBeTruthy();
+  
+    ques = {
+      id: ""
+    }
+    expect(component.hasReply(ques)).toBeFalsy();
+  });
+
+
+  it('should create', () => {
+
+    let ques = {
+      id: "6767676767jhjy989we78"
+    }
+    expect(component.hasReplysecnd(ques)).toBeTruthy();
+
+    ques = {
+      id: ""
+    }
+    expect(component.hasReplysecnd(ques)).toBeFalsy();
+  });
+
+
 
 });

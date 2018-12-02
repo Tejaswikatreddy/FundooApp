@@ -16,6 +16,7 @@ import { MainTrashComponent } from './components/main-trash/main-trash.component
 import { LabelNotesComponent } from './components/label-notes/label-notes.component';
 import { ErrorDisplayComponent } from './components/error-display/error-display.component';
 import { QandAComponent } from './components/qand-a/qand-a.component';
+import { CartComponent } from './components/cart/cart.component';
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -35,6 +36,7 @@ const routes: Routes = [
   },
   { path: "resetpassword/:forgotToken", component: ResetPasswordComponent },
   {path:"error",component:ErrorDisplayComponent},
+  { path: "cart", component: CartComponent },
 ]
 @NgModule({
   imports: [

@@ -31,6 +31,7 @@ list:Note[]=[];
 private isPined=false;
 private Others=false;
   ngOnInit() {
+   
     if(localStorage.getItem('id')!=undefined){
       this.getNotes();
     }

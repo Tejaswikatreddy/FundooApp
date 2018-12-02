@@ -57,7 +57,8 @@
           <div fxLayout="row">
             <button mat-icon-button *ngIf="!firstReply" (click)="firstReply=true"><mat-icon>keyboard_arrow_down</mat-icon></button>
             <button mat-icon-button *ngIf="firstReply" (click)="firstReply=false"><mat-icon>keyboard_arrow_up</mat-icon></button>
-            <span class="username">{{replies.length}}replies</span>
+            <span class="username" *ngIf="replies.length==1">{{replies.length}}reply</span>
+            <span class="username" *ngIf="replies.length>1">{{replies.length}}replies</span>
           </div>
         </div>
       </div>
@@ -103,7 +104,8 @@
             <div fxLayout="row">
               <button mat-icon-button *ngIf="!secondReply || obj!==r" (click)="secondReply=true;obj=r"><mat-icon>keyboard_arrow_down</mat-icon></button>
               <button mat-icon-button *ngIf="secondReply && obj==r" (click)="secondReply=false;obj=r"><mat-icon>keyboard_arrow_up</mat-icon></button>
-               <span class="username" *ngIf="hasReply(r)">{{reply_count}}replies</span>
+               <span class="username" *ngIf="hasReply(r)&&reply_count==1">{{reply_count}}reply</span>
+              <span class="username" *ngIf="hasReply(r)&&reply_count>1">{{reply_count}}replies</span>
             </div>
           </div>
         </div>
@@ -147,7 +149,8 @@
                 <div fxLayout="row">
                   <button mat-icon-button *ngIf="!thirdReply || obj_two!=r_one" (click)="thirdReply=true;obj_two=r_one"><mat-icon>keyboard_arrow_down</mat-icon></button>
                   <button mat-icon-button *ngIf="thirdReply && obj_two==r_one" (click)="thirdReply=false;obj_two=r_one"><mat-icon>keyboard_arrow_up</mat-icon></button>
-                  <span class="username" *ngIf="hasReplysecnd(r_one)">{{reply_count}}replies</span>
+                  <span class="username" *ngIf="hasReplysecnd(r_one)&&reply_count==1">{{reply_count}}reply</span>
+                  <span class="username" *ngIf="hasReplysecnd(r_one)&&reply_count>1">{{reply_count}}replies</span>
 
                 </div>
               </div>
