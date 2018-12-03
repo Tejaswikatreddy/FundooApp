@@ -12,7 +12,7 @@
   </div>
   <div fxFlexLayout="row" *ngFor="let collab of collabs" class="paddingTop">
     <div  fxFlex="10%" *ngIf="splice(collab.firstName)">
-         <button mat-mini-fab disabled style="color:black"> {{initial}}</button>
+         <button mat-mini-fab disabled class="collabratorColor"> {{initial}}</button>
     </div>
 
     <div fxFlex="70%" class="paddingLeft" fxFlex.xs="50%">

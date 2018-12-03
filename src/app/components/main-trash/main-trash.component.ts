@@ -21,6 +21,8 @@ export class MainTrashComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   list: Note[] = [];
+  public loader = false;
+
 
   constructor( private NoteService: NoteService) { }
 public trashArray=[];
@@ -39,6 +41,7 @@ public trashArray=[];
      for (let i = 0; i < this.list .length; i++) {
        this.trashArray.push(this.list [i])
       }
+      this.loader=true;
     })
   }
 eventDone(event){

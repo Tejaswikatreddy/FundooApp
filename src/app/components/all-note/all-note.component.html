@@ -1,18 +1,24 @@
+
 <app-add-note (onNewEntryAdded)="addNewEntry($event)"></app-add-note>
-<div fxLayout="row">
+<div fxLayout="row" *ngIf="loader">
     <div fxFlex="20%" fxFlex.lg="20%" fxFlex.md="10%" fxFlex.sm="12%" fxFlex.xs="5%"></div>
     <div *ngIf="isPined" fxFlex.lg="75%" fxFlex="75%" fxFlex.md="85%" fxFlex.sm="78%" fxFlex.xs="95%">Pinned</div>
     <div fxFlex="5%" fxFlex.lg="5%" fxFlex.md="5%" fxFlex.sm="5%" fxFlex.xs="0%"></div>
 </div>
-<div>
+<div *ngIf="loader">
     <app-note-list [NoteArray]=pinedNotes (eventEmit)="addNewEntry($event)"></app-note-list>
 </div>
-<div fxLayout="row">
+<div fxLayout="row" *ngIf="loader">
     <div fxFlex="20%" fxFlex.lg="20%" fxFlex.md="10%" fxFlex.sm="12%" fxFlex.xs="5%"></div>
     <div *ngIf="Others" fxFlex.lg="75%" fxFlex="75%" fxFlex.md="85%" fxFlex.sm="78%" fxFlex.xs="95%">Others</div>
     <div fxFlex="5%" fxFlex.lg="5%" fxFlex.md="5%" fxFlex.sm="5%" fxFlex.xs="0%"></div>
 </div>
 
-<div class="marginbottom">
+<div class="marginbottom" *ngIf="loader">
     <app-note-list [NoteArray]=notes (eventEmit)="addNewEntry($event)"></app-note-list>
+</div>
+
+<div *ngIf="!loader" >
+    <app-loader></app-loader>
+
 </div>

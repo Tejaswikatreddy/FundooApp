@@ -2,7 +2,7 @@
 
   <div fxFlex.xl="1500px" fxFlex.lg="900px" fxFlex.md="500px" fxFlex.sm="600px" fxFlex.xs="320px"  fxLayout="column" class="maindiv">
 
-    <div  style="overflow-y:scroll" fxFlex="15">
+    <div  class="cardDiv" fxFlex="15">
       <button mat-button (click)=closeQandA() class="Qbutton">close</button>
       <div fxLayout="column" fxLayoutGap="10px">
         <div [innerHTML]=title></div>
@@ -25,7 +25,7 @@
       <div>Ask a Question</div>
       <div contenteditable="true" placeholder="enter question" class="note" (keydown)=addQuestion($event) #question></div>
     </div>
-    <div *ngIf="questionStatus" style="overflow-y:scroll;padding-bottom:10%" fxFlex>
+    <div *ngIf="questionStatus" class="questionsDiv" fxFlex>
       <div fxLayout="column" >
         <div fxFlex.xl="80" fxFlex.lg="70" fxFlex.md="60" fxFlex.sm="60" fxFlex.xs="40"
        *ngIf="imageFormation(question[0])" fxLayout="row">
@@ -43,28 +43,29 @@
           <div> <button mat-icon-button class="icon_button" (click)=reply(question[0])>
               <img src="../../../assets/reply.svg" class="svg">
             </button></div>
-          <div *ngIf="isliked(question[0])"> <button mat-icon-button class="icon_button">
+          <div *ngIf="isliked(question[0])" fxLayout="row"> 
+            <button mat-icon-button class="icon_button">
               <img src="../../../assets/like.svg" class="svg"  (click)=like(question[0],true) *ngIf="!liked">
               <img src="../../../assets/liked.svg" class="svg"  (click)=like(question[0],false) *ngIf="liked">
-            </button></div>
+            </button>
 
-          <div *ngIf="likeDisplay(question[0])"><span class="username">{{lykC}}</span></div>
-
+          <span class="username margin" *ngIf="likeDisplay(question[0])">{{lykC}}</span>
+</div>
           <div *ngIf="ratingDisp(question[0])" fxLayout="row">
             <bar-rating (rateChange)="rating1($event,question[0])" [(rate)]="userRating" [max]="5" class="barrating"></bar-rating>
-            <span class="username">{{rateDisp}}</span>
+            <span class="username margin">[{{rateDisp}}]</span>
           </div>
           <div fxLayout="row">
             <button mat-icon-button *ngIf="!firstReply" (click)="firstReply=true"><mat-icon>keyboard_arrow_down</mat-icon></button>
             <button mat-icon-button *ngIf="firstReply" (click)="firstReply=false"><mat-icon>keyboard_arrow_up</mat-icon></button>
-            <span class="username" *ngIf="replies.length==1">{{replies.length}}reply</span>
-            <span class="username" *ngIf="replies.length>1">{{replies.length}}replies</span>
+            <span class="username margin" *ngIf="replies.length==1">{{replies.length}}reply</span>
+            <span class="username margin" *ngIf="replies.length>1">{{replies.length}}replies</span>
           </div>
         </div>
       </div>
-      <div *ngIf="isReply && replyObj.id==question[0].id" fxLayout="row">
+      <div *ngIf="isReply && replyObj.id==question[0].id" fxLayout="row" >
         <div contenteditable="true" placeholder="enter reply" class="reply" fxFlex="95%" #reply></div>
-        <button mat-icon-button (click)=sendReply()>
+        <button mat-icon-button (click)="sendReply();isReply=false">
           <mat-icon>send</mat-icon>
         </button>
       </div>
@@ -91,27 +92,28 @@
             <div> <button mat-icon-button class="icon_button" (click)=reply(r)>
                 <img src="../../../assets/reply.svg" class="svg">
               </button></div>
-            <div *ngIf="isliked(r)"> <button mat-icon-button class="icon_button">
+            <div *ngIf="isliked(r)" fxLayout="row"> <button mat-icon-button class="icon_button">
                 <img src="../../../assets/like.svg" class="svg" *ngIf="!liked" (click)=like(r,true)>
                 <img src="../../../assets/liked.svg" class="svg" *ngIf="liked" (click)=like(r,false)>
-              </button></div>
-            <div *ngIf="likeDisplay(r)"><span class="username">{{lykC}}</span></div>
+              </button>
+           <span class="username margin" *ngIf="likeDisplay(r)">{{lykC}}</span>
+            </div>
 
             <div *ngIf="ratingDisp(r)" fxLayout="row">
               <bar-rating (rateChange)="rating1($event,r)" [(rate)]="userRating" [max]="5"></bar-rating>
-              <span class="username">{{rateDisp}}</span>
+              <span class="username margin">{{rateDisp}}</span>
             </div>
             <div fxLayout="row">
               <button mat-icon-button *ngIf="!secondReply || obj!==r" (click)="secondReply=true;obj=r"><mat-icon>keyboard_arrow_down</mat-icon></button>
               <button mat-icon-button *ngIf="secondReply && obj==r" (click)="secondReply=false;obj=r"><mat-icon>keyboard_arrow_up</mat-icon></button>
-               <span class="username" *ngIf="hasReply(r)&&reply_count==1">{{reply_count}}reply</span>
-              <span class="username" *ngIf="hasReply(r)&&reply_count>1">{{reply_count}}replies</span>
+               <span class="username margin" *ngIf="hasReply(r)&&reply_count==1">{{reply_count}}reply</span>
+              <span class="username margin" *ngIf="hasReply(r)&&reply_count>1">{{reply_count}}replies</span>
             </div>
           </div>
         </div>
         <div *ngIf="isReply && replyObj.id==r.id" fxLayout="row" class="firstReply">
           <div contenteditable="true" placeholder="enter reply" class="reply" fxFlex="95%" #reply></div>
-          <button mat-icon-button (click)=sendReply()>
+          <button mat-icon-button (click)="sendReply();isReply=false">
             <mat-icon>send</mat-icon>
           </button>
         </div>
@@ -135,29 +137,30 @@
                 <div> <button mat-icon-button class="icon_button" (click)=reply(r_one)>
                     <img src="../../../assets/reply.svg" class="svg">
                   </button></div>
-                <div *ngIf="isliked(r_one)"> <button mat-icon-button class="icon_button">
+                <div *ngIf="isliked(r_one)" fxLayout="row"> <button mat-icon-button class="icon_button" >
                     <img src="../../../assets/like.svg" class="svg" *ngIf="!liked" (click)=like(r_one,true)>
                     <img src="../../../assets/liked.svg" class="svg" *ngIf="liked" (click)=like(r_one,false)>
-                  </button></div>
-                <div *ngIf="likeDisplay(r_one)"><span class="username">{{lykC}}</span></div>
-
+                  </button>
+                <span class="username margin" *ngIf="likeDisplay(r_one)">{{lykC}}</span> 
+                    </div>
 
                 <div *ngIf="ratingDisp(r_one)" fxLayout="row">
                   <bar-rating (rateChange)="rating1($event,r_one)" [(rate)]="userRating" [max]="5"></bar-rating>
-                  <span class="username">{{rateDisp}}</span>
+                  <span class="username margin">{{rateDisp}}</span>
                 </div>
                 <div fxLayout="row">
                   <button mat-icon-button *ngIf="!thirdReply || obj_two!=r_one" (click)="thirdReply=true;obj_two=r_one"><mat-icon>keyboard_arrow_down</mat-icon></button>
                   <button mat-icon-button *ngIf="thirdReply && obj_two==r_one" (click)="thirdReply=false;obj_two=r_one"><mat-icon>keyboard_arrow_up</mat-icon></button>
-                  <span class="username" *ngIf="hasReplysecnd(r_one)&&reply_count==1">{{reply_count}}reply</span>
-                  <span class="username" *ngIf="hasReplysecnd(r_one)&&reply_count>1">{{reply_count}}replies</span>
+                  <span class="username margin " *ngIf="hasReplysecnd(r_one)&&reply_count==1">{{reply_count}} reply</span>
+                  <span class="username margin" *ngIf="hasReplysecnd(r_one)&&reply_count>1">{{reply_count}} replies</span>
+                  <span class="username margin " *ngIf="hasReplysecnd(r_one)&&reply_count==0">{{reply_count}} replies</span>
 
                 </div>
               </div>
             </div>
             <div *ngIf="isReply && replyObj.id==r_one.id" fxLayout="row" class="secondReply">
               <div contenteditable="true" placeholder="enter reply" class="reply" fxFlex="95%" #reply></div>
-              <button mat-icon-button (click)="sendReply();isReply=false">
+              <button mat-icon-button (click)="isReply=false;sendReply()">
                 <mat-icon>send</mat-icon>
               </button>
             </div>
@@ -183,7 +186,7 @@
                         <img src="../../../assets/like.svg" class="svg" *ngIf="!liked" (click)=like(r_two,true)>
                         <img src="../../../assets/liked.svg" class="svg" *ngIf="liked" (click)=like(r_two,false)>
                       </button></div>
-                    <div *ngIf="likeDisplay(r_two)"><span class="username">{{r_two.like.length}}</span></div>
+                    <div *ngIf="likeDisplay(r_two)"><span class="username margin">{{r_two.like.length}}</span></div>
 
                     <div *ngIf="ratingDisp(r_two)" fxLayout="row">
                       <bar-rating (rateChange)="rating1($event,r_two)" [(rate)]="userRating" [max]="5"></bar-rating>

@@ -10,9 +10,12 @@
         haghjxgdhjg dakjhfkjdhfkjd kjdhfkjhdfjk kjdhafkjadhf jkahdfkjadhf
       adfgahjkdgf kjadfhgkajdhf kjahfjkahf kjlahdfjkahf 
       </div>
-      <div fxLayout="row" style="border:2px solid black">
-        <div fxLayoutAlign="start"><button mat-raised-button>remove</button></div>
-        <button mat-raised-button style="float:right">proceed to checkout</button>
+      <div fxLayout="row"  >
+      <div fxLayoutAlign="start center" fxFlex="50%">
+   <button mat-raised-button style="background-color:rgb(44,112,175);float: left;"  (click)=onClose()>remove</button>
+        </div>
+      <div fxLayoutAlign="end center" fxFlex="50%"><button mat-raised-button style="background-color:rgb(44,112,175);float: right">proceed to checkout</button>
+        </div>
       </div>
       </div>
      </mat-tab>

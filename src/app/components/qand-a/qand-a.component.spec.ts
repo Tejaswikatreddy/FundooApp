@@ -122,25 +122,7 @@ describe('QandAComponent', () => {
     expect(component.like(ques, component.RequestBody.like)).toBeTruthy();
   });
 
-  it('should create', () => {
-    let rateArray = [{
-      rate: Boolean,
-      userId: localStorage.getItem('id')
-    }]
-    let ques = {
-      rate: rateArray
-    }
-    component.RequestBody = {
-      "rate": Boolean,
-    }
-    expect(component.RequestBody.like).toBeTruthy();
-    expect(component.rating1(ques, component.RequestBody.like)).toBeTruthy();
-    component.RequestBody = {
-      "rate": String,
-    }
-    expect(component.RequestBody.message.length).toBeFalsy();
-    expect(component.rating1(ques, component.RequestBody.like)).toBeTruthy();
-  });
+
 
   it('should create', () => {
     let e={

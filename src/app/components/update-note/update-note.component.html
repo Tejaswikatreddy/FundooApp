@@ -64,7 +64,7 @@
     <!-- collabrators added for note -->
     <div fxLayout="row wrap"><span *ngFor="let collab of data.collaborators" class="collabspan">
         <div *ngIf="splice(collab.firstName)" >
-          <button mat-mini-fab disabled style="color:black"> {{initial}}</button>
+          <button mat-mini-fab disabled class="collabratorColor"> {{initial}}</button>
         </div>
       </span></div>
   </mat-chip-list>
@@ -105,7 +105,7 @@
   </div>
   <div fxFlexLayout="row" *ngFor="let collab of collabs" class="paddingTop">
     <div fxFlex="10%" *ngIf="splice(collab.firstName)">
-      <button mat-mini-fab disabled style="color:black"> {{initial}}</button>
+      <button mat-mini-fab disabled class="collabratorColor"> {{initial}}</button>
     </div>
 
     <div fxFlex="70%" class="paddingLeft" >
@@ -118,7 +118,7 @@
   </div>
   <div fxFlexLayout="row" class="paddingTop">
     <div>
-      <button mat-mini-fab disabled style="color:black">
+      <button mat-mini-fab disabled class="collabratorColor">
         <mat-icon> person_add</mat-icon>
       </button>
     </div>

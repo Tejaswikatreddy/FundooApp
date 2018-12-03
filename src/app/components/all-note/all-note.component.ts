@@ -30,6 +30,7 @@ list:Note[]=[];
   private pinedNotes=[];
 private isPined=false;
 private Others=false;
+public loader=false;
   ngOnInit() {
    
     if(localStorage.getItem('id')!=undefined){
@@ -68,6 +69,7 @@ private Others=false;
           }
      
       }
+      this.loader=true;
     })
    
 

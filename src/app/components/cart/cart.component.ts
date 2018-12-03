@@ -17,10 +17,10 @@ public array=[];
     this.array.push({ index: 2, select: false })
   }
   clicked(card){
-    if(card.select==true){
-      this.selectedBefore=true;
-      return;
-    }
+    // if(card.select==true){
+    //   this.selectedBefore=true;
+    //   return;
+    // }
     card.select = true;
     for (let i = 0; i < this.array.length; i++) {
       if (card.index == this.array[i].index) {
@@ -30,17 +30,19 @@ public array=[];
     }
   }
   open(){
-    if(this.selectedBefore==true){
+    // if(this.selectedBefore==true){
       console.log("open the dialog");
       const dialogRef = this.dialog.open(PackDetailsComponent, {
-        width: "600px",
+        width: "550px",
         maxWidth: 'auto',
         
       });
       dialogRef.afterClosed().subscribe(result => {
-
+        // this.selectedBefore = false;
+        this.array[0].select=false;
+        this.array[1].select = false;
         
       });
-    }
+    // }
   }
 }

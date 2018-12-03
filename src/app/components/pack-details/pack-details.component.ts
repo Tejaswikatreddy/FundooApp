@@ -10,8 +10,9 @@ export class PackDetailsComponent implements OnInit {
   constructor(private dialogRef: MatDialogRef<PackDetailsComponent>) {
     dialogRef.disableClose = true;
   }
-
   ngOnInit() {
   }
-
+  onClose(): void {
+    this.dialogRef.close();
+  }
 }

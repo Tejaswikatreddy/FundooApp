@@ -61,6 +61,8 @@ import { BarRatingModule } from "ngx-bar-rating";
 import { CartComponent } from './components/cart/cart.component';
 import { PackDetailsComponent } from './components/pack-details/pack-details.component';
 import { MatTabsModule } from '@angular/material/tabs';
+import { OrderdetailsComponent } from './components/orderdetails/orderdetails.component';
+import { LoaderComponent } from './components/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -94,7 +96,9 @@ import { MatTabsModule } from '@angular/material/tabs';
     CollabComponent,
     QandAComponent,
     CartComponent,
-    PackDetailsComponent
+    PackDetailsComponent,
+    OrderdetailsComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,

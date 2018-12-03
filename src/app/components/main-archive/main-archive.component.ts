@@ -17,6 +17,7 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./main-archive.component.scss']
 })
 export class MainArchiveComponent implements OnInit, OnDestroy {
+  public loader=false;
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor( private NoteService: NoteService) { }
@@ -41,6 +42,7 @@ export class MainArchiveComponent implements OnInit, OnDestroy {
          this.archiveArray.push(this.list[i])
             }      
           }
+          this.loader=true;
     })
   }
   eventDone(event){

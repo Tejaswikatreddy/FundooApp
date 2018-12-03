@@ -82,31 +82,36 @@ export class NavbarComponent implements OnInit, OnDestroy {
     })
     if(this.labels===false){
     if (this.router.url == "/home") {
+      this.viewFlag = true;
       this.Fundoo = "Fundoo Notes"
       this.notes=true;
       this.labelHigh=""
     }
     else if (this.router.url == "/archive") {
+      this.viewFlag = true;
       this.Fundoo = "Archive"
       this.archive=true;
       this.labelHigh = ""
     }
     else if (this.router.url == "/remainder") {
+      this.viewFlag = true;
       this.Fundoo = "Reminder";
       this.reminders=true;
       this.labelHigh = ""
     }
     else if (this.router.url == "/trash") {
+      this.viewFlag = true;
       this.Fundoo = "Trash";
       this.trash=true;
       this.labelHigh = ""
     }
     else if (this.router.url == "/search") {
+      this.viewFlag = true;
       this.Fundoo = "Fundoo Notes";
       this.labelHigh = ""
     }
     else{
-       this.Fundoo="Fundoo Notes";
+       this.Fundoo="QandA";
        this.viewFlag=false;
     }
   }

@@ -37,9 +37,14 @@ padding-bottom: 10%
   padding-left:50px
  
 }
- .refreshButton{
-    float:right
-  }
+.shoppingicon{
+    padding-left:50px
+
+}
+.searchButton{
+  position:absolute
+}
+ 
 
 .divnotselected{
    border:5px solid #fb0;
@@ -126,10 +131,10 @@ input:focus {
 
 }
 .marginleft{
-  @include margin(10%,0,0,0)
+  @include margin(0,0,0,0)
 }
 .margin{
-  @Include margin(20%,0,0,0)
+  @include margin(10%,0,0,0)
 }
 #accnt{
   height:40px;
@@ -141,9 +146,7 @@ input:focus {
 .toolbar{
   overflow-x: hidden
 }
-.searchButton{
-  position:absolute
-}
+
 .refreshButton{
   float:right
 }

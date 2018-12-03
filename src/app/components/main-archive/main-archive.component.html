@@ -1,6 +1,9 @@
 
 
 
-<div  class="marginbottom">
+<div  class="marginbottom"  *ngIf="loader">
     <app-note-list [NoteArray]=archiveArray (eventEmit)=eventDone($event)></app-note-list>
+</div>
+<div *ngIf="!loader" class="sk-circle">
+    <app-loader></app-loader>
 </div>

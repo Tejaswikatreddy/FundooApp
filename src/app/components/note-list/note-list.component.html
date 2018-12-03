@@ -31,7 +31,7 @@
             {{checklist.itemName}}</div>
         </div>
         <!-------------------------- closed checklist ends ------------------------------------->
-
+        <div style="padding:10px">
         <mat-chip-list>
           <!------------------------------ reminders added to the note--------------------->
           <div *ngFor="let time of note.reminder">
@@ -78,11 +78,12 @@
           <div fxLayout="row wrap">
             <span *ngFor="let collab of note.collaborators" class="collabspan">
               <div *ngIf="splice(collab.firstName)" (click)=openCollab(note)>
-                <button mat-mini-fab disabled style="color:black"> {{initial}}</button>
+                <button mat-mini-fab  class="collabratorColor"> {{initial}}</button>
               </div>
             </span></div>
           <!------------------------- collabrator ended ------------------------------>
         </mat-chip-list>
+        </div>
         <!------------------------- selectors of all the icon components------------------------->
         <span fxLayout="row " fxLayoutAlign="space-around" class="icons">
           <div>
@@ -106,10 +107,10 @@
          
         </span>
       </div>
-      <div *ngIf="checkquestions(note)" (click)=goToQuestion(note)>
+      <div *ngIf="checkquestions(note)" (click)=goToQuestion(note) style="height:40px" >
         <hr>
         <div>Question Asked</div>
-        <div [innerHTML]=question class="note"></div>
+        <div [innerHTML]=question class="note ellipsis" ></div>
       </div>
     </mat-card>
   </div>

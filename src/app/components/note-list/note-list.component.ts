@@ -123,6 +123,7 @@ export class NotelistComponent implements OnInit,OnDestroy {
     const dialogRef = this.dialog.open(UpdateNoteComponent, {
      
            data:note,
+           maxHeight:"400px"
         });
     dialogRef.afterClosed().subscribe(result => {
 

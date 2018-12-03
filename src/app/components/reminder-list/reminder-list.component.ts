@@ -13,10 +13,13 @@ export class ReminderListComponent implements OnInit, OnDestroy {
 
   public reminderArray=[];
   public reminder=true;
+  public loader = false;
+
   constructor(private NoteService: NoteService) { }
   list: Note[] = [];
 
   ngOnInit() {
+    this.loader=false;
     this.NoteService.getReminderNOteList()
       .pipe(takeUntil(this.destroy$))
     .subscribe(response=>{
@@ -37,6 +40,7 @@ export class ReminderListComponent implements OnInit, OnDestroy {
         }
         
       }
+      this.loader=true;
     })
   
   }

@@ -44,6 +44,9 @@
     height:min-content;border-radius:10px;
     width:100%
 }
+.ellipsis{
+ @include ellipsis;
+}
 .Flayoutsm{
     margin:1%;
     height:min-content;border-radius:10px;
@@ -121,7 +124,6 @@
 {
   .cardxs
 {
-border:2px solid red;
   width:350px;
 }
 }
@@ -129,7 +131,6 @@ border:2px solid red;
 {
   .cardxs
 {
-border:2px solid red;
 
   width:270px;
 }
@@ -138,7 +139,6 @@ border:2px solid red;
 {
   .cardxs
 {
-border:2px solid red;
 
   width:320px;
 }
@@ -149,7 +149,6 @@ border:2px solid red;
   .cardsm
 {
   width:420px;
-  border:2px solid red;
 
 }
 }

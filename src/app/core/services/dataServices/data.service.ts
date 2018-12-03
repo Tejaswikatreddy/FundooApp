@@ -12,6 +12,9 @@ export class DataService {
   private viewSource = new BehaviorSubject('default message')
   viewList = this.viewSource.asObservable();
 
+  private fundooSource = new BehaviorSubject('default message')
+  fundoo = this.fundooSource.asObservable();
+
   private forViewQ = new BehaviorSubject(true)
   viewFlag = this.forViewQ.asObservable();
    
@@ -30,6 +33,9 @@ export class DataService {
 
   labeldata(message:string){
     this.labelName.next(message)
+  }
+  fundooData(message: string) {
+    this.fundooSource.next(message)
   }
   viewDisp(message:any){
     console.log(message);

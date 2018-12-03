@@ -26,7 +26,8 @@ public initial:String;
   ngOnInit() {
        if (this.data.collaborators!=undefined){
       this.collabs = this.data.collaborators;
-
+        console.log(this.collabs);
+        
     }
   }
   splice(firstName){
@@ -72,10 +73,11 @@ public initial:String;
   removeCollaborator(collab){
     this.noteService.removeCollabrator(this.data.id,collab.userId).subscribe(response=>{
       for(let i=0;i<this.collabs.length;i++){
-        if(collab.id===this.collabs[i].id){
+        if(collab.userId===this.collabs[i].userId){
           this.collabs.splice(i,1)
         }
       }
+    
     })    
   }
  

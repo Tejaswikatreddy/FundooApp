@@ -1,4 +1,8 @@
-<app-add-note [reminderComponent]=reminder></app-add-note>
-<div class="marginbottom">
+
+  <app-add-note [reminderComponent]=reminder></app-add-note>
+<div class="marginbottom" *ngIf="loader"> 
   <app-note-list [NoteArray]=reminderArray></app-note-list>
+</div>
+<div *ngIf="!loader" >
+  <app-loader></app-loader>
 </div>

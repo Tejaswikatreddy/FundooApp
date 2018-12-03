@@ -26,6 +26,11 @@
 .reply{
     border-bottom:2px solid grey;
     outline:none;
+        margin-bottom: 1%;
+
+}
+.margin{
+    margin-top: 15px
 }
 .fa-star-o{
     color:black
@@ -57,4 +62,9 @@
     width: 4px;
 }
 
- 
+ .questionsDiv{
+     overflow-y:auto;padding-bottom:10%
+ }
+ .cardDiv{
+     overflow-y:auto
+ }
