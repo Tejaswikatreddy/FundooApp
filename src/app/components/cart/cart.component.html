@@ -7,7 +7,7 @@
   <div fxLayout="row" fxLayoutAlign="center center" >
     <div fxflex.lg="80" fxflex.md="80" fxflex.sm="90" fxflex.xs="90" >
       <div fxLayout="row" fxLayoutGap="40px">
-        <div *ngFor="let card of array">
+        <div *ngFor="let card of array" class="divC">
           <mat-card  [ngClass]="card.select ? 'selectedbelow' : 'belowcard'" 
           ngStyle.xs="font-size:15px;background-color: rgb(158, 158, 158);width:100px;height:145px">
             <mat-card  [ngClass]="card.select ? 'aboveCardSelected' : 'aboveCard'" 

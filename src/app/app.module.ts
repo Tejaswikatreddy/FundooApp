@@ -63,6 +63,7 @@ import { PackDetailsComponent } from './components/pack-details/pack-details.com
 import { MatTabsModule } from '@angular/material/tabs';
 import { OrderdetailsComponent } from './components/orderdetails/orderdetails.component';
 import { LoaderComponent } from './components/loader/loader.component';
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
 @NgModule({
   declarations: [
@@ -98,7 +99,7 @@ import { LoaderComponent } from './components/loader/loader.component';
     CartComponent,
     PackDetailsComponent,
     OrderdetailsComponent,
-    LoaderComponent
+    LoaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -129,7 +130,8 @@ import { LoaderComponent } from './components/loader/loader.component';
     MatNativeDateModule,
     MatSelectModule,
     BarRatingModule,
-    MatTabsModule
+    MatTabsModule,
+    FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()
 
   ],
   entryComponents: [UpdateNoteComponent, EditLabelComponent, CropImageComponent, CollabComponent, PackDetailsComponent],

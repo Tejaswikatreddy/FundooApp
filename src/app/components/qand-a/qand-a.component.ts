@@ -34,10 +34,27 @@ export class QandAComponent implements OnInit, OnDestroy {
   noteDetails: Note[] = [];
   private replies=[]
   private rate;
-  private replyObj;
+  private replyObj={
+  
+  };
+  private editorContent;
 //  private firstReply=false;
-  
-  
+  private editorContentQuestion;
+  public options: Object = {
+    charCounterCount: false,
+    toolbarButtons: ['bold', 'italic', 'underline', 'paragraphFormat', 'fullscreen', 'strikeThrough', 'subscript', 
+      'superscript', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'lineHeight', 'align', 'formatOL',
+      'formatUL', 'outdent', 'indent', 'quote', 'specialCharacters', '-', 'ClearFormatting', 'help', 'undo', 'redo'],
+    toolbarButtonsXS: ['bold', 'italic', 'underline', 'paragraphFormat', 'fullscreen', 'strikeThrough', 'subscript',
+      'superscript', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'lineHeight', 'align', 'formatOL',
+      'formatUL', 'outdent', 'indent', 'quote', 'specialCharacters', '-', 'ClearFormatting', 'help', 'undo', 'redo'],
+    toolbarButtonsSM: ['bold', 'italic', 'underline', 'paragraphFormat', 'fullscreen', 'strikeThrough', 'subscript',
+      'superscript', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'lineHeight', 'align', 'formatOL',
+      'formatUL', 'outdent', 'indent', 'quote', 'specialCharacters', '-', 'ClearFormatting', 'help', 'undo', 'redo'],
+    toolbarButtonsMD: ['bold', 'italic', 'underline', 'paragraphFormat', 'fullscreen', 'strikeThrough', 'subscript',
+      'superscript', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'lineHeight', 'align', 'formatOL',
+      'formatUL', 'outdent', 'indent', 'quote', 'specialCharacters', '-', 'ClearFormatting', 'help', 'undo', 'redo'],
+  };
   ngOnInit() {
     this.route.params.subscribe(
       (params: Params) => {
@@ -71,7 +88,7 @@ export class QandAComponent implements OnInit, OnDestroy {
         }
         
         for (let i = 1; i < this.question.length; i++) {
-          if (this.question[0].id === this.question[i].parentId) {
+          if (this.question[0].id === this.question[i].parentId && this.question[i].isApproved==true) {
             this.replies.push(this.question[i]);
           }
         }
@@ -141,20 +158,18 @@ hasReplysecnd(ques){
   return true;
 }
 
-  addQuestion(e) {
-    if (e.keyCode === 13) {
+  addQuestion() {
         let RequestBody = {
-      "message": this.questionAksed.nativeElement.innerHTML,
+          "message": this.editorContentQuestion,
       "notesId": this.noteId
     }
     this.qService.addAquestion(RequestBody)
       .pipe(takeUntil(this.destroy$))
       .subscribe(response => {
-        this.questionAksed.nativeElement.innerHTML = '';
+        this.editorContentQuestion = '';
         this.questionStatus = false;
         this.getNoteDetails();
       })
-    }
   }
   closeQandA() {
     this.dataService.viewDisp(true);
@@ -162,18 +177,25 @@ hasReplysecnd(ques){
   }
   
   reply(replyOBJ) {
-    this.replyObj=replyOBJ;
+    if (this.replyObj === replyOBJ)
+      this.replyObj = {};
+      else
+      this.replyObj=replyOBJ
     this.isReply = !this.isReply;
+    console.log(this.replyObj)
   }
   public RequestBody;
   sendReply() {
-    console.log(this.replyDone.nativeElement.innerHTML);
+    console.log(this.editorContent);
      this.RequestBody={
-      "message": this.replyDone.nativeElement.innerHTML
+       "message": this.editorContent
     }
-    this.qService.addReply(this.RequestBody,this.replyObj.id)
+    this.qService.addReply(this.RequestBody,this.replyObj['id'])
       .pipe(takeUntil(this.destroy$))
       .subscribe(response=>{
+        console.log(response);
+        this.replyObj={}
+        this.editorContent="";
         this.getNoteDetails();
       })
   }
