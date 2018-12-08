@@ -1,14 +1,14 @@
 <div fxLayout="column" fxLayoutGap="10%">
   <div fxFlex.lg="10%" fxFlex.xl="0%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
   <div fxLayout="row" fxFlex.lg="100%" fxFlex.xl="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
-    <div fxFlex.lg="30%" fxFlex.xl="30%" fxFlex.md="20%" fxFlex.sm="15%" fxFlex.xs="5%"></div>
+    <div fxFlex.lg="10%" fxFlex.xl="20%" fxFlex.md="5%" fxFlex.sm="10%" fxFlex.xs="5%"></div>
 
 
-    <div fxFlex.lg="40%" fxFlex.xl="40%" fxFlex.md="60%" fxFlex.sm="70%" fxFlex.xs="90%">
+    <div fxFlex.lg="80%" fxFlex.xl="60%" fxFlex.md="90%" fxFlex.sm="80%" fxFlex.xs="90%"
+     fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" >
 
-
+<div fxFlex="40%" fxFlex.xs="40%">
       <form name="form" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
-
     <mat-card >
       <div >
         <div>
@@ -19,8 +19,7 @@
           <span class=o>O</span>
         <span class=f>O</span></mat-card-title>
         <mat-card-subtitle>sign in</mat-card-subtitle>
-          </div>
-        
+          </div> 
         <mat-form-field>
           <input matInput type="email" placeholder="email id" name="emailid" 
           pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
@@ -36,10 +35,7 @@
             </mat-error>
           </mat-error>
         </mat-form-field>
-
-        
-
-        
+     
           <mat-form-field >
             <input matInput name="pass" placeholder="Enter your password" [type]="hide ? 'password' : 'text'" #password="ngModel"
               [(ngModel)]="model.password" [ngClass]="{ 'is-invalid': f.submitted && password.invalid }" required>
@@ -56,7 +52,7 @@
         
          
 
-        <div fxlayout="row">
+        <div fxlayout="row" >
          <a fxFlex.xs="33%" routerLink="/forgot">forgot password?</a>   
          <div fxFlex.xs="33%"><a routerLink="/signup">create an account..</a> </div>
           <button  mat-align="center" mat-button class="button" (click)=login()>login</button>
@@ -66,8 +62,40 @@
     </mat-card>
     </form>
     </div>
+    <div fxFlex="40%" fxFlex.xs="50%" style="background-color:grey;border:1px solid black"   fxLayout="row"
+     fxLayoutGap="10%" fxLayoutGap.xs="5%" *ngIf="!noCard">
+      <div fxFlex.xs="0"  style="border:1px solid red"></div>
+      <div fxLayout="column" fxFlex.xs="100" fxLayoutGap="7%" fxLayoutGap.xs="30%" >
+        <div></div>
+        <div fxLayout="row" fxLayoutGap="10%">
+        <div *ngFor="let card of cards" >
+          <mat-card [ngClass]="card.select ? 'selectedbelow' : 'belowcard'" 
+          [ngClass.xs]="card.select ? 'selectedbelowXS' : 'belowCardXS'"
+            ngStyle.xs="font-size:15px;background-color: rgb(158, 158, 158);width:100px;height:145px">
+            <mat-card [ngClass]="card.select ? 'aboveCardSelected' : 'aboveCard'" 
+            [ngClass.xs]="card.select ? 'aboveCardSelectedXS' : 'aboveCardXS'"
+              (click)="open(card)">
+              <div style="font-size:larger">
+                ${{card.price}}per month
+              </div>
+              <span style="font-size:smaller">{{card.name}}</span>
+             <div>
+                {{card.description}}
+              </div>
+            </mat-card>
+            <div ngStyle.lg="margin:2%" ngStyle.xs="padding:1%" *ngIf="!card.select">ADD TO CART</div>
+            <div ngStyle.lg="margin:2%" ngStyle.xs="padding:1%" *ngIf="card.select">SELECTED</div>
+          </mat-card>
+        </div>
+        </div>
+        <div></div>
+      </div>
+            <div fxFlex.xs="0" style="border:1px solid red"></div>
 
-    <div fxFlex.lg="30%" fxFlex.xl="30%" fxFlex.md="20%" fxFlex.sm="15%" fxFlex.xs="5%"></div>
+    </div>
+    </div>
+
+    <div fxFlex.lg="10%" fxFlex.xl="20%" fxFlex.md="5%" fxFlex.sm="10%" fxFlex.xs="5%"></div>
   </div>
 
 

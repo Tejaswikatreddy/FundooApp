@@ -17,3 +17,41 @@ a{
     text-align: left;
     width: 100%;
 }
+.belowcard{
+    background-color:rgb(158, 158, 158) ;width:109px;height:195px;
+}
+// .belowcard:hover{
+//      background-color:#fb0 ;width:146px;height:240px;
+//      box-shadow: 10px 10px 10px rgb(243, 240, 240)!important;
+//      .aboveCard:hover{
+//     width:140px;height:220px;margin-left: -38px;margin-top: -39px!important;
+// }
+// }
+
+.aboveCard{
+    width:102px;height:174px;margin-left: -38px;margin-top: -39px!important;
+}
+.aboveCardSelected{
+    font-size: 15px;
+    width:102px;height:170px;margin-left: -38px;margin-top: -39px!important;
+}
+.belowCardXS{
+    font-size:10px!important;background-color: rgb(158, 158, 158);width:70px!important;height:110px!important
+}
+.aboveCardXS{
+    font-size: 10px;
+    width:65px;height:90px;margin-left: -20px;margin-top: -32px!important;
+}
+.aboveCardSelectedXS{
+    font-size: 10px;
+    width:65px;height:100px;margin-left: -20px;margin-top: -32px!important;
+}
+.selectedbelowXS{
+      font-size:10px!important;
+      background-color:#fb0!important ; font-size:15px;width:70px!important;height:120px!important;
+           box-shadow: 5px 5px 5px black!important;
+}
+.selectedbelow{
+     background-color:#fb0 ;width:109px;height:190px;
+     box-shadow: 5px 5px 5px black!important;
+}

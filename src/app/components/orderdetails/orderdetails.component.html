@@ -1,3 +1,176 @@
-<p>
-  orderdetails works!
-</p>
+<div *ngIf="emptyCart" fxLayout="row" fxLayoutAlign="center">
+  <h1>Cart is empty</h1>
+</div>
+
+<div fxLayout="row" ngStyle.xs="font-size:10px" *ngIf="!emptyCart">
+  <div fxFlex="10" fxFlex.xs="0" fxFlex.sm="0" ></div>
+  <div fxLayout="column" fxFlex fxLayoutGap="2%" fxFlex.xs="100" fxFlex.sm="100">
+    <div></div>
+    <div fxLayout="row" fxLayoutGap="2%">
+      <button mat-raised-buttons style="border-radius:10px;background-color:#fb0;height: 30px">fundooNotes</button>
+      <div fxFlex="30" fxLayout="column" fxLayoutGap="5%">
+        <div></div>
+        <div fxLayout="row">
+        <mat-icon  [ngClass]="firstCss ? 'cart' : forCss ? 'secndPlace':'thirdPlace'" >shopping_cart</mat-icon>
+
+        <mat-progress-bar class="example-margin" [color]="color" [mode]="mode" [value]="value" [bufferValue]="bufferValue"></mat-progress-bar>
+      </div>
+      </div>
+    </div>
+    <!-- design row -->
+    <div fxLayout="row wrap" fxFlex="80" fxFlex.sm="100" fxFlex.xs="100" fxLayoutGap="2%" *ngIf="flag2==false">
+      <!-- design columns -->
+      <div fxLayout="column" fxFlex>
+        <!-- top column with headers -->
+        <div fxLayout="row" fxLayoutGap="2%">
+          <div fxFlex="80">Shopping Cart</div>
+          <div fxFlex="10">Price</div>
+          <div fxFlex="10">validity</div>
+        </div>
+        <!-- top column ended -->
+        <hr style="width:100%">
+        <!-- middle column -->
+        <div fxLayout="row" fxLayoutGap="3%">
+          <div fxFlex="20">
+            <mat-card style="background-color:grey;border-radius:10px">
+              ${{cardObj.price}} per month {{cardObj.name}}
+            </mat-card>
+          </div>
+          <div fxLayout="column" fxFlex>
+            <div>{{cardObj.name}} Card Details</div>
+            <div fxLayout="row">
+              <div>
+                <ul>
+                  <li>{{cardObj.description}}</li>
+                </ul>
+              </div>
+             </div>
+          </div>
+          <div fxFlex="10">${{cardObj.price}}</div>
+
+          <div fxFlex="10">Per Month</div>
+        </div>
+        <hr style="width:100%">
+        <!-- middle column ended -->
+        <div fxLayoutAlign="end">
+          subTotal(1 item):${{cardObj.price}}
+        </div>
+      </div>
+      <!-- design column ends -->
+      <div fxFlex="20" fxFlex.xs="100" fxLayout="column" fxLayout.xs="row" fxLayoutGap.xs="10%">
+        <div fxFlex.xs="20%" fxFlex.lg="15%" fxFlex.md="15%" fxFlex.sm="15%"></div>
+        <div style="border:1px solid grey" fxLayout="row" fxLayoutGap="5%" fxLayoutAlign="center center">
+
+          <div fxLayout="column" fxLayoutGap="5%">
+            <div></div>
+            <div>SubTotal(1 item):${{cardObj.price}}</div>
+            <div fxLayout="row" fxLayoutAlign="center">
+              <div fxFlex="80">
+                <button style="background-color:rgb(0, 153, 255);" (click)="flag=true;flag2=true;value=50;forCss=true;firstCss=false">
+                  Proceed to Checkout</button>
+              </div>
+            </div>
+            <div></div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+    <div fxLayout="column" fxFlex="80" fxFlex.sm="100" fxFlex.xs="100" fxLayoutGap="2%"  *ngIf="flag==true">
+      <div fxLayout="column">
+        <div>Review Your Order</div>
+        <div style="font-size:8px">By clicking on the pace your order</div>
+      </div>
+      <div fxLayout="row wrap" fxLayoutGap="7%" fxLayoutGap.xs="0%">
+        <div fxFlex="60"  fxFlex.xs="100" fxFlex.sm="70" style="border:1px solid grey;padding:2%;width:100%">
+          <div fxLayout="column" fxLayoutGap="2%">
+            <div fxLayout="row" fxLayoutGap="2%">
+              <mat-card style="background-color:grey;border-radius:10px">
+                ${{cardObj.price}} per month {{cardObj.name}}
+              </mat-card>
+              <div fxLayout="column" fxFlex>
+                <div>{{cardObj.name}} Card Details</div>
+                <div fxLayout="row">
+                  <div>
+                    <ul>
+                      <li>{{cardObj.description}}</li>
+                      
+                    </ul>
+                  </div>
+                  
+                </div>
+              </div>
+              <div fxFlex="10">${{cardObj.price}}</div>
+            </div>
+            <hr style="width:100%">
+            <div fxLayout="row" fxLayoutGap="2%">
+              <div fxlayout="column" fxFlex="80" style="border:1px solid black">
+                <div style="font-size:10px">Delivery Addresss</div>
+                <div><textarea style="width:95%" [(ngModel)]="address"></textarea></div>
+                <span style="font-size:10px;color:red" *ngIf="addNotGiven">provide Address</span>
+              </div>
+              <div fxlayout="column">
+                <div style="font-size:8px">Payment Method</div>
+                <div>Cash on Delivery</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div fxFlex="20" fxFlex.xs="100" fxLayout.xs="row" fxLayout="column"  >
+                <div fxFlex.xs="35%" fxFlex.lg="5%" fxFlex.md="5%" fxFlex.sm="5%"></div>
+
+          <div style="border:1px solid grey" fxLayout="row" fxLayoutGap="15%" >
+            <div></div>
+            <div fxLayout="column" fxLayoutGap="5%">
+              <div></div>
+              <button style="background-color:rgb(0, 153, 255)" (click)="placeOrder()">Place your order</button>
+              <div>SUb total(1 item):${{cardObj.price}}</div>
+              <div></div>
+            </div>
+            <div></div>
+          </div>
+          
+        </div>
+      </div>
+
+    </div>
+    <div fxLayout="column" fxLayoutGap="2%" *ngIf="flag3==true">
+      <div>Order List</div>
+      <div fxLayout="row">
+        <div fxLayout="column" fxLayoutGap="2%" style="border:1px solid grey;padding:2%" fxFlex="80" fxFlex.sm="100" fxFlex.xs="100" >
+          <div fxLayout="row" fxLayoutGap="2%">
+            <mat-card style="background-color:grey;border-radius:10px">
+              $6.99 per month Advance
+            </mat-card>
+            <div fxLayout="column" fxFlex>
+              <div>Advanced Card Details</div>
+              <div fxLayout="row">
+                <div>
+                  <ul>
+                    <li>Coffee</li>
+                    <li>Tea</li>
+                  </ul>
+                </div>
+                <div>
+                  <ul>
+                    <li>Coffee</li>
+                    <li>Tea</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div fxFlex="10" fxLayout="column">
+              <div>$6.99</div>
+              <div style="font-size:8px">Per month</div>
+            </div>
+          </div>
+          <div fxLayoutAlign="end" style="color:rgb(0, 153, 255)">Pending</div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <div fxFlex="10" fxFlex.xs="0" fxFlex.sm="0"></div>
+</div>

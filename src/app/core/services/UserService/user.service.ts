@@ -54,4 +54,20 @@ public access_token=localStorage.getItem('id');
     this.url = this.URL + "/user/searchUserList";
     return this.service.PostJson(this.url,Requestbody);
   }
+  addtoCart(RequestBody){
+    this.url = this.URL +"/productcarts/addToCart";
+    return this.service.post(this.url, RequestBody);
+  }
+  getCartDetails(cartId){
+    this.url = this.URL +"/productcarts/getCartDetails/"+cartId
+    return this.service.get(this.url)
+  }
+  myCart(){
+    this.url = this.URL +"/productcarts/myCart"
+    return this.service.getJson(this.url)
+  }
+  placeOrder(RequestBody){
+    this.url = this.URL +"/productcarts/placeOrder"
+    return this.service.PostJson(this.url,RequestBody)
+  }
 }

@@ -64,6 +64,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { OrderdetailsComponent } from './components/orderdetails/orderdetails.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -102,6 +104,7 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
     LoaderComponent,
   ],
   imports: [
+
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -131,7 +134,9 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
     MatSelectModule,
     BarRatingModule,
     MatTabsModule,
-    FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()
+    FroalaEditorModule.forRoot(), FroalaViewModule.forRoot(),
+    MatStepperModule,
+    MatProgressBarModule
 
   ],
   entryComponents: [UpdateNoteComponent, EditLabelComponent, CropImageComponent, CollabComponent, PackDetailsComponent],

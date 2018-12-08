@@ -24,20 +24,57 @@ export class LoginComponent implements OnInit,OnDestroy {
   /*creating an object model*/
   model:any={
     "email": "",
-    "password":""
+    "password":"",
+    "cartId":""
   };
   hide=true;
   id;
+  public noCard=false;
+  public cards=[];
+  public selectedCard;
   constructor(public snackbar: MatSnackBar,
               private loginService:UserService,
                public router: Router) { }
 
   ngOnInit() {
+    if (localStorage.getItem('cartId') == null){
+       this.noCard=true;
+    }
+    if(localStorage.getItem("cartId")!=null){
+      this.getCardDetails();
+    }
     /*checking if the localStorage has login token*/
   if(localStorage.getItem("id")!=null){
     this.router.navigate(['home'])
     return;
   }
+  }
+  getCardDetails(){
+    this.loginService.getCartDetails(localStorage.getItem('cartId'))
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((response) => {
+        console.log(response['data'].product.id);
+        this.selectedCard = response['data'].product.id;
+        this.getCards();
+
+      });
+  }  
+  getCards(){
+    this.loginService.getCards()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((response) => {
+        let data = response["data"];
+        for (let i = 0; i < data.data.length; i++) {
+          if (data.data[i].id == this.selectedCard) {
+            data.data[i].select = true;
+          }
+          else {
+            data.data[i].select = false;
+          }
+          this.cards.push(data.data[i])
+        }
+      }); 
+
   }
 /**
  * @function login() is called when we click the  login button in the html page
@@ -52,7 +89,8 @@ export class LoginComponent implements OnInit,OnDestroy {
     /*calling the api through httpService*/
     let RequestBody = {
       "email": this.model.email,
-      "password": this.model.password
+      "password": this.model.password,
+      "cartId": localStorage.getItem("cartId")
     }
     this.loginService.loginPost(RequestBody)
       .pipe(takeUntil(this.destroy$))

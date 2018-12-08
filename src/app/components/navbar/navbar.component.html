@@ -14,28 +14,34 @@
    </div>
 
   </div>
-  
+  <div fxHide.lg=true fxHide.xl=true fxHide.sm=true fxHide.md=true fxHide.xs=false>
+    <input *ngIf="search" type="text" placeholder="Search" class="xsInput" [(ngModel)]="searchInput" (click)=searchClicked()
+      (keyup)=passMessage() (keydown.enter)="search=false">
+    <button *ngIf="!search" type="button" mat-icon-button (click)="search=true">
+      <mat-icon>search</mat-icon>
+    </button>
+  </div>
   
   <div fxFlex="40" fxFlex.xs="20" flexLayout="row">
-    <div>
+   
+    <div fxHide.xs=true>
       <button type="button" mat-icon-button class="searchButton">
         <mat-icon>search</mat-icon>
       </button>
     </div>
-    <div>
-   
-      <input type="text" placeholder="Search" class="notselected" [(ngModel)]="searchInput" (click)=searchClicked()
+    <div  fxHide.xs=true>
+         <input type="text" placeholder="Search" class="notselected" [(ngModel)]="searchInput" (click)=searchClicked()
         (keyup)=passMessage() >
-       
+   
     </div>
   </div>
   
   <div fxFlex="30" fxFlex.xs="45" fxLayoutAlign="end center" fxLayout="row"  >
-    <!-- <div >
-      <button type="button" mat-icon-button class="shoppingicon">
+    <div ngStyle.xs="padding-left:5%" >
+      <button type="button" mat-icon-button (click)="cartClick()">
         <mat-icon>shopping_cart</mat-icon>
-      </button></div> -->
-    <div  ngStyle.xs="visibility:collapse">
+      </button></div>
+    <div   fxHide.xs=true>
       <button type="button" mat-icon-button (click)=viewClicked() *ngIf="viewFlag"> 
         <mat-icon *ngIf="list">view_module</mat-icon>
         <mat-icon *ngIf="!list">view_stream</mat-icon>

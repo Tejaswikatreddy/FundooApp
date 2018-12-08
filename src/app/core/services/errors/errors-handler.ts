@@ -14,6 +14,8 @@ export class ErrorsHandler implements ErrorHandler {
                     throw new Error("offline error")
                 }
                 catch (e) {
+                    console.log(e);
+                    
                     this.snackbar.open(e, "cannot load the page", {
                         duration: 2000
                     })
@@ -25,6 +27,8 @@ export class ErrorsHandler implements ErrorHandler {
                     throw new Error()
                 }
                 catch (e) {
+                    console.log(e);
+                    
                     this.snackbar.open(e, "api error", {
                         duration: 2000
                     })
@@ -36,6 +40,8 @@ export class ErrorsHandler implements ErrorHandler {
                 throw new Error()
             }
             catch (e) {
+                console.log(e);
+                
                 this.snackbar.open(e, "unknown error", {
                     duration: 2000
                 })

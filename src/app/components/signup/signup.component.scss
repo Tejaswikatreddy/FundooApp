@@ -10,8 +10,40 @@ a{
 .selected{
    background-color: grey;
 }
+.belowCardSelect{
+     background-color:#fb0 ;width:100px;height:190px;
+     box-shadow: 10px 10px 10px rgb(243, 240, 240)!important;
+}
+     .aboveCardSelect{
+    width:96px;height:170px;margin-left: -38px;margin-top: -39px!important;
+}
+.belowCardSelectXS{
+     background-color:#fb0 ;width:70px;height:110px;
+     box-shadow: 10px 10px 10px rgb(243, 240, 240)!important;
+}
+.aboveCardSelectXS{
+ width:66px;height:90px;margin-left: -26px;margin-top: -31px!important;
+}
+.divC{
+    margin-left:5%
+}
 .notselected{
-      background-color:papayawhip;
+    //   background-color:papayawhip;
+      margin-left: -32px;
+    margin-top: -32px;
+}
+.belowCard{
+    background-color:rgb(158, 158, 158) ;width:100px;height:170px
+}
+.aboveCard{
+        width:96px;height:150px;margin-left: -38px;margin-top: -39px!important;
+
+}
+.aboveCardXS{
+            width:66px;height:70px;margin-left: -26px;margin-top: -31px!important;
+}
+.belowCardXS{
+    background-color:rgb(158, 158, 158) ;width:70px;height:90px
 }
 .input{
     width:45%;
@@ -41,5 +73,5 @@ a{
     margin-left: 2%;
 }
 .bottom{
-    margin-top:5px
+    margin-top:10px
 }

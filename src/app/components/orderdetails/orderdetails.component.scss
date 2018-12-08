@@ -1,0 +1,47 @@
+table td{
+    padding:1%;
+    
+}
+table {
+  border-collapse: collapse;
+}
+
+// table, th, td {
+//   border: 1px solid black;
+// }
+
+[contenteditable=true]:empty:not(:focus):before{
+    content: attr(placeholder);
+    display: block;
+    opacity:0.5;
+    border:1px solid grey;
+    min-height:50px;
+}
+.mat-icon{
+    opacity:1;
+}
+.cart{
+        margin-top: -9px;
+    margin-left: 62px;
+    z-index: 9;
+    position: absolute;
+}
+.secndPlace{
+     margin-top: -9px;
+    margin-left: 142px;
+    z-index: 9;
+    position: absolute;
+
+}
+.thirdPlace{
+     margin-top: -9px;
+    margin-left: 295px;
+    z-index: 9;
+    position: absolute;
+}
+::ng-deep.mat-progress-bar-fill::after {
+    background-color: grey;
+}
+::ng-deep.mat-progress-bar-buffer {
+    background-color: #DCDCDC;
+}

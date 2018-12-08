@@ -1,4 +1,4 @@
-<div fxLayout="column" fxLayoutGap="10%">
+<div fxLayout="column" fxLayoutGap="2%">
   <div fxFlex.lg="10%" fxFlex.xl="20%" fxFlex.md="10%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
   <div fxLayout="row" fxFlex.lg="80%" fxFlex.xl="60%" fxFlex.md="80%" fxFlex.sm="100%" fxFlex.xs="100%">
     <div fxFlex.lg="30%" fxFlex.xl="40%" fxFlex.md="10%" fxFlex.sm="10%" fxFlex.xs="5%"></div>
@@ -80,19 +80,26 @@
               <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
             </mat-form-field>
 
-            <div flexLayout="row" fxLayoutAlign="center" fxLayoutGap="5%">
-              <div fxFlex.lg="40%" *ngFor="let Card of cards">
-                <mat-card matbutton (click)=respond(Card) [ngClass]="Card.select ? 'selected' : 'notselected'" class=card>
+            <div flexLayout="row" >
+              <div fxFlex.lg="40%" *ngFor="let Card of cards" class="divC">
+                <mat-card   [ngClass]="Card.select ? 'belowCardSelect' : 'belowCard'"
+                [ngClass.xs]="Card.select ? 'belowCardSelectXS' : 'belowCardXS'" >
+                <mat-card matbutton (click)=respond(Card) 
+                 [ngClass]="Card.select ? 'aboveCardSelect' : 'aboveCard'" 
+                  [ngClass.xs]="Card.select ? 'aboveCardSelectXS' : 'aboveCardXS'" >
                   <div fxLayout="column">
                     <div fxFlex="10%" class="cardTitle">{{Card.name}}</div>
                     <div fxFlex="80%" class="cardDescription">{{Card.description}}</div>
                     <div fxFlex="10%"></div>
                   </div>
                 </mat-card>
+                  <div ngStyle.lg="margin:2%;font-size:15px" ngStyle.xs="padding:1%;font-size:10px" *ngIf="!Card.select">ADD TO CART</div>
+                  <div ngStyle.lg="margin:2%;font-size:15px" ngStyle.xs="padding:1%;font-size:10px" *ngIf="Card.select">SELECTED</div>
+                </mat-card>
               </div>
             </div>
-            <div fxFlexLayout="column" fxLayoutGap.xs="15%" fxLayoutGap.xl="25%" fxLayoutGap.lg="20%" class="bottom">
-            <a fxFlex="50%" routerLink="">Signin if already have an account</a>
+            <div fxFlexLayout="row" fxLayoutGap.xs="15%" fxLayoutGap.xl="25%" fxLayoutGap.lg="20%" class="bottom">
+            <a fxFlex="50%" routerLink="/login">Signin if already have an account</a>
             <button  mat-button class="button" (click)=signup()>signup</button>
             </div>
           </div>

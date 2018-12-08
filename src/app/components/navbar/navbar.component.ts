@@ -238,7 +238,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.labelHigh = ""
     this.router.navigate(['remainder'])
   }
-
+  cartClick(){
+    console.log("cart clicked")
+   this.router.navigate(['details'])
+  }
   searchClicked() {
     // this.Fundoo = "Search";
     this.router.navigate(['search'])

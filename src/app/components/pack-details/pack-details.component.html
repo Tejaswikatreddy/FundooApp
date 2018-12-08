@@ -7,14 +7,14 @@
       <mat-tab label="First" class="tab"> 
         <div fxLayout="column">
           <div>
-        haghjxgdhjg dakjhfkjdhfkjd kjdhfkjhdfjk kjdhafkjadhf jkahdfkjadhf
-      adfgahjkdgf kjadfhgkajdhf kjahfjkahf kjlahdfjkahf 
+      {{data.description}}
       </div>
-      <div fxLayout="row"  >
+      <div fxLayout="row"   >
       <div fxLayoutAlign="start center" fxFlex="50%">
    <button mat-raised-button style="background-color:rgb(44,112,175);float: left;"  (click)=onClose()>remove</button>
         </div>
-      <div fxLayoutAlign="end center" fxFlex="50%"><button mat-raised-button style="background-color:rgb(44,112,175);float: right">proceed to checkout</button>
+      <div fxLayoutAlign="end center" fxFlex="50%">
+        <button mat-raised-button style="background-color:rgb(44,112,175);float: right" (click)="proceed()">proceed to checkout</button>
         </div>
       </div>
       </div>

@@ -17,8 +17,9 @@ import { LabelNotesComponent } from './components/label-notes/label-notes.compon
 import { ErrorDisplayComponent } from './components/error-display/error-display.component';
 import { QandAComponent } from './components/qand-a/qand-a.component';
 import { CartComponent } from './components/cart/cart.component';
+import { OrderdetailsComponent } from './components/orderdetails/orderdetails.component';
 const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/cart', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'forgot', component: ForgotPasswordComponent },
@@ -30,8 +31,8 @@ const routes: Routes = [
       { path: 'trash', component: MainTrashComponent },
       { path: 'remainder', component: ReminderListComponent },
       { path: 'search', component: SearchAllComponent },
-      { path: "notes/:noteId/question", component: QandAComponent }
-
+      { path: "notes/:noteId/question", component: QandAComponent },
+      {path:"details", component:OrderdetailsComponent}
     ]
   },
   { path: "resetpassword/:forgotToken", component: ResetPasswordComponent },

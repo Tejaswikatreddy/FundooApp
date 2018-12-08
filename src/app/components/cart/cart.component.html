@@ -9,17 +9,17 @@
       <div fxLayout="row" fxLayoutGap="40px">
         <div *ngFor="let card of array" class="divC">
           <mat-card  [ngClass]="card.select ? 'selectedbelow' : 'belowcard'" 
+           [ngClass.xs]="card.select ? 'selectedbelow' : 'belowCardXS'" 
           ngStyle.xs="font-size:15px;background-color: rgb(158, 158, 158);width:100px;height:145px">
             <mat-card  [ngClass]="card.select ? 'aboveCardSelected' : 'aboveCard'" 
-            ngStyle.xs="width:90px;height:120px;margin-left: -20px;margin-top: -32px;" (click)="clicked(card);open()">
+            [ngClass.xs]="card.select ? 'aboveCardSelected' : 'aboveCardXS'"
+             (click)="open(card)">
               <div style="font-size:larger">
-                $6.99per month
+                ${{card.price}}per month
               </div>
-              <span style="font-size:smaller">Advance</span>
-              <ul>
-                <li>Coffee</li>
-                <li>Tea</li>
-                <li>Milk</li>
+              <span style="font-size:smaller">{{card.name}}</span>
+             <ul>
+              <li>{{card.description}}</li>
               </ul>
             </mat-card>
             <div ngStyle.lg="margin:2%" ngStyle.xs="padding:1%">ADD TO CART</div>
@@ -29,5 +29,11 @@
       </div>
     </div>
 
+  </div>
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <div>
+    <a routerLink="/login">login instead</a>
+
+    </div>
   </div>
 </div>

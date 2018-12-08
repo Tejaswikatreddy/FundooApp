@@ -16,21 +16,45 @@ export class SignupComponent implements OnInit,OnDestroy {
   hide=true;
   
   cards=[];
+  public selectedCard
   constructor(private userService:UserService,
               public snackbar:MatSnackBar,
               public router:Router) { }
 
   ngOnInit() {
-   this.userService.getCards()
-     .pipe(takeUntil(this.destroy$))
-   .subscribe((response)=>
-   {
-    let data = response["data"];
-     for (let i = 0; i < data.data.length;i++){
-       data.data[i].select=false;
-       this.cards.push(data.data[i])
-     }
-  });  
+    if(localStorage.getItem("cartId")==null){
+      this.router.navigate(['cart'])
+    }
+    if(localStorage.getItem("cartId")!=null){
+      this.getCardDetails();
+    }
+  }
+  getCardDetails(){
+
+    this.userService.getCartDetails(localStorage.getItem('cartId'))
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((response) => {
+        console.log(response['data'].product.id);
+        this.selectedCard = response['data'].product.id;
+        this.getCards();  
+
+      });
+  }
+  getCards(){
+    this.userService.getCards()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((response) => {
+        let data = response["data"];
+        for (let i = 0; i < data.data.length; i++) {
+          if (data.data[i].id == this.selectedCard) {
+            data.data[i].select = true;
+          }
+          else {
+            data.data[i].select = false;
+          }
+          this.cards.push(data.data[i])
+        }
+      });  
   }
   service="";
   model: any = {
