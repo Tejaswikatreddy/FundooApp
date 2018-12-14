@@ -16,11 +16,10 @@ export class CartComponent implements OnInit, OnDestroy {
   public selectedBefore=false;
 public array=[];
   ngOnInit() {
-    
+    localStorage.removeItem("cartId")
     this.userService.getCards()
       .pipe(takeUntil(this.destroy$))
       .subscribe((response) => {
-        // console.log(response["data"].data);
         for (let i = 0; i < response["data"].data.length; i++) {
           response["data"].data[i].select = false;
           this.array.push(response["data"].data[i])

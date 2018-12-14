@@ -26,12 +26,11 @@ public emptyCart=false;
   public forCss;
   ngOnInit() {
     this.addNotGiven=false;
-      if(localStorage.getItem("cartId")!=null){
-      this.getCardDetails();
-    }
+     
+    this.getCardDetails();
+
   }
   getCardDetails(){
-
     this.userService.myCart()
       .pipe(takeUntil(this.destroy$))
       .subscribe((response) => {
@@ -45,10 +44,10 @@ public emptyCart=false;
             this.forCss = false;
             this.firstCss=false;
             this.value = 100
-
+           
           }
-        this.cardObj = response['data'][0].product;
-        console.log(this.cardObj);
+          this.cardObj = response['data'][0].product;
+          console.log(this.cardObj);
         }
         else{
           this.emptyCart=true;

@@ -16,6 +16,8 @@ export class SignupComponent implements OnInit,OnDestroy {
   hide=true;
   
   cards=[];
+  service = "";
+
   public selectedCard
   constructor(private userService:UserService,
               public snackbar:MatSnackBar,
@@ -48,6 +50,9 @@ export class SignupComponent implements OnInit,OnDestroy {
         for (let i = 0; i < data.data.length; i++) {
           if (data.data[i].id == this.selectedCard) {
             data.data[i].select = true;
+            this.service=data.data[i].name;
+            console.log(this.service);
+            
           }
           else {
             data.data[i].select = false;
@@ -56,7 +61,6 @@ export class SignupComponent implements OnInit,OnDestroy {
         }
       });  
   }
-  service="";
   model: any = {
      "firstName": "",
      "lastName": "",
@@ -104,7 +108,7 @@ checked=false;
      this.snackbar.open("signup","sucess",{
           duration:2000
      })
-     this.router.navigate([''])
+     this.router.navigate(['login'])
    },
      error => {
        this.snackbar.open("signup", "failed",{

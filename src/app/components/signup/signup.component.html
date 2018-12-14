@@ -16,7 +16,8 @@
               <span class=d>D</span>
               <span class=o>O</span>
               <span class=f>O</span>
-              </div><div > <button mat-button (click)="gotoCart()"> cart</button></div>
+              </div><div (click)="gotoCart();" style="background-color:grey;border-radius:15%;padding:5px; cursor: pointer;">
+                <small>cart</small></div>
               </div>
             </mat-card-title>
 
@@ -89,7 +90,7 @@
               <div fxFlex.lg="40%" *ngFor="let Card of cards" class="divC">
                 <mat-card   [ngClass]="Card.select ? 'belowCardSelect' : 'belowCard'"
                 [ngClass.xs]="Card.select ? 'belowCardSelectXS' : 'belowCardXS'" >
-                <mat-card matbutton (click)=respond(Card) 
+                <mat-card matbutton 
                  [ngClass]="Card.select ? 'aboveCardSelect' : 'aboveCard'" 
                   [ngClass.xs]="Card.select ? 'aboveCardSelectXS' : 'aboveCardXS'" >
                   <div fxLayout="column">
