@@ -36,8 +36,17 @@ public emptyCart=false;
       .pipe(takeUntil(this.destroy$))
       .subscribe((response) => {
         
-        console.log(response['data']); 
+        console.log(response); 
         if (response['data'].length!=0){
+          if (response['data'][0].isOrderPlaced==true){
+            this.flag2=true;
+            this.flag=false;
+            this.flag3=true;
+            this.forCss = false;
+            this.firstCss=false;
+            this.value = 100
+
+          }
         this.cardObj = response['data'][0].product;
         console.log(this.cardObj);
         }

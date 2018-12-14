@@ -93,6 +93,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
       this.archive=true;
       this.labelHigh = ""
     }
+    else if (this.router.url == "/details") {
+      
+      this.Fundoo = "Fundoo Notes"
+      this.labelHigh = ""
+    }
     else if (this.router.url == "/remainder") {
       this.viewFlag = true;
       this.Fundoo = "Reminder";
@@ -240,6 +245,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
   cartClick(){
     console.log("cart clicked")
+    this.Fundoo="Fundoo Notes"
    this.router.navigate(['details'])
   }
   searchClicked() {

@@ -7,13 +7,18 @@
     <div fxFlex.lg="40%" fxFlex.xl="20%" fxFlex.md="80%" fxFlex.sm="80%" fxFlex.xs="90%">
       <form name="form" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
         <mat-card>
-          <div>
-            <mat-card-title><span class=f>F</span>
+          <div >
+            <mat-card-title>
+              <div fxLayout="row">
+              <div fxFlex><span class=f>F</span>
               <span class=u>U</span>
               <span class=n>N</span>
               <span class=d>D</span>
               <span class=o>O</span>
-              <span class=f>O</span></mat-card-title>
+              <span class=f>O</span>
+              </div><div > <button mat-button (click)="gotoCart()"> cart</button></div>
+              </div>
+            </mat-card-title>
 
             <mat-card-subtitle>Sign Up</mat-card-subtitle>
             <mat-form-field ngStyle.xs="width:80%">

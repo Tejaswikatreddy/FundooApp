@@ -62,8 +62,7 @@ export class SignupComponent implements OnInit,OnDestroy {
      "lastName": "",
      "phoneNumber": "" ,
      "service": "",
-     "createdDate": new Date(),
-     "modifiedDate": new Date(),
+     
      "username":"",
      "email":"" ,
      "emailVerified": true,
@@ -72,13 +71,13 @@ export class SignupComponent implements OnInit,OnDestroy {
 checked=false;
  signup(){
    if (this.model.firstName.length == 0 || this.model.lastName.length == 0 || this.model.email.length == 0 || 
-    this.model.password.length == 0 || this.service.length==0  ){
-      if(this.service.length===0){
-          this.snackbar.open("select a service", "signup failed", {
-              duration: 2000
-          })
-          return;
-      }
+    this.model.password.length == 0   ){
+      // if(this.service.length===0){
+      //     this.snackbar.open("select a service", "signup failed", {
+      //         duration: 2000
+      //     })
+      //     return;
+      // }
      this.snackbar.open("fill in all the details", "signup failed", {
        duration: 2000
      })
@@ -97,6 +96,7 @@ checked=false;
      "email": this.model.email,
      "emailVerified": true,
      "password": this.model.password,
+     "cartId":localStorage.getItem("cartId")
    }
    this.userService.signupPost(RequestBody)
      .pipe(takeUntil(this.destroy$))
@@ -129,6 +129,9 @@ checked=false;
   }
  
 }
+  gotoCart(){
+    this.router.navigate(['cart'])
+  }
   ngOnDestroy() {
 
     this.destroy$.next(true);

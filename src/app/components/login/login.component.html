@@ -7,7 +7,7 @@
     <div fxFlex.lg="80%" fxFlex.xl="60%" fxFlex.md="90%" fxFlex.sm="80%" fxFlex.xs="90%"
      fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" >
 
-<div fxFlex="40%" fxFlex.xs="40%">
+<div fxFlex="50%" fxFlex.xs="40%">
       <form name="form" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
     <mat-card >
       <div >
@@ -62,9 +62,9 @@
     </mat-card>
     </form>
     </div>
-    <div fxFlex="40%" fxFlex.xs="50%" style="background-color:grey;border:1px solid black"   fxLayout="row"
+    <div fxFlex="50%" fxFlex.xs="50%" style="background-color:grey;"   fxLayout="row"
      fxLayoutGap="10%" fxLayoutGap.xs="5%" *ngIf="!noCard">
-      <div fxFlex.xs="0"  style="border:1px solid red"></div>
+      <div fxFlex.xs="0" ></div>
       <div fxLayout="column" fxFlex.xs="100" fxLayoutGap="7%" fxLayoutGap.xs="30%" >
         <div></div>
         <div fxLayout="row" fxLayoutGap="10%">
@@ -90,7 +90,7 @@
         </div>
         <div></div>
       </div>
-            <div fxFlex.xs="0" style="border:1px solid red"></div>
+            <div fxFlex.xs="0" ></div>
 
     </div>
     </div>
